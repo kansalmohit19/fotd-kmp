@@ -13,4 +13,8 @@ actual class Platform {
     actual fun logSystemInfo(): String {
         return "osName: $osName, osVersion: $osVersion, deviceModel: $deviceModel"
     }
+
+    actual fun test(): String {
+        TODO("Not yet implemented")
+    }
 }
