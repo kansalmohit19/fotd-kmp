@@ -1,4 +1,4 @@
-package com.indemand.fotd.android
+package com.indemand.fotd.android.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,7 +25,7 @@ fun AboutDevice() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Toolbar() {
+private fun Toolbar() {
     TopAppBar(title = { Text(text = "About Device") })
 }
 

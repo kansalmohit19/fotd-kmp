@@ -6,6 +6,4 @@ expect class Platform {
     val deviceModel: String
 
     fun logSystemInfo(): String
-
-    fun test(): String
 }
