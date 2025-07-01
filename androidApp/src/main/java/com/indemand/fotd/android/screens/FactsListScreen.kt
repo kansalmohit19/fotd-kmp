@@ -101,7 +101,7 @@ private fun ErrorView(message: String? = "") {
 private fun ListView(listOfFacts: List<FactDetails>) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         items(listOfFacts) { factDetails ->
-            //FactRowView(factDetails)
+            FactRowView(factDetails)
         }
     }
 }
