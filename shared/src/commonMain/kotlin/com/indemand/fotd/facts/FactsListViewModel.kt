@@ -1,6 +1,8 @@
 package com.indemand.fotd.facts
 
 import com.indemand.fotd.BaseViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -60,6 +62,14 @@ class FactsListViewModel : BaseViewModel() {
                     "12-Jan-2025"
                 )
             )
+        }
+    }
+
+    fun observeFacts(onUpdate: (FactListState) -> Unit) {
+        CoroutineScope(Dispatchers.Main).launch {
+            factsListFlow.collect { state ->
+                onUpdate(state)
+            }
         }
     }
 }

@@ -1,15 +1,15 @@
 //
-//  AboutListView.swift
+//  AboutDeviceListView.swift
 //  iosApp
 //
-//  Created by Mohit Kansal on 07/07/25.
+//  Created by Mohit Kansal on 10/07/25.
 //  Copyright © 2025 orgName. All rights reserved.
 //
 
-import shared
 import SwiftUI
+import shared
 
-struct AboutListView: View {
+struct AboutDeviceListView: View {
     private struct RowItem: Hashable{
         let title: String
         let description: String
@@ -42,5 +42,5 @@ struct AboutListView: View {
 }
 
 #Preview {
-    AboutListView()
+    AboutDeviceListView()
 }
