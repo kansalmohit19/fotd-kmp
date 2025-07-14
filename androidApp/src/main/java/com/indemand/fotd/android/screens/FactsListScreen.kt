@@ -113,19 +113,19 @@ private fun FactRowView(factDetails: FactDetails) {
             .fillMaxWidth()
             .padding(16.dp)
     ) {
-        AsyncImage(model = factDetails.imageURL, contentDescription = null)
+        AsyncImage(model = factDetails.imageUrl, contentDescription = null)
         Spacer(modifier = Modifier.height(4.dp))
         Text(
-            text = factDetails.title,
+            text = factDetails.titleText,
             style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 22.sp),
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = factDetails.description,
+            text = factDetails.descriptionText,
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
-            text = factDetails.date,
+            text = factDetails.postedBy,
             style = TextStyle(color = Color.Gray),
             modifier = Modifier.align(Alignment.End)
         )
