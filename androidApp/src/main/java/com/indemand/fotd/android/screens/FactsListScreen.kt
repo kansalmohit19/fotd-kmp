@@ -125,7 +125,7 @@ private fun FactRowView(factDetails: FactDetails) {
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
-            text = factDetails.postedBy,
+            text = factDetails.postedOnDate,
             style = TextStyle(color = Color.Gray),
             modifier = Modifier.align(Alignment.End)
         )

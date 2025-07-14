@@ -90,7 +90,7 @@ struct FactRowView: View {
 
     var body: some View{
         VStack(alignment: .leading, spacing: 8){
-            AsyncImage(url: URL(string: fact.imageURL)) { phase in
+            AsyncImage(url: URL(string: fact.imageUrl)) { phase in
                 if phase.image != nil {
                     phase.image?.resizable().aspectRatio(contentMode: .fit)
                 } else if phase.error != nil {
@@ -101,7 +101,7 @@ struct FactRowView: View {
             }
             Text(fact.titleText).font(.title).fontWeight(.bold)
             Text(fact.descriptionText)
-            Text(fact.date).frame(maxWidth: .infinity,alignment: .trailing).foregroundStyle(.gray)
+            Text(fact.postedOnDate).frame(maxWidth: .infinity,alignment: .trailing).foregroundStyle(.gray)
         }.padding(16)
     }
 
