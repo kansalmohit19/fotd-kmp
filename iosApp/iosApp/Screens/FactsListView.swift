@@ -17,7 +17,7 @@ extension FactsListView{
         @Published var factsListState: FactListState
 
         init() {
-            factsListViewModel = FactsListViewModel()
+            factsListViewModel = FactsListInjector().factsListViewModel
             factsListState = factsListViewModel.factsListFlow.value as! FactListState
         }
 
