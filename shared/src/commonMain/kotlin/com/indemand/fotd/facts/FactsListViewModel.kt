@@ -1,38 +1,19 @@
 package com.indemand.fotd.facts
 
 import com.indemand.fotd.BaseViewModel
-import io.ktor.client.HttpClient
-import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.http.ContentType
-import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import kotlinx.serialization.json.Json
 
-class FactsListViewModel : BaseViewModel() {
+class FactsListViewModel(private val factsListUseCase: FactsListUseCase) : BaseViewModel() {
 
     private val _factsListFlow: MutableStateFlow<FactListState> =
         MutableStateFlow(FactListState(isLoading = true))
     val factsListFlow: StateFlow<FactListState> get() = _factsListFlow
-    private var factsListUseCase: FactsListUseCase
 
     init {
-        val httpClient = HttpClient {
-            install(ContentNegotiation) {
-                json(Json {
-                    ignoreUnknownKeys = true
-                    isLenient = true
-                    prettyPrint = true
-
-                }, contentType = ContentType.Any)
-            }
-        }
-        val factsListService = FactsListService(httpClient)
-        factsListUseCase = FactsListUseCase(factsListService)
-
         getFacts()
     }
 
