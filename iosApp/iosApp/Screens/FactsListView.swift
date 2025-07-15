@@ -101,7 +101,8 @@ struct FactRowView: View {
             }
             Text(fact.titleText).font(.title).fontWeight(.bold)
             Text(fact.descriptionText)
-            Text(fact.postedOnDate).frame(maxWidth: .infinity,alignment: .trailing).foregroundStyle(.gray)
+            Text(fact.postedBy).foregroundStyle(.gray).font(.system(size: 14))
+            Text(fact.postedOnDate).foregroundStyle(.gray).font(.system(size: 11))
         }.padding(16)
     }
 
