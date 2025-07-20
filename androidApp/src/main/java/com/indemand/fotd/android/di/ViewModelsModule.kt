@@ -7,5 +7,5 @@ import org.koin.dsl.module
 
 val viewModelsModule = module {
     viewModel { FactsListViewModel(get()) }
-    viewModel { SplashViewModel() }
+    viewModel { SplashViewModel(get()) }
 }

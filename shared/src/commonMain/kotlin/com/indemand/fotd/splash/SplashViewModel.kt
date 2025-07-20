@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class SplashViewModel : BaseViewModel() {
+class SplashViewModel(private val appVersionUseCase: AppVersionUseCase) : BaseViewModel() {
     private var isTimerStopped = false
     private val _splashUIFlow: MutableStateFlow<SplashUiState> =
         MutableStateFlow(SplashUiState.Idle)
@@ -14,6 +14,7 @@ class SplashViewModel : BaseViewModel() {
 
     init {
         startTimer()
+        checkAppVersion()
     }
 
     private fun startTimer() {
@@ -27,6 +28,14 @@ class SplashViewModel : BaseViewModel() {
                 checkForAllProcesses()
             }, 1000)
         }*/
+    }
+
+    private fun checkAppVersion() {
+        scope.launch {
+            val appVersionDetails = appVersionUseCase.checkForAppVersion()
+            //Log.e("AppVersionDetails", appVersionDetails.toString())
+            //_factsListFlow.emit(FactListState(listOfFacts = listOfFacts))
+        }
     }
 
     fun checkForAllProcesses() {
