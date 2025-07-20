@@ -1,0 +1,65 @@
+package com.indemand.fotd.android.screens
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import com.indemand.fotd.android.LocalNavController
+import com.indemand.fotd.android.R
+import com.indemand.fotd.splash.SplashUiState
+import com.indemand.fotd.splash.SplashViewModel
+import org.koin.androidx.compose.getViewModel
+
+@Composable
+fun SplashScreen(
+    splashViewModel: SplashViewModel = getViewModel()
+) {
+    val navController = LocalNavController.current
+    val splashState = splashViewModel.splashUIFlow.collectAsState()
+
+    LaunchedEffect(splashState.value) {
+        when (splashState.value) {
+            is SplashUiState.ToHome -> {
+                navController.navigate("home") {
+                    popUpTo("splash") { inclusive = true }
+                }
+            }
+
+            is SplashUiState.ToLogin -> {
+                // Handle error state if needed
+            }
+
+            is SplashUiState.OpenPlaystore -> {
+                // Handle error state if needed
+            }
+
+            is SplashUiState.Idle -> {
+            }
+        }
+    }
+
+    Box(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        // Background Image
+        Image(
+            painter = painterResource(id = R.drawable.bg_splash_n),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxSize()
+        )
+
+        // Center Image
+        Image(
+            painter = painterResource(id = R.drawable.ic_logo_splash),
+            contentDescription = null,
+            modifier = Modifier.align(Alignment.Center)
+        )
+    }
+}

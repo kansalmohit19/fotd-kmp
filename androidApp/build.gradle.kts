@@ -46,5 +46,7 @@ dependencies {
     implementation(libs.coil.network.okhttp)
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
+    implementation(libs.navigation.compose)
+
     debugImplementation(libs.compose.ui.tooling)
 }
