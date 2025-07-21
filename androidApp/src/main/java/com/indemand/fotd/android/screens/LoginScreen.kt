@@ -36,6 +36,9 @@ import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun LoginScreen(loginViewModel: LoginViewModel = getViewModel()) {
+    var username by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -70,16 +73,15 @@ fun LoginScreen(loginViewModel: LoginViewModel = getViewModel()) {
                 ),
             )
             Spacer(modifier = Modifier.height(24.dp))
-            var name by remember { mutableStateOf("") }
             PrimaryInputTextField(
-                value = name, onValueChange = { name = it }, placeholder = "email address"
+                value = username, onValueChange = { username = it }, placeholder = "email address"
             )
             Spacer(modifier = Modifier.height(14.dp))
             SecondaryInputTextField(
-                value = name, onValueChange = { name = it }, placeholder = "password"
+                value = password, onValueChange = { password = it }, placeholder = "password"
             )
             Spacer(modifier = Modifier.height(24.dp))
-            RowForgotPassView()
+            RowForgotPassView(loginViewModel, username, password)
         }
     }
 }
@@ -124,7 +126,9 @@ private fun ToolbarView() {
 }
 
 @Composable
-private fun RowForgotPassView() {
+private fun RowForgotPassView(
+    loginViewModel: LoginViewModel, username: String, password: String
+) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -138,7 +142,7 @@ private fun RowForgotPassView() {
         ButtonGreySolid(
             text = "sign in",
             onClick = {
-                // Handle sign in action
+                loginViewModel.loginUser(username, password)
             },
         )
     }

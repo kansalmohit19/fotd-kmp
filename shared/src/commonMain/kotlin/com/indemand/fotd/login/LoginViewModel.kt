@@ -4,13 +4,11 @@ import com.indemand.fotd.BaseViewModel
 import kotlinx.coroutines.launch
 
 class LoginViewModel(private val loginUserUseCase: LoginUserUseCase) : BaseViewModel() {
-    init {
-        loginUser()
-    }
-    private fun loginUser() {
+
+    fun loginUser(username: String, password: String) {
         println("LoginViewModel: loginUser called")
         scope.launch {
-            val appVersionDetails = loginUserUseCase.loginUser()
+            val appVersionDetails = loginUserUseCase.loginUser(username, password)
         }
     }
 }

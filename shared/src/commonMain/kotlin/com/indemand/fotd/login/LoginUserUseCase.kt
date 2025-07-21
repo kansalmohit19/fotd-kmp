@@ -1,8 +1,8 @@
 package com.indemand.fotd.login
 
 class LoginUserUseCase(private val loginUserRepository: LoginUserRepository) {
-    suspend fun loginUser(): UserDetails {
-        val response = loginUserRepository.loginUser()
+    suspend fun loginUser(username: String, password: String): UserDetails {
+        val response = loginUserRepository.loginUser(username, password)
         return UserDetails(
             userId = response?.userInfo?.user_id ?: 0,
             rewardPoints = response?.userInfo?.reward_points ?: 0,
