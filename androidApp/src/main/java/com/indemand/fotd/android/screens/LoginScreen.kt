@@ -31,9 +31,11 @@ import com.indemand.fotd.android.R
 import com.indemand.fotd.android.common.ButtonGreySolid
 import com.indemand.fotd.android.common.PrimaryInputTextField
 import com.indemand.fotd.android.common.SecondaryInputTextField
+import com.indemand.fotd.login.LoginViewModel
+import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(loginViewModel: LoginViewModel = getViewModel()) {
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
