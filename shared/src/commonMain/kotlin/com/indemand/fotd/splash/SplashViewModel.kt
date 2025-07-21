@@ -39,6 +39,6 @@ class SplashViewModel(private val appVersionUseCase: AppVersionUseCase) : BaseVi
     }
 
     fun checkForAllProcesses() {
-        _splashUIFlow.value = SplashUiState.ToHome
+        _splashUIFlow.value = SplashUiState.ToLogin
     }
 }
