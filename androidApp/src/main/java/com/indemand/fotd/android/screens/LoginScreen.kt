@@ -13,6 +13,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,6 +28,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.indemand.fotd.android.R
+import com.indemand.fotd.android.common.ButtonGreySolid
+import com.indemand.fotd.android.common.PrimaryInputTextField
+import com.indemand.fotd.android.common.SecondaryInputTextField
 
 @Composable
 fun LoginScreen() {
@@ -60,6 +67,17 @@ fun LoginScreen() {
                     color = Color(0xFF818B94), fontWeight = FontWeight.Normal, fontSize = 16.sp
                 ),
             )
+            Spacer(modifier = Modifier.height(24.dp))
+            var name by remember { mutableStateOf("") }
+            PrimaryInputTextField(
+                value = name, onValueChange = { name = it }, placeholder = "email address"
+            )
+            Spacer(modifier = Modifier.height(14.dp))
+            SecondaryInputTextField(
+                value = name, onValueChange = { name = it }, placeholder = "password"
+            )
+            Spacer(modifier = Modifier.height(24.dp))
+            RowForgotPassView()
         }
     }
 }
@@ -99,6 +117,27 @@ private fun ToolbarView() {
             "fact of the day", style = TextStyle(
                 color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.SemiBold
             )
+        )
+    }
+}
+
+@Composable
+private fun RowForgotPassView() {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            "forgot password?", modifier = Modifier.padding(end = 8.dp), style = TextStyle(
+                color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.SemiBold
+            )
+        )
+        ButtonGreySolid(
+            text = "sign in",
+            onClick = {
+                // Handle sign in action
+            },
         )
     }
 }
