@@ -15,6 +15,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.indemand.fotd.android.screens.FactsListScreen
+import com.indemand.fotd.android.screens.LoginScreen
 import com.indemand.fotd.android.screens.SplashScreen
 
 class MainActivity : ComponentActivity() {
@@ -44,6 +45,9 @@ fun AppNavHost(navController: NavHostController) {
     NavHost(navController = navController, startDestination = "splash") {
         composable("splash") {
             SplashScreen()
+        }
+        composable("login") {
+            LoginScreen()
         }
         composable("home") {
             FactsListScreen()

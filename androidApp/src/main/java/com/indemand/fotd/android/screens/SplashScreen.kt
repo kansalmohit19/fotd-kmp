@@ -32,7 +32,9 @@ fun SplashScreen(
             }
 
             is SplashUiState.ToLogin -> {
-                // Handle error state if needed
+                navController.navigate("login") {
+                    popUpTo("splash") { inclusive = true }
+                }
             }
 
             is SplashUiState.OpenPlaystore -> {
@@ -49,7 +51,7 @@ fun SplashScreen(
     ) {
         // Background Image
         Image(
-            painter = painterResource(id = R.drawable.bg_splash_n),
+            painter = painterResource(id = R.drawable.bg_splash),
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize()
