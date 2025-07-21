@@ -2,6 +2,7 @@ package com.indemand.fotd.di
 
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.logging.*
 import io.ktor.http.ContentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
@@ -17,6 +18,10 @@ val networkModule = module {
                     prettyPrint = true
 
                 }, contentType = ContentType.Any)
+            }
+            install(Logging) {
+                level = LogLevel.ALL
+                logger = Logger.SIMPLE
             }
         }
     }
