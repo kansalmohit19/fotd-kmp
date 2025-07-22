@@ -1,5 +1,6 @@
-package com.indemand.fotd.di
+package com.indemand.fotd.data.di
 
+import com.indemand.fotd.data.remote.DataSourceImpl
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.*
@@ -9,6 +10,8 @@ import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 
 val networkModule = module {
+    single<DataSourceImpl> { DataSourceImpl(get()) }
+
     single<HttpClient> {
         HttpClient {
             install(ContentNegotiation) {

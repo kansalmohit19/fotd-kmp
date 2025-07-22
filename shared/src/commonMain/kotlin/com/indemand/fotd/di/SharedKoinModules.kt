@@ -1,12 +1,13 @@
 package com.indemand.fotd.di
 
+import com.indemand.fotd.data.di.networkModule
+import com.indemand.fotd.data.di.repositoryModule
+import com.indemand.fotd.domain.di.useCaseModule
 import com.indemand.fotd.facts.di.factsModule
-import com.indemand.fotd.login.di.loginModule
-import com.indemand.fotd.splash.di.splashModule
 
 val sharedKoinModules = listOf(
     networkModule,
-    splashModule,
-    loginModule,
+    useCaseModule,
+    repositoryModule,
     factsModule,
 )

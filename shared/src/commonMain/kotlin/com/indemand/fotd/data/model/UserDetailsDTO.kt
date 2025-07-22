@@ -1,4 +1,4 @@
-package com.indemand.fotd.login
+package com.indemand.fotd.data.model
 
 import kotlinx.serialization.Serializable
 

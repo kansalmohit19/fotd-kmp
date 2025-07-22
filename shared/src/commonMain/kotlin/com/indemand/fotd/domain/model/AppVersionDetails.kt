@@ -1,4 +1,4 @@
-package com.indemand.fotd.splash
+package com.indemand.fotd.domain.model
 
 data class AppVersionDetails(
     var isForceUpdate: Boolean,

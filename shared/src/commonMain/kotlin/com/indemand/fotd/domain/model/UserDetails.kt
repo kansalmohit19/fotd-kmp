@@ -1,4 +1,4 @@
-package com.indemand.fotd.login
+package com.indemand.fotd.domain.model
 
 data class UserDetails(
     var userId: Int,

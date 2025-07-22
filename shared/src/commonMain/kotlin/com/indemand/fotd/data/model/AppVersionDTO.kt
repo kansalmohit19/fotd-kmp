@@ -1,9 +1,9 @@
-package com.indemand.fotd.splash
+package com.indemand.fotd.data.model
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class AppVersionResponse(
+data class AppVersionDTO(
     var is_force_update: Boolean?,
     val is_manual_update: Boolean?,
     val app_link: String?,

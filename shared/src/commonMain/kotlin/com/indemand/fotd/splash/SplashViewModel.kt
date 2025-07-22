@@ -1,6 +1,10 @@
 package com.indemand.fotd.splash
 
 import com.indemand.fotd.BaseViewModel
+import com.indemand.fotd.domain.usecase.AppVersionUseCase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -32,7 +36,16 @@ class SplashViewModel(private val appVersionUseCase: AppVersionUseCase) : BaseVi
 
     private fun checkAppVersion() {
         scope.launch {
-            val appVersionDetails = appVersionUseCase.checkForAppVersion()
+            val appVersionDetails = appVersionUseCase.invoke(
+                scope = CoroutineScope(Dispatchers.IO),
+                params = Unit,
+                onSuccess = {
+                    println("Test: Success")
+                },
+                onFailure = {
+                    println("Test: ${it.errorMessage}")
+                }
+            )
             //Log.e("AppVersionDetails", appVersionDetails.toString())
             //_factsListFlow.emit(FactListState(listOfFacts = listOfFacts))
         }
