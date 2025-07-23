@@ -1,6 +1,7 @@
 package com.indemand.fotd.android.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -51,14 +52,12 @@ fun LoginScreen(loginViewModel: LoginViewModel = getViewModel()) {
         when (loginUiState.value) {
             is LoginUiState.ToHome -> {
                 navController.navigate("home") {
-                    popUpTo("splash") { inclusive = true }
+                    popUpTo("login") { inclusive = true }
                 }
             }
 
             is LoginUiState.ToForgotPassword -> {
-                /*navController.navigate("login") {
-                    popUpTo("splash") { inclusive = true }
-                }*/
+                navController.navigate("forgotPass")
             }
 
             is LoginUiState.ToRegister -> {
@@ -113,7 +112,10 @@ fun LoginScreen(loginViewModel: LoginViewModel = getViewModel()) {
             )
             Spacer(modifier = Modifier.height(14.dp))
             SecondaryInputTextField(
-                value = password, onValueChange = { password = it }, placeholder = "password"
+                value = password,
+                onValueChange = { password = it },
+                placeholder = "password",
+                isInvisibleText = true
             )
             Spacer(modifier = Modifier.height(24.dp))
             RowForgotPassView(loginViewModel, username, password)
@@ -175,7 +177,11 @@ private fun RowForgotPassView(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            "forgot password?", modifier = Modifier.padding(end = 8.dp), style = TextStyle(
+            "forgot password?",
+            modifier = Modifier
+                .padding(end = 8.dp)
+                .clickable { loginViewModel.onForgotPassClick() },
+            style = TextStyle(
                 color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.SemiBold
             )
         )
