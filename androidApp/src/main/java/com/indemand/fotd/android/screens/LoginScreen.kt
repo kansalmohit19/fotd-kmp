@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -29,8 +31,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.indemand.fotd.android.R
 import com.indemand.fotd.android.common.ButtonGreySolid
+import com.indemand.fotd.android.common.CustomSnackbar
 import com.indemand.fotd.android.common.PrimaryInputTextField
 import com.indemand.fotd.android.common.SecondaryInputTextField
+import com.indemand.fotd.login.LoginUiState
 import com.indemand.fotd.login.LoginViewModel
 import org.koin.androidx.compose.getViewModel
 
@@ -38,6 +42,35 @@ import org.koin.androidx.compose.getViewModel
 fun LoginScreen(loginViewModel: LoginViewModel = getViewModel()) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    val loginUiState = loginViewModel.loginUIState.collectAsState()
+    var snackbarMessage by remember { mutableStateOf<String?>(null) }
+
+    LaunchedEffect(loginUiState.value) {
+        when (loginUiState.value) {
+            is LoginUiState.ToHome -> {
+                /*navController.navigate("home") {
+                    popUpTo("splash") { inclusive = true }
+                }*/
+            }
+
+            is LoginUiState.ToForgotPassword -> {
+                /*navController.navigate("login") {
+                    popUpTo("splash") { inclusive = true }
+                }*/
+            }
+
+            is LoginUiState.ToRegister -> {
+
+            }
+
+            is LoginUiState.ShowError -> {
+                snackbarMessage = "Login failed"
+            }
+
+            is LoginUiState.Idle -> {
+            }
+        }
+    }
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -82,6 +115,11 @@ fun LoginScreen(loginViewModel: LoginViewModel = getViewModel()) {
             )
             Spacer(modifier = Modifier.height(24.dp))
             RowForgotPassView(loginViewModel, username, password)
+        }
+    }
+    snackbarMessage?.let { message ->
+        CustomSnackbar(message = message) {
+            snackbarMessage = null
         }
     }
 }
