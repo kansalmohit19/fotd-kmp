@@ -13,6 +13,12 @@ import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonNull
 
+val json = Json {
+    ignoreUnknownKeys = true
+    isLenient = true
+    prettyPrint = true
+}
+
 suspend inline fun <T, X> safeApiCall(
     serializer: KSerializer<T>,
     crossinline apiCall: suspend () -> HttpResponse,
@@ -28,17 +34,17 @@ suspend inline fun <T, X> safeApiCall(
         //val parsedResponse: CommonResponse<T> = Json.decodeFromString(serializer, responseText)
 
         if (parsedResponse.status == 200) {
-            println("HERE-1")
+            println("Response: 200")
             val parsedData: T =
-                Json.decodeFromJsonElement(serializer, parsedResponse.data ?: JsonNull)
+                json.decodeFromJsonElement(serializer, parsedResponse.data ?: JsonNull)
             Either.Success(successTransform(parsedData))
         } else {
-            println("HERE-2")
+            println("Response: ${parsedResponse.status}")
             Either.Error(Unknown(parsedResponse.message ?: "Unknown error"))
         }
 
     } catch (e: Exception) {
-        println("HERE-3")
+        println("Response: ${e.message}")
         Either.Error(Unknown(e.message ?: "Unexpected error"))
     }
 }

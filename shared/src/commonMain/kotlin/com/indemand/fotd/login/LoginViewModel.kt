@@ -3,7 +3,6 @@ package com.indemand.fotd.login
 import com.indemand.fotd.BaseViewModel
 import com.indemand.fotd.data.model.LoginUserRequest
 import com.indemand.fotd.domain.usecase.LoginUserUseCase
-import com.indemand.fotd.splash.SplashUiState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -23,7 +22,7 @@ class LoginViewModel(private val loginUserUseCase: LoginUserUseCase) : BaseViewM
                 scope = CoroutineScope(Dispatchers.IO),
                 params = LoginUserRequest(username, password),
                 onSuccess = {
-                    println("Test: Success")
+                    _loginUIState.value = LoginUiState.ToHome
                 },
                 onFailure = {
                     _loginUIState.value = LoginUiState.ShowError(it.errorMessage)

@@ -29,6 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.indemand.fotd.android.LocalNavController
 import com.indemand.fotd.android.R
 import com.indemand.fotd.android.common.ButtonGreySolid
 import com.indemand.fotd.android.common.CustomSnackbar
@@ -40,6 +41,7 @@ import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun LoginScreen(loginViewModel: LoginViewModel = getViewModel()) {
+    val navController = LocalNavController.current
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     val loginUiState = loginViewModel.loginUIState.collectAsState()
@@ -48,9 +50,9 @@ fun LoginScreen(loginViewModel: LoginViewModel = getViewModel()) {
     LaunchedEffect(loginUiState.value) {
         when (loginUiState.value) {
             is LoginUiState.ToHome -> {
-                /*navController.navigate("home") {
+                navController.navigate("home") {
                     popUpTo("splash") { inclusive = true }
-                }*/
+                }
             }
 
             is LoginUiState.ToForgotPassword -> {
@@ -64,7 +66,7 @@ fun LoginScreen(loginViewModel: LoginViewModel = getViewModel()) {
             }
 
             is LoginUiState.ShowError -> {
-                snackbarMessage = "Login failed"
+                snackbarMessage = (loginUiState.value as LoginUiState.ShowError).message
             }
 
             is LoginUiState.Idle -> {
