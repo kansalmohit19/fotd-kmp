@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.compose.compiler)
+    id("io.github.kansalmohit19.gradle-version") version "1.1.1"
 }
 
 android {
@@ -11,8 +12,8 @@ android {
         applicationId = "com.indemand.fotd.android"
         minSdk = 24
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = gradleVersion.code.get()
+        versionName = gradleVersion.name.get()
     }
     buildFeatures {
         compose = true
@@ -33,6 +34,18 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+    applicationVariants.all {
+        outputs.all {
+            val output = this as com.android.build.gradle.internal.api.BaseVariantOutputImpl
+            val appName = "MyApp"
+            val variantName = name // e.g. debug, release
+            val vCode = versionCode
+            val vName = versionName
+
+            output.outputFileName = "${appName}-${variantName}-v${vName}(${vCode}).apk"
+            // Example: MyApp-release-v1.0.0(120).apk
+        }
     }
 }
 
