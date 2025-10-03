@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.compose.compiler)
-    id("io.github.kansalmohit19.gradle-version") version "1.1.1"
+    id("io.github.kansalmohit19.git-version") version "0.0.2"
 }
 
 android {
@@ -12,8 +12,8 @@ android {
         applicationId = "com.indemand.fotd.android"
         minSdk = 24
         targetSdk = 35
-        versionCode = gradleVersion.code.get()
-        versionName = gradleVersion.name.get()
+        versionCode = gitVersion.code.get()
+        versionName = gitVersion.name.get()
     }
     buildFeatures {
         compose = true

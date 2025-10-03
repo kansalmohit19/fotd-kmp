@@ -6,12 +6,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import com.indemand.fotd.android.LocalNavController
 import com.indemand.fotd.android.R
+import com.indemand.fotd.android.common.TransparentBottomSheetDemo
 import com.indemand.fotd.splash.SplashUiState
 import com.indemand.fotd.splash.SplashViewModel
 import org.koin.androidx.compose.getViewModel
@@ -22,6 +27,7 @@ fun SplashScreen(
 ) {
     val navController = LocalNavController.current
     val splashState = splashViewModel.splashUIFlow.collectAsState()
+    var showDialog by remember { mutableStateOf(false) }
 
     LaunchedEffect(splashState.value) {
         when (splashState.value) {
@@ -32,13 +38,14 @@ fun SplashScreen(
             }
 
             is SplashUiState.ToLogin -> {
-                navController.navigate("login") {
+                showDialog = true
+                /*navController.navigate("login") {
                     popUpTo("splash") { inclusive = true }
-                }
+                }*/
             }
 
             is SplashUiState.OpenPlaystore -> {
-                // Handle error state if needed
+                //Handle error state if needed
             }
 
             is SplashUiState.Idle -> {
@@ -63,5 +70,9 @@ fun SplashScreen(
             contentDescription = null,
             modifier = Modifier.align(Alignment.Center)
         )
+    }
+
+    if (showDialog) {
+        TransparentBottomSheetDemo()
     }
 }

@@ -16,6 +16,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "FOTDKMP"
+rootProject.name = "fotd-kmp"
 include(":androidApp")
 include(":shared")

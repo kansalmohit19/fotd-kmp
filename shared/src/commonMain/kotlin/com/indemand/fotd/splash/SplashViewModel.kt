@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 
 class SplashViewModel(private val appVersionUseCase: AppVersionUseCase) : BaseViewModel() {
     private var isTimerStopped = false
+    private var isAppVersionSuccess = false
     private val _splashUIFlow: MutableStateFlow<SplashUiState> =
         MutableStateFlow(SplashUiState.Idle)
     val splashUIFlow: StateFlow<SplashUiState> get() = _splashUIFlow
@@ -36,22 +37,24 @@ class SplashViewModel(private val appVersionUseCase: AppVersionUseCase) : BaseVi
 
     private fun checkAppVersion() {
         scope.launch {
-            val appVersionDetails = appVersionUseCase.invoke(
-                scope = CoroutineScope(Dispatchers.IO),
+            val appVersionDetails = appVersionUseCase.invoke(scope = CoroutineScope(Dispatchers.IO),
                 params = Unit,
-                onSuccess = {
+                onSuccess = { rese ->
                     println("Test: Success")
+                    isAppVersionSuccess = true
+                    checkForAllProcesses()
                 },
                 onFailure = {
                     println("Test: ${it.errorMessage}")
-                }
-            )
+                })
             //Log.e("AppVersionDetails", appVersionDetails.toString())
             //_factsListFlow.emit(FactListState(listOfFacts = listOfFacts))
         }
     }
 
-    fun checkForAllProcesses() {
-        _splashUIFlow.value = SplashUiState.ToLogin
+    private fun checkForAllProcesses() {
+        if (isTimerStopped && isAppVersionSuccess) {
+            _splashUIFlow.value = SplashUiState.ToLogin
+        }
     }
 }
