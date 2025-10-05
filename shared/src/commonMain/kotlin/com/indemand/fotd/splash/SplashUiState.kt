@@ -1,8 +1,10 @@
 package com.indemand.fotd.splash
 
+import com.indemand.fotd.domain.model.BottomSheetDetails
+
 sealed interface SplashUiState {
     data object Idle : SplashUiState
     data object ToHome : SplashUiState
     data object ToLogin : SplashUiState
-    data class OpenPlaystore(val packageName: String, val link: String) : SplashUiState
+    data class AppUpdateDialog(val bottomSheetDetails: BottomSheetDetails) : SplashUiState
 }
