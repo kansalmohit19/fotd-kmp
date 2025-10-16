@@ -1,0 +1,6 @@
+name: Test Workflow-1
+
+on:
+  push:
+    branches:
+      - master
