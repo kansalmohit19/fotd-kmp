@@ -2,7 +2,17 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.compose.compiler)
-    id("io.github.kansalmohit19.git-version") version "0.0.2"
+    id("io.github.kansalmohit19.git-version") version "0.0.4"
+    id("io.github.kansalmohit19.ktext") version "0.0.5"
+}
+
+ktext {
+    sourceFile.setFrom(project.rootProject.file("resources/translations.en.json"))
+    targetFiles.setFrom(
+        project.rootProject.file("resources/translations.es.json")
+    )
+    enableValidation.set(true)
+    generateTranslations.set(true)
 }
 
 android {
@@ -39,11 +49,11 @@ android {
         outputs.all {
             val output = this as com.android.build.gradle.internal.api.BaseVariantOutputImpl
             val appName = "MyApp"
-            val variantName = name // e.g. debug, release
+            //val variantName = name // e.g. debug, release
             val vCode = versionCode
             val vName = versionName
 
-            output.outputFileName = "${appName}-${variantName}-v${vName}(${vCode}).apk"
+            output.outputFileName = "${appName}-v${vName}(${vCode}).apk"
             // Example: MyApp-release-v1.0.0(120).apk
         }
     }
@@ -63,3 +73,10 @@ dependencies {
 
     debugImplementation(libs.compose.ui.tooling)
 }
+
+/*
+tasks.whenTaskAdded {
+    if (name.startsWith("assemble")) {
+        dependsOn("generateGitVersion")
+    }
+}*/
