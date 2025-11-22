@@ -1,6 +1,7 @@
 package com.indemand.fotd.android.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,6 +14,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,15 +30,49 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.indemand.fotd.android.LocalNavController
 import com.indemand.fotd.android.R
 import com.indemand.fotd.android.common.ButtonGreySolid
+import com.indemand.fotd.android.common.CustomSnackbar
 import com.indemand.fotd.android.common.PrimaryInputTextField
 import com.indemand.fotd.android.common.SecondaryInputTextField
+import com.indemand.fotd.login.LoginUiState
 import com.indemand.fotd.login.LoginViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun LoginScreen(loginViewModel: LoginViewModel = getViewModel()) {
+    val navController = LocalNavController.current
+    var username by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    val loginUiState = loginViewModel.loginUIState.collectAsState()
+    var snackbarMessage by remember { mutableStateOf<String?>(null) }
+
+    LaunchedEffect(loginUiState.value) {
+        when (loginUiState.value) {
+            is LoginUiState.ToHome -> {
+                navController.navigate("home") {
+                    popUpTo("login") { inclusive = true }
+                }
+            }
+
+            is LoginUiState.ToForgotPassword -> {
+                navController.navigate("forgotPass")
+            }
+
+            is LoginUiState.ToRegister -> {
+
+            }
+
+            is LoginUiState.ShowError -> {
+                snackbarMessage = (loginUiState.value as LoginUiState.ShowError).message
+            }
+
+            is LoginUiState.Idle -> {
+            }
+        }
+    }
+
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -70,16 +107,23 @@ fun LoginScreen(loginViewModel: LoginViewModel = getViewModel()) {
                 ),
             )
             Spacer(modifier = Modifier.height(24.dp))
-            var name by remember { mutableStateOf("") }
             PrimaryInputTextField(
-                value = name, onValueChange = { name = it }, placeholder = "email address"
+                value = username, onValueChange = { username = it }, placeholder = "email address"
             )
             Spacer(modifier = Modifier.height(14.dp))
             SecondaryInputTextField(
-                value = name, onValueChange = { name = it }, placeholder = "password"
+                value = password,
+                onValueChange = { password = it },
+                placeholder = "password",
+                isInvisibleText = true
             )
             Spacer(modifier = Modifier.height(24.dp))
-            RowForgotPassView()
+            RowForgotPassView(loginViewModel, username, password)
+        }
+    }
+    snackbarMessage?.let { message ->
+        CustomSnackbar(message = message) {
+            snackbarMessage = null
         }
     }
 }
@@ -124,21 +168,27 @@ private fun ToolbarView() {
 }
 
 @Composable
-private fun RowForgotPassView() {
+private fun RowForgotPassView(
+    loginViewModel: LoginViewModel, username: String, password: String
+) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            "forgot password?", modifier = Modifier.padding(end = 8.dp), style = TextStyle(
+            "forgot password?",
+            modifier = Modifier
+                .padding(end = 8.dp)
+                .clickable { loginViewModel.onForgotPassClick() },
+            style = TextStyle(
                 color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.SemiBold
             )
         )
         ButtonGreySolid(
             text = "sign in",
             onClick = {
-                // Handle sign in action
+                loginViewModel.loginUser(username, password)
             },
         )
     }

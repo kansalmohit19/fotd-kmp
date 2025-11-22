@@ -26,8 +26,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
+import com.indemand.fotd.domain.model.FactDetails
 
-import com.indemand.fotd.facts.FactDetails
 import com.indemand.fotd.facts.FactsListViewModel
 import org.koin.androidx.compose.getViewModel
 
@@ -116,12 +116,12 @@ private fun FactRowView(factDetails: FactDetails) {
         AsyncImage(model = factDetails.imageUrl, contentDescription = null)
         Spacer(modifier = Modifier.height(4.dp))
         Text(
-            text = factDetails.titleText,
+            text = factDetails.title,
             style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 22.sp),
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = factDetails.descriptionText,
+            text = factDetails.description,
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
@@ -129,7 +129,7 @@ private fun FactRowView(factDetails: FactDetails) {
             style = TextStyle(color = Color.Gray, fontSize = 14.sp),
         )
         Text(
-            text = factDetails.postedOnDate,
+            text = factDetails.postedOn,
             style = TextStyle(color = Color.Gray, fontSize = 11.sp),
         )
     }
