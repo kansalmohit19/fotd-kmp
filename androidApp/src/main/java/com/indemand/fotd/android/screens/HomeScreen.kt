@@ -1,5 +1,6 @@
 package com.indemand.fotd.android.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -8,13 +9,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
@@ -25,36 +22,40 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil3.compose.AsyncImage
 import com.indemand.fotd.domain.model.FactDetails
-
-import com.indemand.fotd.facts.FactsListViewModel
+import com.indemand.fotd.facts.home.HomeUiState
+import com.indemand.fotd.facts.home.HomeViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun FactsListScreen(
-    factsListViewModel: FactsListViewModel = getViewModel()
+fun HomeScreen(
+    homeViewModel: HomeViewModel = getViewModel()
 ) {
 
-    val factsState = factsListViewModel.factsListFlow.collectAsState()
-    Column {
-        Toolbar()
-        if (factsState.value.isLoading) {
-            Loading()
-        }
-        if (factsState.value.errorMessage != null) {
-            ErrorView(factsState.value.errorMessage)
-        }
-        if (factsState.value.listOfFacts.isNotEmpty()) {
-            ListView(factsState.value.listOfFacts)
+    val homeState = homeViewModel.factsListFlow.collectAsState()
+    Column(
+        modifier = Modifier
+            .fillMaxSize() // cover full screen
+            .background(Color(0xFF102131)) // light gray background
+    ) {
+        when (homeState.value) {
+            is HomeUiState.Loading -> {
+                Loading()
+            }
+
+            is HomeUiState.Error -> {
+                ErrorView((homeState.value as HomeUiState.Error).errorMessage)
+            }
+
+            is HomeUiState.ShowFact -> {
+                val factDetails = (homeState.value as HomeUiState.ShowFact).factDetails
+                FactRowView(factDetails)
+            }
+
+            is HomeUiState.Idle -> {
+            }
         }
     }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun Toolbar() {
-    TopAppBar(title = { Text(text = "Facts List") })
 }
 
 @Composable
@@ -98,12 +99,12 @@ private fun ErrorView(message: String? = "") {
 }
 
 @Composable
-private fun ListView(listOfFacts: List<FactDetails>) {
-    LazyColumn(modifier = Modifier.fillMaxSize()) {
+private fun FactDetailsView(factDetails: FactDetails) {/*LazyColumn(modifier = Modifier.fillMaxSize()) {
         items(listOfFacts) { factDetails ->
             FactRowView(factDetails)
         }
-    }
+    }*/
+    FactRowView(factDetails)
 }
 
 @Composable
@@ -113,24 +114,21 @@ private fun FactRowView(factDetails: FactDetails) {
             .fillMaxWidth()
             .padding(16.dp)
     ) {
-        AsyncImage(model = factDetails.imageUrl, contentDescription = null)
+        Spacer(modifier = Modifier.height(80.dp))
+        Text(
+            text = "Welcome!",
+            style = TextStyle(fontSize = 16.sp, color = Color(0xFFFFFFFF)),
+        )
         Spacer(modifier = Modifier.height(4.dp))
+        Text(
+            text = "Guest User",
+            style = TextStyle(fontSize = 24.sp, color = Color(0xFFFFFFFF)),
+        )
+        Spacer(modifier = Modifier.height(20.dp))
         Text(
             text = factDetails.title,
-            style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 22.sp),
+            style = TextStyle(fontSize = 40.sp, color = Color(0xFFFFFFFF)),
         )
         Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            text = factDetails.description,
-        )
-        Spacer(modifier = Modifier.height(4.dp))
-        Text(
-            text = factDetails.postedBy,
-            style = TextStyle(color = Color.Gray, fontSize = 14.sp),
-        )
-        Text(
-            text = factDetails.postedOn,
-            style = TextStyle(color = Color.Gray, fontSize = 11.sp),
-        )
     }
 }

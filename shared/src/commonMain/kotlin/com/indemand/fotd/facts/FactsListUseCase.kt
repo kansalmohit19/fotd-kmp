@@ -1,5 +1,6 @@
 package com.indemand.fotd.facts
 
+import com.indemand.fotd.domain.model.FactDetails
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
@@ -14,10 +15,12 @@ class FactsListUseCase(private val factsListService: FactsListService) {
         val listOfFacts = factsListService.getListOfFacts()
         return listOfFacts?.map { fact ->
             FactDetails(
-                imageUrl = fact.imageUrl,
-                titleText = fact.title,
-                descriptionText = fact.description ?: "No description available",
-                postedOnDate = fact.postedOn?.let { getFormattedDate(it) } ?: "Unknown date",
+                imageUrl = fact.imageUrl.orEmpty(),
+                title = fact.fact.orEmpty(),
+                description = fact.description ?: "No description available",
+                likeCount = 0,
+                dislikeCount = 0,
+                postedOn = fact.postedOn?.let { getFormattedDate(it) } ?: "Unknown date",
                 postedBy = fact.postedBy ?: "Anonymous"
             )
         } ?: emptyList()

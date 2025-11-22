@@ -16,6 +16,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.indemand.fotd.android.screens.FactsListScreen
 import com.indemand.fotd.android.screens.ForgotPassScreen
+import com.indemand.fotd.android.screens.HomeScreen
 import com.indemand.fotd.android.screens.LoginScreen
 import com.indemand.fotd.android.screens.SplashScreen
 
@@ -51,7 +52,8 @@ fun AppNavHost(navController: NavHostController) {
             LoginScreen()
         }
         composable("home") {
-            FactsListScreen()
+            //FactsListScreen()
+            HomeScreen()
         }
         composable("forgotPass") {
             ForgotPassScreen()

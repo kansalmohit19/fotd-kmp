@@ -19,11 +19,11 @@ android {
     namespace = "com.indemand.fotd.android"
     compileSdk = 35
     defaultConfig {
-        applicationId = "com.indemand.fotd.android"
+        applicationId = "com.indemand.fotd"
         minSdk = 24
         targetSdk = 35
-        versionCode = gitVersion.code.get()
-        versionName = gitVersion.name.get()
+        versionCode = 180
+        versionName = "1.8.0"
     }
     buildFeatures {
         compose = true

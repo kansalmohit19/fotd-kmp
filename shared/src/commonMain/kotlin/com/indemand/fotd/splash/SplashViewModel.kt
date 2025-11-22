@@ -53,8 +53,6 @@ class SplashViewModel(
                 onFailure = {
                     println("Test: ${it.errorMessage}")
                 })
-            //Log.e("AppVersionDetails", appVersionDetails.toString())
-            //_factsListFlow.emit(FactListState(listOfFacts = listOfFacts))
         }
     }
 
