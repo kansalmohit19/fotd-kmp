@@ -2,18 +2,20 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.compose.compiler)
-    id("io.github.kansalmohit19.git-version") version "0.0.4"
-    id("io.github.kansalmohit19.ktext") version "0.0.5"
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.firebase.crashlytics)
+    //id("io.github.kansalmohit19.git-version") version "0.0.4"
+    //id("io.github.kansalmohit19.ktext") version "0.0.5"
 }
 
-ktext {
+/*ktext {
     sourceFile.setFrom(project.rootProject.file("resources/translations.en.json"))
     targetFiles.setFrom(
         project.rootProject.file("resources/translations.es.json")
     )
     enableValidation.set(true)
     generateTranslations.set(true)
-}
+}*/
 
 android {
     namespace = "com.indemand.fotd.android"
@@ -70,6 +72,8 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
     implementation(libs.navigation.compose)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.crashlytics)
 
     debugImplementation(libs.compose.ui.tooling)
 }
