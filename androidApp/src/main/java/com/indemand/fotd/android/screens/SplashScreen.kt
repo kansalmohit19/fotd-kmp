@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.navigation.NavController
 import com.indemand.fotd.android.LocalNavController
 import com.indemand.fotd.android.R
 import com.indemand.fotd.android.common.TransparentBottomSheetDemo
@@ -36,9 +37,10 @@ fun SplashScreen(
     LaunchedEffect(splashState.value) {
         when (splashState.value) {
             is SplashUiState.ToHome -> {
-                navController.navigate("home") {
+                gotoHomeScreen(navController)
+                /*navController.navigate("home") {
                     popUpTo("splash") { inclusive = true }
-                }
+                }*/
             }
 
             is SplashUiState.ToLogin -> {/*navController.navigate("login") {
@@ -87,6 +89,15 @@ fun SplashScreen(
             showDialog = false
         }, onNegativeClick = {
             showDialog = false
+            if (appUpdateDialogDetails?.isCancellable == true) {
+                gotoHomeScreen(navController)
+            }
         })
+    }
+}
+
+private fun gotoHomeScreen(navController: NavController) {
+    navController.navigate("home") {
+        popUpTo("splash") { inclusive = true }
     }
 }

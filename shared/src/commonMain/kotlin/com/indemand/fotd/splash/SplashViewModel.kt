@@ -33,12 +33,7 @@ class SplashViewModel(
             delay(2000)
             isTimerStopped = true
             checkForAllProcesses()
-        }/*if (!isTimerStopped) {
-            Hand().postDelayed({
-                isTimerStopped = true
-                checkForAllProcesses()
-            }, 1000)
-        }*/
+        }
     }
 
     private fun checkAppVersion() {
