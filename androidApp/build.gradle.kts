@@ -77,10 +77,3 @@ dependencies {
 
     debugImplementation(libs.compose.ui.tooling)
 }
-
-/*
-tasks.whenTaskAdded {
-    if (name.startsWith("assemble")) {
-        dependsOn("generateGitVersion")
-    }
-}*/
