@@ -52,12 +52,20 @@ fun AppNavHost(navController: NavHostController) {
         composable("login") {
             LoginScreen()
         }
-        composable("home") {
-            //FactsListScreen()
+        composable("main") {
             MainScreen()
         }
         composable("forgotPass") {
             ForgotPassScreen()
+        }
+        composable("home") {
+            HomeScreen()
+        }
+        composable("profile") {
+
+        }
+        composable("list") {
+            FactsListScreen()
         }
     }
 }

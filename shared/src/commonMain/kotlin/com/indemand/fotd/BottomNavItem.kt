@@ -5,10 +5,10 @@ sealed class BottomNavItem(
     val label: String,
 ) {
     object Home : BottomNavItem("home", "Home")
-    object Search : BottomNavItem("search", "Search")
+    object List : BottomNavItem("list", "List")
     object Profile : BottomNavItem("profile", "Profile")
 
     companion object {
-        val items = listOf(Home, Search, Profile)
+        val items = listOf(List, Home, Profile)
     }
 }

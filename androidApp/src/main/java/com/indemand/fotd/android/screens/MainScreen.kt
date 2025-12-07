@@ -2,6 +2,7 @@ package com.indemand.fotd.android.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -22,6 +23,8 @@ fun MainScreen(
             //.padding(paddingValues)
             .background(Color(0xFF102131))
     ) {
+        Spacer(modifier = Modifier.weight(1f))
+
         BottomBarView(mainViewModel)
     }
 }

@@ -13,16 +13,19 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.indemand.fotd.BottomNavItem
+import com.indemand.fotd.android.LocalNavController
 import com.indemand.fotd.facts.main.MainViewModel
 
 @Composable
 fun BottomBarView(mainViewModel: MainViewModel) {
+    val navController = LocalNavController.current
+
     val tabsList = mainViewModel.tabsListFlow.collectAsState()
 
     val bgColor = MaterialTheme.colorScheme.surface
-    val selectedColor = MaterialTheme.colorScheme.primary
-    val unselectedColor = MaterialTheme.colorScheme.onSurfaceVariant
-    val indicatorColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.12f)
+    val selectedColor = Color.White
+    val unselectedColor = Color.Gray
+    val indicatorColor = Color.White.copy(alpha = 0.12f)
 
     NavigationBar(
         containerColor = Color.Transparent, tonalElevation = 110.dp
@@ -31,7 +34,9 @@ fun BottomBarView(mainViewModel: MainViewModel) {
             NavigationBarItem(
                 selected = item is BottomNavItem.Home,
                 onClick = {
-
+                    navController.navigate(item.label) /*{
+                        popUpTo("splash") { inclusive = true }
+                    }*/
                 },
                 icon = { Icon(Icons.Default.Home, contentDescription = item.label) },
                 label = { Text(item.label) },

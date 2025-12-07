@@ -97,7 +97,7 @@ fun SplashScreen(
 }
 
 private fun gotoHomeScreen(navController: NavController) {
-    navController.navigate("home") {
+    navController.navigate("main") {
         popUpTo("splash") { inclusive = true }
     }
 }
