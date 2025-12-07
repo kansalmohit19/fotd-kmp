@@ -28,40 +28,39 @@ import com.indemand.fotd.facts.home.HomeViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun HomeScreen(
+fun MainScreen(
     homeViewModel: HomeViewModel = getViewModel()
 ) {
 
-    val homeState = homeViewModel.factsListFlow.collectAsState()
-    /*Scaffold(bottomBar = {
+    val homeState = homeViewModel.factsListFlow.collectAsState()/*Scaffold(bottomBar = {
         BottomBarView()
     }) { paddingValues ->*/
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                //.padding(paddingValues)
-                .background(Color(0xFF102131))
-        ) {
-            when (homeState.value) {
-                is HomeUiState.Loading -> {
-                    Loading()
-                }
-
-                is HomeUiState.Error -> {
-                    val message = (homeState.value as HomeUiState.Error).errorMessage
-                    ErrorView(message)
-                }
-
-                is HomeUiState.ShowFact -> {
-                    val fact = (homeState.value as HomeUiState.ShowFact).factDetails
-                    FactRowView(fact)
-                }
-
-                HomeUiState.Idle -> Unit
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            //.padding(paddingValues)
+            .background(Color(0xFF102131))
+    ) {
+        when (homeState.value) {
+            is HomeUiState.Loading -> {
+                Loading()
             }
 
-            BottomBarView()
+            is HomeUiState.Error -> {
+                val message = (homeState.value as HomeUiState.Error).errorMessage
+                ErrorView(message)
+            }
+
+            is HomeUiState.ShowFact -> {
+                val fact = (homeState.value as HomeUiState.ShowFact).factDetails
+                FactRowView(fact)
+            }
+
+            HomeUiState.Idle -> Unit
         }
+
+        BottomBarView()
+    }
     //}
 }
 
