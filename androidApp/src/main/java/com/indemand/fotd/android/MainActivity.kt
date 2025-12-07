@@ -18,6 +18,7 @@ import com.indemand.fotd.android.screens.FactsListScreen
 import com.indemand.fotd.android.screens.ForgotPassScreen
 import com.indemand.fotd.android.screens.HomeScreen
 import com.indemand.fotd.android.screens.LoginScreen
+import com.indemand.fotd.android.screens.MainScreen
 import com.indemand.fotd.android.screens.SplashScreen
 
 class MainActivity : ComponentActivity() {
@@ -53,7 +54,7 @@ fun AppNavHost(navController: NavHostController) {
         }
         composable("home") {
             //FactsListScreen()
-            HomeScreen()
+            MainScreen()
         }
         composable("forgotPass") {
             ForgotPassScreen()

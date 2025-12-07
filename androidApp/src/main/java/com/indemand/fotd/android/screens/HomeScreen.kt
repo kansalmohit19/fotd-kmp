@@ -60,7 +60,6 @@ fun HomeScreen(
                 HomeUiState.Idle -> Unit
             }
 
-            BottomBarView()
         }
     //}
 }

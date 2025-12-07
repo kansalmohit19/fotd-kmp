@@ -9,11 +9,16 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.indemand.fotd.BottomNavItem
+import com.indemand.fotd.facts.main.MainViewModel
 
 @Composable
-fun BottomBarView() {
+fun BottomBarView(mainViewModel: MainViewModel) {
+    val tabsList = mainViewModel.tabsListFlow.collectAsState()
+
     val bgColor = MaterialTheme.colorScheme.surface
     val selectedColor = MaterialTheme.colorScheme.primary
     val unselectedColor = MaterialTheme.colorScheme.onSurfaceVariant
@@ -22,18 +27,14 @@ fun BottomBarView() {
     NavigationBar(
         containerColor = Color.Transparent, tonalElevation = 110.dp
     ) {
-        // Observe current route
-        //val navBackStackEntry by navController.currentBackStackEntryAsState()
-        //val currentRoute = navBackStackEntry?.destination?.route
-
-        repeat(3) { item ->
+        tabsList.value.forEach { item ->
             NavigationBarItem(
-                selected = item == 1,
+                selected = item is BottomNavItem.Home,
                 onClick = {
 
                 },
-                icon = { Icon(Icons.Default.Home, contentDescription = "label") },
-                label = { Text("Label") },
+                icon = { Icon(Icons.Default.Home, contentDescription = item.label) },
+                label = { Text(item.label) },
                 colors = NavigationBarItemDefaults.colors(
                     selectedIconColor = selectedColor,
                     unselectedIconColor = unselectedColor,
