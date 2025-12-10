@@ -1,13 +1,10 @@
 package com.indemand.fotd.android.screens
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.indemand.fotd.facts.main.MainUiState
 import com.indemand.fotd.facts.main.MainViewModel
 import org.koin.androidx.compose.getViewModel
 
@@ -15,16 +12,31 @@ import org.koin.androidx.compose.getViewModel
 fun MainScreen(
     mainViewModel: MainViewModel = getViewModel()
 ) {
+    val uiFlow = mainViewModel.mainUIFlow.collectAsState()
 
-    val tabsList = mainViewModel.tabsListFlow.collectAsState()
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            //.padding(paddingValues)
-            .background(Color(0xFF102131))
-    ) {
-        Spacer(modifier = Modifier.weight(1f))
+    Scaffold(
+        bottomBar = {
+            BottomBarView(mainViewModel)
+        }, containerColor = Color(0xFF102131)
+    ) { paddingValues ->
 
-        BottomBarView(mainViewModel)
+        when (uiFlow.value) {
+
+            is MainUiState.Idle -> {}
+
+            is MainUiState.ShowHomeView -> {
+                HomeScreenView()
+            }
+
+            is MainUiState.ShowFactListView -> {
+                FactsListScreenView()
+            }
+
+            is MainUiState.ShowMoreView -> {
+                MoreScreenView()
+            }
+
+            else -> {}
+        }
     }
 }

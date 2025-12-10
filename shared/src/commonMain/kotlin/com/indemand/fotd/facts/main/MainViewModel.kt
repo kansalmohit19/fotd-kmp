@@ -8,6 +8,9 @@ import kotlinx.coroutines.launch
 
 class MainViewModel() : BaseViewModel() {
 
+    private val _mainUIFlow: MutableStateFlow<MainUiState> = MutableStateFlow(MainUiState.Idle)
+    val mainUIFlow: StateFlow<MainUiState> get() = _mainUIFlow
+
     private val _tabsListFlow: MutableStateFlow<List<BottomNavItem>> = MutableStateFlow(emptyList())
     val tabsListFlow: StateFlow<List<BottomNavItem>> get() = _tabsListFlow
 
@@ -17,7 +20,19 @@ class MainViewModel() : BaseViewModel() {
 
     private fun getListOfTabs() {
         scope.launch {
-            _tabsListFlow.value = BottomNavItem.items
+            _tabsListFlow.value = listOf(BottomNavItem("List") {
+                _mainUIFlow.value = MainUiState.ShowFactListView
+            }, BottomNavItem("Home", isSelected = true) {
+                _mainUIFlow.value = MainUiState.ShowHomeView
+            }, BottomNavItem("More") {
+                _mainUIFlow.value = MainUiState.ShowMoreView
+            })
+        }
+    }
+
+    fun onTabSelected(item: BottomNavItem) {
+        _tabsListFlow.value = _tabsListFlow.value.map {
+            it.copy(isSelected = it.label == item.label)
         }
     }
 }

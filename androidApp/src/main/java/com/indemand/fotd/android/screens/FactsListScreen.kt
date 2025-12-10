@@ -11,10 +11,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
@@ -27,34 +25,50 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.indemand.fotd.domain.model.FactDetails
-
+import com.indemand.fotd.facts.FactListState
 import com.indemand.fotd.facts.FactsListViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun FactsListScreen(
+fun FactsListScreenView(
     factsListViewModel: FactsListViewModel = getViewModel()
 ) {
 
     val factsState = factsListViewModel.factsListFlow.collectAsState()
-    Column {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    ) {
         Toolbar()
-        if (factsState.value.isLoading) {
-            Loading()
-        }
-        if (factsState.value.errorMessage != null) {
-            ErrorView(factsState.value.errorMessage)
-        }
-        if (factsState.value.listOfFacts.isNotEmpty()) {
-            ListView(factsState.value.listOfFacts)
+        when (factsState.value) {
+            is FactListState.Loading -> Loading()
+            is FactListState.Error -> {
+                val message = (factsState.value as FactListState.Error).errorMessage
+                ErrorView(message)
+            }
+
+            is FactListState.ShowFacts -> {
+                ListView((factsState.value as FactListState.ShowFacts).listOfFacts)
+            }
+
+            is FactListState.Idle -> Unit
         }
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun Toolbar() {
-    TopAppBar(title = { Text(text = "Facts List") })
+    Spacer(modifier = Modifier.height(80.dp))
+    Text(
+        text = "Facts Section!",
+        style = TextStyle(fontSize = 16.sp, color = Color(0xFFFFFFFF)),
+    )
+    Spacer(modifier = Modifier.height(4.dp))
+    Text(
+        text = "Coming soon...",
+        style = TextStyle(fontSize = 24.sp, color = Color(0xFFFFFFFF)),
+    )
 }
 
 @Composable

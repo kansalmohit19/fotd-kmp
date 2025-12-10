@@ -2,8 +2,9 @@ package com.indemand.fotd.facts
 
 import com.indemand.fotd.domain.model.FactDetails
 
-data class FactListState(
-    val isLoading: Boolean = false,
-    val errorMessage: String? = null,
-    val listOfFacts: List<FactDetails> = listOf()
-)
+sealed interface FactListState {
+    data object Idle : FactListState
+    data object Loading : FactListState
+    data class Error(val errorMessage: String) : FactListState
+    data class ShowFacts(val listOfFacts: List<FactDetails>) : FactListState
+}
