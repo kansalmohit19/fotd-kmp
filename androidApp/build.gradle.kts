@@ -47,7 +47,7 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    applicationVariants.all {
+    /*applicationVariants.all {
         outputs.all {
             val output = this as com.android.build.gradle.internal.api.BaseVariantOutputImpl
             val appName = "MyApp"
@@ -58,7 +58,7 @@ android {
             output.outputFileName = "${appName}-v${vName}(${vCode}).apk"
             // Example: MyApp-release-v1.0.0(120).apk
         }
-    }
+    }*/
 }
 
 dependencies {
