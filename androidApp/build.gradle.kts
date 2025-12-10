@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
-    //id("io.github.kansalmohit19.git-version") version "0.0.4"
+    id("io.github.kansalmohit19.git-version") version "0.0.4"
     //id("io.github.kansalmohit19.ktext") version "0.0.5"
 }
 
@@ -17,6 +17,10 @@ plugins {
     generateTranslations.set(true)
 }*/
 
+gitVersion {
+    versionName.set("2.0.0")
+}
+
 android {
     namespace = "com.indemand.fotd.android"
     compileSdk = 35
@@ -24,8 +28,8 @@ android {
         applicationId = "com.indemand.fotd"
         minSdk = 24
         targetSdk = 35
-        versionCode = 180
-        versionName = "1.8.0"
+        versionCode = gitVersion.code.get()
+        versionName = gitVersion.name.get()
     }
     buildFeatures {
         compose = true
@@ -76,4 +80,10 @@ dependencies {
     implementation(libs.firebase.crashlytics)
 
     debugImplementation(libs.compose.ui.tooling)
+}
+
+tasks.whenTaskAdded {
+    if (name.startsWith("assemble") || name.startsWith("bundle")) {
+        dependsOn("generateGitVersion")
+    }
 }
