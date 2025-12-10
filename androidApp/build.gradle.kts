@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
-    id("io.github.kansalmohit19.git-version") version "0.0.4"
+    id("io.github.kansalmohit19.git-version") version "1.0.1"
     //id("io.github.kansalmohit19.ktext") version "0.0.5"
 }
 
