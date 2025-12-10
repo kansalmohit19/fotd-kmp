@@ -9,3 +9,4 @@ captures
 local.properties
 xcuserdata
 .kotlin
+androidApp/google-services.json
