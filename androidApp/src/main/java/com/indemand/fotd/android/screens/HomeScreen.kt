@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.indemand.fotd.domain.model.FactDetails
@@ -28,40 +29,52 @@ import com.indemand.fotd.facts.home.HomeViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun HomeScreen(
+fun HomeScreenView(
     homeViewModel: HomeViewModel = getViewModel()
 ) {
 
     val homeState = homeViewModel.factsListFlow.collectAsState()
-    /*Scaffold(bottomBar = {
-        BottomBarView()
-    }) { paddingValues ->*/
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                //.padding(paddingValues)
-                .background(Color(0xFF102131))
-        ) {
-            when (homeState.value) {
-                is HomeUiState.Loading -> {
-                    Loading()
-                }
-
-                is HomeUiState.Error -> {
-                    val message = (homeState.value as HomeUiState.Error).errorMessage
-                    ErrorView(message)
-                }
-
-                is HomeUiState.ShowFact -> {
-                    val fact = (homeState.value as HomeUiState.ShowFact).factDetails
-                    FactRowView(fact)
-                }
-
-                HomeUiState.Idle -> Unit
+    val modifier = Modifier
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(16.dp)
+            .background(Color(0xFF102131))
+    ) {
+        Toolbar()
+        when (homeState.value) {
+            is HomeUiState.Loading -> {
+                Loading()
             }
 
+            is HomeUiState.Error -> {
+                val message = (homeState.value as HomeUiState.Error).errorMessage
+                ErrorView(message)
+            }
+
+            is HomeUiState.ShowFact -> {
+                val fact = (homeState.value as HomeUiState.ShowFact).factDetails
+                FactRowView(fact, modifier)
+            }
+
+            HomeUiState.Idle -> Unit
         }
-    //}
+
+    }
+}
+
+@Composable
+private fun Toolbar() {
+    Spacer(modifier = Modifier.height(80.dp))
+    Text(
+        text = "Welcome!",
+        style = TextStyle(fontSize = 16.sp, color = Color(0xFFFFFFFF)),
+    )
+    Spacer(modifier = Modifier.height(4.dp))
+    Text(
+        text = "Guest User",
+        style = TextStyle(fontSize = 24.sp, color = Color(0xFFFFFFFF)),
+    )
 }
 
 @Composable
@@ -105,36 +118,18 @@ private fun ErrorView(message: String? = "") {
 }
 
 @Composable
-private fun FactDetailsView(factDetails: FactDetails) {/*LazyColumn(modifier = Modifier.fillMaxSize()) {
-        items(listOfFacts) { factDetails ->
-            FactRowView(factDetails)
-        }
-    }*/
-    FactRowView(factDetails)
-}
-
-@Composable
-private fun FactRowView(factDetails: FactDetails) {
+private fun FactRowView(factDetails: FactDetails, modifier: Modifier) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(top = 24.dp, bottom = 100.dp)
     ) {
-        Spacer(modifier = Modifier.height(80.dp))
+        //Spacer(modifier = Modifier.height(20.dp))
         Text(
-            text = "Welcome!",
-            style = TextStyle(fontSize = 16.sp, color = Color(0xFFFFFFFF)),
-        )
-        Spacer(modifier = Modifier.height(4.dp))
-        Text(
-            text = "Guest User",
-            style = TextStyle(fontSize = 24.sp, color = Color(0xFFFFFFFF)),
-        )
-        Spacer(modifier = Modifier.height(20.dp))
-        Text(
+            overflow = TextOverflow.Ellipsis,
             text = factDetails.title,
             style = TextStyle(fontSize = 40.sp, color = Color(0xFFFFFFFF)),
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        //Spacer(modifier = Modifier.height(8.dp))
     }
 }

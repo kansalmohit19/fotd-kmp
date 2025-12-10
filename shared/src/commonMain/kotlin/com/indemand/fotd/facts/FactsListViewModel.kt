@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 class FactsListViewModel(private val factsListUseCase: FactsListUseCase) : BaseViewModel() {
 
     private val _factsListFlow: MutableStateFlow<FactListState> =
-        MutableStateFlow(FactListState(isLoading = true))
+        MutableStateFlow(FactListState.Idle)
     val factsListFlow: StateFlow<FactListState> get() = _factsListFlow
 
     init {
@@ -25,7 +25,7 @@ class FactsListViewModel(private val factsListUseCase: FactsListUseCase) : BaseV
             val listOfFacts = callApi()*/
 
             val listOfFacts = factsListUseCase.getListOfFacts()
-            _factsListFlow.emit(FactListState(listOfFacts = listOfFacts))
+            _factsListFlow.emit(FactListState.ShowFacts(listOfFacts = listOfFacts))
         }
     }
 

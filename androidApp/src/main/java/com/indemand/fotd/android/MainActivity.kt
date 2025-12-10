@@ -14,9 +14,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.indemand.fotd.android.screens.FactsListScreen
+import com.indemand.fotd.android.screens.FactsListScreenView
 import com.indemand.fotd.android.screens.ForgotPassScreen
-import com.indemand.fotd.android.screens.HomeScreen
 import com.indemand.fotd.android.screens.LoginScreen
 import com.indemand.fotd.android.screens.MainScreen
 import com.indemand.fotd.android.screens.SplashScreen
@@ -58,15 +57,6 @@ fun AppNavHost(navController: NavHostController) {
         composable("forgotPass") {
             ForgotPassScreen()
         }
-        composable("home") {
-            HomeScreen()
-        }
-        composable("profile") {
-
-        }
-        composable("list") {
-            FactsListScreen()
-        }
     }
 }
 
@@ -74,10 +64,11 @@ fun AppNavHost(navController: NavHostController) {
 @Composable
 fun DefaultPreview() {
     MyApplicationTheme {
+        val modifier = Modifier.fillMaxSize()
         Surface(
-            modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
+            modifier = modifier, color = MaterialTheme.colorScheme.background
         ) {
-            FactsListScreen()
+            FactsListScreenView()
         }
     }
 }

@@ -1,14 +1,8 @@
 package com.indemand.fotd
 
-sealed class BottomNavItem(
-    val route: String,
+data class BottomNavItem(
     val label: String,
-) {
-    object Home : BottomNavItem("home", "Home")
-    object List : BottomNavItem("list", "List")
-    object Profile : BottomNavItem("profile", "Profile")
-
-    companion object {
-        val items = listOf(List, Home, Profile)
-    }
-}
+    val iconURL: String? = "",
+    var isSelected: Boolean? = false,
+    val onClick: () -> Unit,
+)
