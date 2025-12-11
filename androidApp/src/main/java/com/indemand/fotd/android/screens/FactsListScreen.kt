@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -65,10 +65,6 @@ private fun Toolbar() {
         style = TextStyle(fontSize = 16.sp, color = Color(0xFFFFFFFF)),
     )
     Spacer(modifier = Modifier.height(4.dp))
-    Text(
-        text = "Coming soon...",
-        style = TextStyle(fontSize = 24.sp, color = Color(0xFFFFFFFF)),
-    )
 }
 
 @Composable
@@ -113,38 +109,41 @@ private fun ErrorView(message: String? = "") {
 
 @Composable
 private fun ListView(listOfFacts: List<FactDetails>) {
-    LazyColumn(modifier = Modifier.fillMaxSize()) {
-        items(listOfFacts) { factDetails ->
-            FactRowView(factDetails)
+    val modifier = Modifier.fillMaxSize()
+    LazyColumn(modifier = modifier) {
+        itemsIndexed(listOfFacts) { index, factDetails ->
+            FactRowView(factDetails, if (index != 0) modifier.padding(top = 20.dp) else modifier)
         }
     }
 }
 
 @Composable
-private fun FactRowView(factDetails: FactDetails) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-    ) {
+private fun FactRowView(factDetails: FactDetails, modifier: Modifier) {
+    Column(modifier = modifier) {
         AsyncImage(model = factDetails.imageUrl, contentDescription = null)
         Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = factDetails.title,
-            style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 22.sp),
+            style = TextStyle(
+                fontSize = 24.sp, color = Color(0xFFFFFFFF)
+            ),
         )
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            text = factDetails.description,
-        )
+        if (factDetails.description.isNotEmpty()) {
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = factDetails.description, style = TextStyle(
+                    fontSize = 16.sp, color = Color(0xFFFFFFFF)
+                )
+            )
+        }
         Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = factDetails.postedBy,
-            style = TextStyle(color = Color.Gray, fontSize = 14.sp),
+            style = TextStyle(fontSize = 14.sp, color = Color(0xFFFFFFFF)),
         )
         Text(
             text = factDetails.postedOn,
-            style = TextStyle(color = Color.Gray, fontSize = 11.sp),
+            style = TextStyle(fontSize = 11.sp, color = Color(0xFFFFFFFF)),
         )
     }
 }
