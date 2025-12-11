@@ -1,7 +1,7 @@
 package com.indemand.fotd.facts.di
 
 import com.indemand.fotd.facts.FactsListService
-import com.indemand.fotd.facts.FactsListUseCase
+import com.indemand.fotd.domain.usecase.FactsListUseCase
 import org.koin.dsl.module
 
 val factsModule = module {

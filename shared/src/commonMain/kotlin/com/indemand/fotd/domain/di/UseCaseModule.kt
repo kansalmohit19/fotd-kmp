@@ -3,6 +3,7 @@ package com.indemand.fotd.domain.di
 import com.indemand.fotd.domain.usecase.AppUpdateDialogUseCase
 import com.indemand.fotd.domain.usecase.AppVersionUseCase
 import com.indemand.fotd.domain.usecase.DailyFactUseCase
+import com.indemand.fotd.domain.usecase.FactsListUseCase
 import com.indemand.fotd.domain.usecase.LoginUserUseCase
 import org.koin.dsl.module
 
@@ -11,4 +12,5 @@ val useCaseModule = module {
     single<AppUpdateDialogUseCase> { AppUpdateDialogUseCase() }
     single<LoginUserUseCase> { LoginUserUseCase(get()) }
     single<DailyFactUseCase> { DailyFactUseCase(get()) }
+    single<FactsListUseCase> { FactsListUseCase(get()) }
 }

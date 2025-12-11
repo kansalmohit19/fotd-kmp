@@ -28,7 +28,7 @@ class HomeViewModel(private val dailyFactUseCase: DailyFactUseCase) : BaseViewMo
                     it?.let { _homeFlow.value = HomeUiState.ShowFact(it) }
                 },
                 onFailure = {
-                    println("Test: ${it.errorMessage}")
+                    println("Error: ${it.errorMessage}")
                     _homeFlow.value = HomeUiState.Error(it.errorMessage)
                 })
         }

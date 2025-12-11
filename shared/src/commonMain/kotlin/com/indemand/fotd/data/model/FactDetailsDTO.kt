@@ -11,4 +11,6 @@ data class FactDetailsDTO(
     val minimum_dislike_count: String?,
     val postedBy: String? = null,
     val postedOn: String? = null,
+    val like_count: String? = null,
+    val dislike_count: String? = null,
 )

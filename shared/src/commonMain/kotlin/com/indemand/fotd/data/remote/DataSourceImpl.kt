@@ -31,4 +31,10 @@ class DataSourceImpl(private val httpClient: HttpClient) {
             setBody(FormDataContent(request.toParameters()))
         }
     }
+
+    suspend fun factsList(): HttpResponse {
+        return httpClient.get("http://152.67.10.2:8080/fact/featured") {
+            parameter("access_token", "1dca5d0f526cbc9e28e5ddddf0aa8931")
+        }
+    }
 }
