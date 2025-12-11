@@ -1,7 +1,8 @@
-package com.indemand.fotd.facts.main
+package com.indemand.fotd.viewmodel.main
 
 import com.indemand.fotd.BaseViewModel
-import com.indemand.fotd.BottomNavItem
+import com.indemand.fotd.domain.model.BottomNavItem
+import com.indemand.fotd.domain.uistate.MainUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

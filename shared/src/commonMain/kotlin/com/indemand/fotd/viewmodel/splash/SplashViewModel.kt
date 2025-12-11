@@ -1,7 +1,8 @@
-package com.indemand.fotd.splash
+package com.indemand.fotd.viewmodel.splash
 
 import com.indemand.fotd.BaseViewModel
 import com.indemand.fotd.domain.model.AppVersionDetails
+import com.indemand.fotd.domain.uistate.SplashUiState
 import com.indemand.fotd.domain.usecase.AppUpdateDialogUseCase
 import com.indemand.fotd.domain.usecase.AppVersionUseCase
 import kotlinx.coroutines.CoroutineScope
@@ -61,7 +62,7 @@ class SplashViewModel(
                         _splashUIFlow.value = it
                     },
                 )
-            } ?: kotlin.run {
+            } ?: run {
                 _splashUIFlow.value = SplashUiState.ToHome
             }
         }

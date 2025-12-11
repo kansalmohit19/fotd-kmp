@@ -25,8 +25,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.indemand.fotd.domain.model.FactDetails
-import com.indemand.fotd.facts.FactListState
-import com.indemand.fotd.facts.FactsListViewModel
+import com.indemand.fotd.domain.uistate.FactListState
+import com.indemand.fotd.viewmodel.facts.list.FactsListViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable

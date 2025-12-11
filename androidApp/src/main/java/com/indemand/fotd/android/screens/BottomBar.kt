@@ -1,6 +1,5 @@
 package com.indemand.fotd.android.screens
 
-import android.util.Log
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -13,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.Color
-import com.indemand.fotd.facts.main.MainViewModel
+import com.indemand.fotd.viewmodel.main.MainViewModel
 
 @Composable
 fun BottomBarView(mainViewModel: MainViewModel) {

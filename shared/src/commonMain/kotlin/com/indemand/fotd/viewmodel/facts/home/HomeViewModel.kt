@@ -1,6 +1,7 @@
-package com.indemand.fotd.facts.home
+package com.indemand.fotd.viewmodel.facts.home
 
 import com.indemand.fotd.BaseViewModel
+import com.indemand.fotd.domain.uistate.HomeUiState
 import com.indemand.fotd.domain.usecase.DailyFactUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

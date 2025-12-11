@@ -1,6 +1,6 @@
 package com.indemand.fotd.di
 
-import com.indemand.fotd.facts.FactsListViewModel
+import com.indemand.fotd.viewmodel.facts.list.FactsListViewModel
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.context.startKoin

@@ -1,4 +1,4 @@
-package com.indemand.fotd.facts.main
+package com.indemand.fotd.domain.uistate
 
 sealed interface MainUiState {
     data object Idle : MainUiState

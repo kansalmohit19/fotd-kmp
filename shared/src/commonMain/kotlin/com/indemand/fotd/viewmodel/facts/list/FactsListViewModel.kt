@@ -1,6 +1,7 @@
-package com.indemand.fotd.facts
+package com.indemand.fotd.viewmodel.facts.list
 
 import com.indemand.fotd.BaseViewModel
+import com.indemand.fotd.domain.uistate.FactListState
 import com.indemand.fotd.domain.usecase.FactsListUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

@@ -36,8 +36,8 @@ import com.indemand.fotd.android.common.ButtonGreySolid
 import com.indemand.fotd.android.common.CustomSnackbar
 import com.indemand.fotd.android.common.PrimaryInputTextField
 import com.indemand.fotd.android.common.SecondaryInputTextField
-import com.indemand.fotd.login.LoginUiState
-import com.indemand.fotd.login.LoginViewModel
+import com.indemand.fotd.domain.uistate.LoginUiState
+import com.indemand.fotd.viewmodel.login.LoginViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable

@@ -1,4 +1,4 @@
-package com.indemand.fotd.login
+package com.indemand.fotd.domain.uistate
 
 sealed interface LoginUiState {
     data object Idle : LoginUiState

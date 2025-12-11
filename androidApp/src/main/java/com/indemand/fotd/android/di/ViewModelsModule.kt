@@ -1,10 +1,10 @@
 package com.indemand.fotd.android.di
 
-import com.indemand.fotd.facts.FactsListViewModel
-import com.indemand.fotd.facts.home.HomeViewModel
-import com.indemand.fotd.facts.main.MainViewModel
-import com.indemand.fotd.login.LoginViewModel
-import com.indemand.fotd.splash.SplashViewModel
+import com.indemand.fotd.viewmodel.facts.list.FactsListViewModel
+import com.indemand.fotd.viewmodel.facts.home.HomeViewModel
+import com.indemand.fotd.viewmodel.main.MainViewModel
+import com.indemand.fotd.viewmodel.login.LoginViewModel
+import com.indemand.fotd.viewmodel.splash.SplashViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

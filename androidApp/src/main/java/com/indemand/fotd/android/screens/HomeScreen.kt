@@ -24,8 +24,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.indemand.fotd.domain.model.FactDetails
-import com.indemand.fotd.facts.home.HomeUiState
-import com.indemand.fotd.facts.home.HomeViewModel
+import com.indemand.fotd.domain.uistate.HomeUiState
+import com.indemand.fotd.viewmodel.facts.home.HomeViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable

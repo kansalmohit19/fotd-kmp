@@ -1,4 +1,4 @@
-package com.indemand.fotd.splash
+package com.indemand.fotd.domain.uistate
 
 import com.indemand.fotd.domain.model.BottomSheetDetails
 

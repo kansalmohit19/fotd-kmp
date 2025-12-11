@@ -21,8 +21,8 @@ import com.indemand.fotd.android.R
 import com.indemand.fotd.android.common.TransparentBottomSheetDemo
 import com.indemand.fotd.android.utils.openPlayStore
 import com.indemand.fotd.domain.model.BottomSheetDetails
-import com.indemand.fotd.splash.SplashUiState
-import com.indemand.fotd.splash.SplashViewModel
+import com.indemand.fotd.domain.uistate.SplashUiState
+import com.indemand.fotd.viewmodel.splash.SplashViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable
