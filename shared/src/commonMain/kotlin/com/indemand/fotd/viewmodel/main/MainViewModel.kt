@@ -1,7 +1,8 @@
-package com.indemand.fotd.facts.main
+package com.indemand.fotd.viewmodel.main
 
 import com.indemand.fotd.BaseViewModel
-import com.indemand.fotd.BottomNavItem
+import com.indemand.fotd.domain.model.BottomNavItem
+import com.indemand.fotd.domain.uistate.MainUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -20,11 +21,11 @@ class MainViewModel() : BaseViewModel() {
 
     private fun getListOfTabs() {
         scope.launch {
-            _tabsListFlow.value = listOf(BottomNavItem("List") {
+            _tabsListFlow.value = listOf(BottomNavItem("blog") {
                 _mainUIFlow.value = MainUiState.ShowFactListView
-            }, BottomNavItem("Home", isSelected = true) {
+            }, BottomNavItem("home", isSelected = true) {
                 _mainUIFlow.value = MainUiState.ShowHomeView
-            }, BottomNavItem("More") {
+            }, BottomNavItem("more") {
                 _mainUIFlow.value = MainUiState.ShowMoreView
             })
         }

@@ -1,4 +1,4 @@
-package com.indemand.fotd
+package com.indemand.fotd.domain.model
 
 data class BottomNavItem(
     val label: String,

@@ -3,6 +3,7 @@ package com.indemand.fotd.android.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,13 +25,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.indemand.fotd.domain.model.FactDetails
-import com.indemand.fotd.facts.home.HomeUiState
-import com.indemand.fotd.facts.home.HomeViewModel
+import com.indemand.fotd.domain.uistate.HomeUiState
+import com.indemand.fotd.viewmodel.facts.home.HomeViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun HomeScreenView(
-    homeViewModel: HomeViewModel = getViewModel()
+    homeViewModel: HomeViewModel = getViewModel(), paddingValues: PaddingValues
 ) {
 
     val homeState = homeViewModel.factsListFlow.collectAsState()
@@ -38,7 +39,12 @@ fun HomeScreenView(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(
+                top = paddingValues.calculateTopPadding(),
+                bottom = paddingValues.calculateBottomPadding(),
+                start = 16.dp,
+                end = 16.dp
+            )
             .background(Color(0xFF102131))
     ) {
         Toolbar()
@@ -65,9 +71,8 @@ fun HomeScreenView(
 
 @Composable
 private fun Toolbar() {
-    Spacer(modifier = Modifier.height(80.dp))
     Text(
-        text = "Welcome!",
+        text = "welcome!",
         style = TextStyle(fontSize = 16.sp, color = Color(0xFFFFFFFF)),
     )
     Spacer(modifier = Modifier.height(4.dp))
@@ -122,7 +127,7 @@ private fun FactRowView(factDetails: FactDetails, modifier: Modifier) {
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(top = 24.dp, bottom = 100.dp)
+            .padding(top = 24.dp)
     ) {
         //Spacer(modifier = Modifier.height(20.dp))
         Text(

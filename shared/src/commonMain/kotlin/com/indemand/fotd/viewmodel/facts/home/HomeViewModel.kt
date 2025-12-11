@@ -1,6 +1,7 @@
-package com.indemand.fotd.facts.home
+package com.indemand.fotd.viewmodel.facts.home
 
 import com.indemand.fotd.BaseViewModel
+import com.indemand.fotd.domain.uistate.HomeUiState
 import com.indemand.fotd.domain.usecase.DailyFactUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -28,7 +29,7 @@ class HomeViewModel(private val dailyFactUseCase: DailyFactUseCase) : BaseViewMo
                     it?.let { _homeFlow.value = HomeUiState.ShowFact(it) }
                 },
                 onFailure = {
-                    println("Test: ${it.errorMessage}")
+                    println("Error: ${it.errorMessage}")
                     _homeFlow.value = HomeUiState.Error(it.errorMessage)
                 })
         }

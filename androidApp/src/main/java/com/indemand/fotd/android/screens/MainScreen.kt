@@ -4,8 +4,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.Color
-import com.indemand.fotd.facts.main.MainUiState
-import com.indemand.fotd.facts.main.MainViewModel
+import com.indemand.fotd.domain.uistate.MainUiState
+import com.indemand.fotd.viewmodel.main.MainViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -25,11 +25,11 @@ fun MainScreen(
             is MainUiState.Idle -> {}
 
             is MainUiState.ShowHomeView -> {
-                HomeScreenView()
+                HomeScreenView(paddingValues = paddingValues)
             }
 
             is MainUiState.ShowFactListView -> {
-                FactsListScreenView()
+                FactsListScreenView(paddingValues = paddingValues)
             }
 
             is MainUiState.ShowMoreView -> {

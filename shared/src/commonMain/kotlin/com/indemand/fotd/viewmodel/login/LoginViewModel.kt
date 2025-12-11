@@ -1,7 +1,8 @@
-package com.indemand.fotd.login
+package com.indemand.fotd.viewmodel.login
 
 import com.indemand.fotd.BaseViewModel
 import com.indemand.fotd.data.model.LoginUserRequest
+import com.indemand.fotd.domain.uistate.LoginUiState
 import com.indemand.fotd.domain.usecase.LoginUserUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

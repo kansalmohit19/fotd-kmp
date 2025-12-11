@@ -1,8 +1,11 @@
-package com.indemand.fotd.facts
+package com.indemand.fotd.viewmodel.facts.list
 
 import com.indemand.fotd.BaseViewModel
+import com.indemand.fotd.domain.uistate.FactListState
+import com.indemand.fotd.domain.usecase.FactsListUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -19,13 +22,17 @@ class FactsListViewModel(private val factsListUseCase: FactsListUseCase) : BaseV
 
     private fun getFacts() {
         scope.launch {
-            /*delay(1000)
-            _factsListFlow.emit(FactListState(errorMessage = "Something went wrong, please try again."))
-            delay(1000)
-            val listOfFacts = callApi()*/
-
-            val listOfFacts = factsListUseCase.getListOfFacts()
-            _factsListFlow.emit(FactListState.ShowFacts(listOfFacts = listOfFacts))
+            factsListUseCase.invoke(
+                scope = CoroutineScope(Dispatchers.IO),
+                params = Unit,
+                onSuccess = {
+                    println("Success Response: ${it}")
+                    _factsListFlow.value = FactListState.ShowFacts(listOfFacts = it)
+                },
+                onFailure = {
+                    println("Error: ${it.errorMessage}")
+                    _factsListFlow.value = FactListState.Error(it.errorMessage)
+                })
         }
     }
 

@@ -2,6 +2,7 @@ package com.indemand.fotd.android.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,7 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -25,20 +26,26 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.indemand.fotd.domain.model.FactDetails
-import com.indemand.fotd.facts.FactListState
-import com.indemand.fotd.facts.FactsListViewModel
+import com.indemand.fotd.domain.uistate.FactListState
+import com.indemand.fotd.viewmodel.facts.list.FactsListViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun FactsListScreenView(
-    factsListViewModel: FactsListViewModel = getViewModel()
+    factsListViewModel: FactsListViewModel = getViewModel(),
+    paddingValues: PaddingValues
 ) {
 
     val factsState = factsListViewModel.factsListFlow.collectAsState()
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(
+                top = paddingValues.calculateTopPadding(),
+                bottom = paddingValues.calculateBottomPadding(),
+                start = 16.dp,
+                end = 16.dp
+            )
     ) {
         Toolbar()
         when (factsState.value) {
@@ -59,16 +66,12 @@ fun FactsListScreenView(
 
 @Composable
 private fun Toolbar() {
-    Spacer(modifier = Modifier.height(80.dp))
+    //Spacer(modifier = Modifier.height(80.dp))
     Text(
-        text = "Facts Section!",
-        style = TextStyle(fontSize = 16.sp, color = Color(0xFFFFFFFF)),
-    )
-    Spacer(modifier = Modifier.height(4.dp))
-    Text(
-        text = "Coming soon...",
+        text = "blog!",
         style = TextStyle(fontSize = 24.sp, color = Color(0xFFFFFFFF)),
     )
+    Spacer(modifier = Modifier.height(4.dp))
 }
 
 @Composable
@@ -113,38 +116,41 @@ private fun ErrorView(message: String? = "") {
 
 @Composable
 private fun ListView(listOfFacts: List<FactDetails>) {
-    LazyColumn(modifier = Modifier.fillMaxSize()) {
-        items(listOfFacts) { factDetails ->
-            FactRowView(factDetails)
+    val modifier = Modifier.fillMaxSize()
+    LazyColumn(modifier = modifier) {
+        itemsIndexed(listOfFacts) { index, factDetails ->
+            FactRowView(factDetails, if (index != 0) modifier.padding(top = 20.dp) else modifier)
         }
     }
 }
 
 @Composable
-private fun FactRowView(factDetails: FactDetails) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-    ) {
+private fun FactRowView(factDetails: FactDetails, modifier: Modifier) {
+    Column(modifier = modifier) {
         AsyncImage(model = factDetails.imageUrl, contentDescription = null)
         Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = factDetails.title,
-            style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 22.sp),
+            style = TextStyle(
+                fontSize = 24.sp, color = Color(0xFFFFFFFF)
+            ),
         )
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            text = factDetails.description,
-        )
-        Spacer(modifier = Modifier.height(4.dp))
+        if (factDetails.description.isNotEmpty()) {
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = factDetails.description, style = TextStyle(
+                    fontSize = 16.sp, color = Color(0xFFFFFFFF)
+                )
+            )
+        }
+        Spacer(modifier = Modifier.height(6.dp))
         Text(
             text = factDetails.postedBy,
-            style = TextStyle(color = Color.Gray, fontSize = 14.sp),
+            style = TextStyle(fontSize = 12.sp, color = Color(0xFFFFFFFF)),
         )
         Text(
             text = factDetails.postedOn,
-            style = TextStyle(color = Color.Gray, fontSize = 11.sp),
+            style = TextStyle(fontSize = 12.sp, color = Color(0xFFFFFFFF)),
         )
     }
 }

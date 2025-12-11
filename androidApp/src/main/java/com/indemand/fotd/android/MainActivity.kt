@@ -68,7 +68,7 @@ fun DefaultPreview() {
         Surface(
             modifier = modifier, color = MaterialTheme.colorScheme.background
         ) {
-            FactsListScreenView()
+            //FactsListScreenView()
         }
     }
 }

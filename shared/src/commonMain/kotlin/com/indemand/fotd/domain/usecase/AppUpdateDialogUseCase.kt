@@ -6,7 +6,7 @@ import com.indemand.fotd.core.UseCase
 import com.indemand.fotd.domain.model.AppVersionDetails
 import com.indemand.fotd.domain.model.BottomSheetDetails
 import com.indemand.fotd.domain.model.ButtonType
-import com.indemand.fotd.splash.SplashUiState
+import com.indemand.fotd.domain.uistate.SplashUiState
 
 class AppUpdateDialogUseCase : UseCase<AppVersionDetails?, SplashUiState>() {
     override suspend fun run(params: AppVersionDetails?): Either<SplashUiState, IFailure> {

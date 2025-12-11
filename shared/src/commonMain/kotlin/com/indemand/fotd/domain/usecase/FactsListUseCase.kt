@@ -1,14 +1,20 @@
-package com.indemand.fotd.facts
+package com.indemand.fotd.domain.usecase
 
+import com.indemand.fotd.core.Either
+import com.indemand.fotd.core.IFailure
+import com.indemand.fotd.core.UseCase
+import com.indemand.fotd.data.repo.FactsListRepository
 import com.indemand.fotd.domain.model.FactDetails
-import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.daysUntil
-import kotlinx.datetime.toLocalDateTime
-import kotlinx.datetime.todayIn
-import kotlin.math.abs
 
+class FactsListUseCase(private val factsListRepository: FactsListRepository) :
+    UseCase<Unit, List<FactDetails>>() {
+
+    override suspend fun run(params: Unit): Either<List<FactDetails>, IFailure> {
+        return factsListRepository.getListOfFacts()
+    }
+}
+
+/*
 class FactsListUseCase(private val factsListService: FactsListService) {
 
     suspend fun getListOfFacts(): List<FactDetails> {
@@ -28,9 +34,9 @@ class FactsListUseCase(private val factsListService: FactsListService) {
 
 
     private fun getFormattedDate(inputDate: String): String {
-        val today = Clock.System.todayIn(TimeZone.currentSystemDefault())
+        val today = Clock.System.todayIn(TimeZone.Companion.currentSystemDefault())
         val days = today.daysUntil(
-            Instant.parse(inputDate).toLocalDateTime(TimeZone.currentSystemDefault()).date
+            Instant.Companion.parse(inputDate).toLocalDateTime(TimeZone.Companion.currentSystemDefault()).date
         )
 
         return when {
@@ -39,4 +45,4 @@ class FactsListUseCase(private val factsListService: FactsListService) {
             else -> "Today"
         }
     }
-}
+}*/
