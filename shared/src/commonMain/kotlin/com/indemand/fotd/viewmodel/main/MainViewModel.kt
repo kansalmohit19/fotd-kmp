@@ -21,11 +21,11 @@ class MainViewModel() : BaseViewModel() {
 
     private fun getListOfTabs() {
         scope.launch {
-            _tabsListFlow.value = listOf(BottomNavItem("List") {
+            _tabsListFlow.value = listOf(BottomNavItem("blog") {
                 _mainUIFlow.value = MainUiState.ShowFactListView
-            }, BottomNavItem("Home", isSelected = true) {
+            }, BottomNavItem("home", isSelected = true) {
                 _mainUIFlow.value = MainUiState.ShowHomeView
-            }, BottomNavItem("More") {
+            }, BottomNavItem("more") {
                 _mainUIFlow.value = MainUiState.ShowMoreView
             })
         }

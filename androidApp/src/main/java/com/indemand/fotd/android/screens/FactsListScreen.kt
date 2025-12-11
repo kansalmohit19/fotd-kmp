@@ -2,6 +2,7 @@ package com.indemand.fotd.android.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -31,14 +32,20 @@ import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun FactsListScreenView(
-    factsListViewModel: FactsListViewModel = getViewModel()
+    factsListViewModel: FactsListViewModel = getViewModel(),
+    paddingValues: PaddingValues
 ) {
 
     val factsState = factsListViewModel.factsListFlow.collectAsState()
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(
+                top = paddingValues.calculateTopPadding(),
+                bottom = paddingValues.calculateBottomPadding(),
+                start = 16.dp,
+                end = 16.dp
+            )
     ) {
         Toolbar()
         when (factsState.value) {
@@ -59,10 +66,10 @@ fun FactsListScreenView(
 
 @Composable
 private fun Toolbar() {
-    Spacer(modifier = Modifier.height(80.dp))
+    //Spacer(modifier = Modifier.height(80.dp))
     Text(
-        text = "Facts Section!",
-        style = TextStyle(fontSize = 16.sp, color = Color(0xFFFFFFFF)),
+        text = "blog!",
+        style = TextStyle(fontSize = 24.sp, color = Color(0xFFFFFFFF)),
     )
     Spacer(modifier = Modifier.height(4.dp))
 }
@@ -136,14 +143,14 @@ private fun FactRowView(factDetails: FactDetails, modifier: Modifier) {
                 )
             )
         }
-        Spacer(modifier = Modifier.height(4.dp))
+        Spacer(modifier = Modifier.height(6.dp))
         Text(
             text = factDetails.postedBy,
-            style = TextStyle(fontSize = 14.sp, color = Color(0xFFFFFFFF)),
+            style = TextStyle(fontSize = 12.sp, color = Color(0xFFFFFFFF)),
         )
         Text(
             text = factDetails.postedOn,
-            style = TextStyle(fontSize = 11.sp, color = Color(0xFFFFFFFF)),
+            style = TextStyle(fontSize = 12.sp, color = Color(0xFFFFFFFF)),
         )
     }
 }

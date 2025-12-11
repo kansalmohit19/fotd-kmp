@@ -17,8 +17,8 @@ fun FactsListDTO?.toDomain(): List<FactDetails> = this?.featured?.map { item ->
         description = "",
         likeCount = item.like_count?.toInt() ?: 0,
         dislikeCount = item.dislike_count?.toInt() ?: 0,
-        postedBy = item.postedBy ?: "Anonymous",
-        postedOn = item.postedOn?.let { getFormattedDate(it) } ?: "--",
+        postedBy = "added by: " + (item.postedBy ?: "--"),
+        postedOn = "added on: " + (item.postedOn?.let { getFormattedDate(it) } ?: "--"),
     )
 } ?: emptyList()
 
@@ -31,7 +31,7 @@ private fun getFormattedDate(inputDate: String): String {
 
     return when {
         abs(days) > 1 -> "${abs(days)} days ago"
-        abs(days) == 1 -> "Yesterday"
-        else -> "Today"
+        abs(days) == 1 -> "yesterday"
+        else -> "today"
     }
 }

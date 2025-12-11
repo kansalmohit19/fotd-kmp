@@ -25,11 +25,11 @@ fun MainScreen(
             is MainUiState.Idle -> {}
 
             is MainUiState.ShowHomeView -> {
-                HomeScreenView()
+                HomeScreenView(paddingValues = paddingValues)
             }
 
             is MainUiState.ShowFactListView -> {
-                FactsListScreenView()
+                FactsListScreenView(paddingValues = paddingValues)
             }
 
             is MainUiState.ShowMoreView -> {
