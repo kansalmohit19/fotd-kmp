@@ -31,7 +31,7 @@ import com.indemand.fotd.viewmodel.facts.list.FactsListViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun FactsListScreenView(
+fun BlogScreenView(
     factsListViewModel: FactsListViewModel = getViewModel(),
     paddingValues: PaddingValues
 ) {

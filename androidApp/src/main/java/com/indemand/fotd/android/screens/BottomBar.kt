@@ -26,7 +26,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.indemand.fotd.android.R
+import com.indemand.fotd.ui.resources.loadAssetIcon
 import com.indemand.fotd.viewmodel.main.MainViewModel
 
 @Composable
@@ -44,16 +44,16 @@ fun BottomBarView(mainViewModel: MainViewModel) {
             .padding(10.dp)
     ) {
         tabsList.value.forEach { item ->
+            val navItem = item.navItem
             BottomBarItem(
-
-                selected = item.isSelected ?: false,
+                selected = item.isSelected,
                 onClick = {
-                    mainViewModel.onTabSelected(item)
-                    item.onClick()
+                    mainViewModel.onTabSelected(navItem)
+                    navItem.onClick()
                 },
-                selectedIcon = painterResource(R.drawable.ic_blog),
-                unselectedIcon = painterResource(R.drawable.ic_blog),
-                label = item.label,
+                selectedIcon = painterResource(loadAssetIcon(navItem)),
+                unselectedIcon = painterResource(loadAssetIcon(navItem)),
+                label = navItem.label,
                 selectedColor = Color.White,
                 unselectedColor = Color.Gray,
                 modifier = Modifier.weight(1f)
@@ -62,8 +62,8 @@ fun BottomBarView(mainViewModel: MainViewModel) {
     }
 
     LaunchedEffect(tabsList.value) {
-        val selectedItem = tabsList.value.firstOrNull { it.isSelected == true }
-        selectedItem?.onClick?.invoke()
+        val selectedItem = tabsList.value.firstOrNull { it.isSelected }
+        selectedItem?.navItem?.onClick?.invoke()
     }
 }
 

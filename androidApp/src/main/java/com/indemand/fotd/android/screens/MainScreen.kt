@@ -28,8 +28,8 @@ fun MainScreen(
                 HomeScreenView(paddingValues = paddingValues)
             }
 
-            is MainUiState.ShowFactListView -> {
-                FactsListScreenView(paddingValues = paddingValues)
+            is MainUiState.ShowBlogView -> {
+                BlogScreenView(paddingValues = paddingValues)
             }
 
             is MainUiState.ShowMoreView -> {
