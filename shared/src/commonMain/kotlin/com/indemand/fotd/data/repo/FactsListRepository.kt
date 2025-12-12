@@ -9,10 +9,10 @@ import com.indemand.fotd.data.remote.DataSourceImpl
 import com.indemand.fotd.domain.model.FactDetails
 
 class FactsListRepository(private val dataSource: DataSourceImpl) {
-    suspend fun getListOfFacts(): Either<List<FactDetails>, IFailure> {
+    suspend fun getListOfFacts(accessToken: String): Either<List<FactDetails>, IFailure> {
         return safeApiCall(
             serializer = FactsListDTO.serializer(),
-            apiCall = { dataSource.factsList() },
+            apiCall = { dataSource.factsList(accessToken) },
             successTransform = { it.toDomain() })
     }
 }

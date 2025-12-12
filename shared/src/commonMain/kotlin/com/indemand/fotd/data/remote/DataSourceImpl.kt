@@ -1,6 +1,5 @@
 package com.indemand.fotd.data.remote
 
-import com.indemand.fotd.data.model.AppVersionRequest
 import com.indemand.fotd.data.model.LoginUserRequest
 import com.indemand.fotd.data.model.toParameters
 import io.ktor.client.HttpClient
@@ -12,16 +11,16 @@ import io.ktor.client.request.setBody
 import io.ktor.client.statement.HttpResponse
 
 class DataSourceImpl(private val httpClient: HttpClient) {
-    suspend fun checkForAppVersion(request: AppVersionRequest): HttpResponse {
-        return httpClient.get("http://152.67.10.2:8080/app/version") {
+    suspend fun fetchConfiguration(): HttpResponse {
+        return httpClient.get("https://raw.githubusercontent.com/kansalmohit19/configs/refs/heads/master/fotd/app-config.json") /*{
             parameter("app_version", request.app_version)
             parameter("device_type", request.device_type)
-        }
+        }*/
     }
 
-    suspend fun dailyFact(): HttpResponse {
+    suspend fun dailyFact(accessToken: String): HttpResponse {
         return httpClient.get("http://152.67.10.2:8080/fact/today") {
-            parameter("access_token", "1dca5d0f526cbc9e28e5ddddf0aa8931")
+            parameter("access_token", accessToken)
         }
     }
 
@@ -32,9 +31,9 @@ class DataSourceImpl(private val httpClient: HttpClient) {
         }
     }
 
-    suspend fun factsList(): HttpResponse {
+    suspend fun factsList(accessToken: String): HttpResponse {
         return httpClient.get("http://152.67.10.2:8080/fact/featured") {
-            parameter("access_token", "1dca5d0f526cbc9e28e5ddddf0aa8931")
+            parameter("access_token", accessToken)
         }
     }
 }

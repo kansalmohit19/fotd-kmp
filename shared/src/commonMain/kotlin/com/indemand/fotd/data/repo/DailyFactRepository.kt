@@ -9,10 +9,10 @@ import com.indemand.fotd.data.remote.DataSourceImpl
 import com.indemand.fotd.domain.model.FactDetails
 
 class DailyFactRepository(private val dataSource: DataSourceImpl) {
-    suspend fun getDailyFact(): Either<FactDetails?, IFailure> {
+    suspend fun getDailyFact(accessToken: String): Either<FactDetails?, IFailure> {
         return safeApiCall(
             serializer = DailyFactDTO.serializer(),
-            apiCall = { dataSource.dailyFact() },
+            apiCall = { dataSource.dailyFact(accessToken) },
             successTransform = { it.toDomain() })
     }
 }

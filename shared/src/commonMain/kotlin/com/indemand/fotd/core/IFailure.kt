@@ -6,4 +6,4 @@ interface IFailure {
 
 data class Network(override val errorMessage: String) : IFailure
 data class Server(override val errorMessage: String) : IFailure
-data class Unknown(override val errorMessage: String) : IFailure
+data class Unknown(override val errorMessage: String = "Something went wrong") : IFailure

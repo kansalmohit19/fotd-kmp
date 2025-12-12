@@ -3,13 +3,13 @@ package com.indemand.fotd.domain.usecase
 import com.indemand.fotd.core.Either
 import com.indemand.fotd.core.IFailure
 import com.indemand.fotd.core.UseCase
-import com.indemand.fotd.domain.model.AppVersionDetails
 import com.indemand.fotd.domain.model.BottomSheetDetails
 import com.indemand.fotd.domain.model.ButtonType
+import com.indemand.fotd.domain.model.ConfigurationDetails
 import com.indemand.fotd.domain.uistate.SplashUiState
 
-class AppUpdateDialogUseCase : UseCase<AppVersionDetails?, SplashUiState>() {
-    override suspend fun run(params: AppVersionDetails?): Either<SplashUiState, IFailure> {
+class AppUpdateDialogUseCase : UseCase<ConfigurationDetails?, SplashUiState>() {
+    override suspend fun run(params: ConfigurationDetails?): Either<SplashUiState, IFailure> {
         return if (params == null) {
             Either.Success(
                 SplashUiState.AppUpdateDialog(
@@ -21,7 +21,7 @@ class AppUpdateDialogUseCase : UseCase<AppVersionDetails?, SplashUiState>() {
                     )
                 )
             )
-        } else if (params.isForceUpdate) {
+        } else if (params.appUpdate.isForceUpdate) {
             Either.Success(
                 SplashUiState.AppUpdateDialog(
                     BottomSheetDetails(
@@ -30,13 +30,13 @@ class AppUpdateDialogUseCase : UseCase<AppVersionDetails?, SplashUiState>() {
                         isCancellable = false,
                         positiveButton = ButtonType.PositiveButton(
                             text = "update",
-                            appPackageName = params.packageName,
-                            appLink = params.appLink
+                            appPackageName = params.appUpdate.packageName,
+                            appLink = params.appUpdate.appLink
                         )
                     )
                 )
             )
-        } else if (params.isManualUpdate) {
+        } else if (params.appUpdate.isManualUpdate) {
             Either.Success(
                 SplashUiState.AppUpdateDialog(
                     BottomSheetDetails(
@@ -46,8 +46,8 @@ class AppUpdateDialogUseCase : UseCase<AppVersionDetails?, SplashUiState>() {
                         negativeButton = ButtonType.NegativeButton(text = "later"),
                         positiveButton = ButtonType.PositiveButton(
                             text = "yes",
-                            appPackageName = params.packageName,
-                            appLink = params.appLink
+                            appPackageName = params.appUpdate.packageName,
+                            appLink = params.appUpdate.appLink
                         )
                     )
                 )
