@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
                 CompositionLocalProvider(LocalNavController provides navController) {
                     Surface(
                         modifier = Modifier.fillMaxSize(),
-                        color = MaterialTheme.colorScheme.background
+                        color = MaterialTheme.colorScheme.background,
                     ) {
                         AppNavHost(navController)
                     }
@@ -65,9 +65,10 @@ fun DefaultPreview() {
     MyApplicationTheme {
         val modifier = Modifier.fillMaxSize()
         Surface(
-            modifier = modifier, color = MaterialTheme.colorScheme.background
+            modifier = modifier,
+            color = MaterialTheme.colorScheme.background,
         ) {
-            //FactsListScreenView()
+            // FactsListScreenView()
         }
     }
 }

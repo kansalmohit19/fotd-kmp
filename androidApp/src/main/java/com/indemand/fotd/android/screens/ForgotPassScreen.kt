@@ -18,20 +18,23 @@ import com.indemand.fotd.android.R
 @Composable
 fun ForgotPassScreen() {
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         // Background Image
         Image(
             painter = painterResource(id = R.drawable.bg_onboarding),
             contentDescription = null,
             contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
         )
         Text(
             text = "Forgot password, coming soon... ",
-            style = TextStyle(
-                color = Color.White, fontWeight = FontWeight.Bold, fontSize = 16.sp
-            ),
+            style =
+                TextStyle(
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                ),
         )
     }
 }

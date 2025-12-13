@@ -61,7 +61,6 @@ fun LoginScreen(loginViewModel: LoginViewModel = getViewModel()) {
             }
 
             is LoginUiState.ToRegister -> {
-
             }
 
             is LoginUiState.ShowError -> {
@@ -74,20 +73,21 @@ fun LoginScreen(loginViewModel: LoginViewModel = getViewModel()) {
     }
 
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         // Background Image
         Image(
             painter = painterResource(id = R.drawable.bg_onboarding),
             contentDescription = null,
             contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
         )
 
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 24.dp, vertical = 48.dp)
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 24.dp, vertical = 48.dp),
         ) {
             SignUpView()
             Spacer(modifier = Modifier.height(24.dp))
@@ -95,27 +95,35 @@ fun LoginScreen(loginViewModel: LoginViewModel = getViewModel()) {
             Spacer(modifier = Modifier.height(24.dp))
             Text(
                 text = "sign in to continue",
-                style = TextStyle(
-                    color = Color.White, fontWeight = FontWeight.Bold, fontSize = 24.sp
-                ),
+                style =
+                    TextStyle(
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 24.sp,
+                    ),
             )
             Spacer(modifier = Modifier.height(2.dp))
             Text(
                 text = "enter your email id and password to continue",
-                style = TextStyle(
-                    color = Color(0xFF818B94), fontWeight = FontWeight.Normal, fontSize = 16.sp
-                ),
+                style =
+                    TextStyle(
+                        color = Color(0xFF818B94),
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 16.sp,
+                    ),
             )
             Spacer(modifier = Modifier.height(24.dp))
             PrimaryInputTextField(
-                value = username, onValueChange = { username = it }, placeholder = "email address"
+                value = username,
+                onValueChange = { username = it },
+                placeholder = "email address",
             )
             Spacer(modifier = Modifier.height(14.dp))
             SecondaryInputTextField(
                 value = password,
                 onValueChange = { password = it },
                 placeholder = "password",
-                isInvisibleText = true
+                isInvisibleText = true,
             )
             Spacer(modifier = Modifier.height(24.dp))
             RowForgotPassView(loginViewModel, username, password)
@@ -133,17 +141,22 @@ private fun SignUpView() {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.End,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
-            "sign up", modifier = Modifier.padding(end = 8.dp), style = TextStyle(
-                color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.SemiBold
-            )
+            "sign up",
+            modifier = Modifier.padding(end = 8.dp),
+            style =
+                TextStyle(
+                    color = Color.White,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.SemiBold,
+                ),
         )
         Icon(
             painter = painterResource(id = R.drawable.ic_next),
             contentDescription = "Arrow",
-            tint = Color.Unspecified
+            tint = Color.Unspecified,
         )
     }
 }
@@ -151,39 +164,50 @@ private fun SignUpView() {
 @Composable
 private fun ToolbarView() {
     Row(
-        modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
             painter = painterResource(id = R.drawable.ic_logo_login),
             contentDescription = "Arrow",
             tint = Color.Unspecified,
-            modifier = Modifier.padding(end = 8.dp)
+            modifier = Modifier.padding(end = 8.dp),
         )
         Text(
-            "fact of the day", style = TextStyle(
-                color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.SemiBold
-            )
+            "fact of the day",
+            style =
+                TextStyle(
+                    color = Color.White,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.SemiBold,
+                ),
         )
     }
 }
 
 @Composable
 private fun RowForgotPassView(
-    loginViewModel: LoginViewModel, username: String, password: String
+    loginViewModel: LoginViewModel,
+    username: String,
+    password: String,
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
             "forgot password?",
-            modifier = Modifier
-                .padding(end = 8.dp)
-                .clickable { loginViewModel.onForgotPassClick() },
-            style = TextStyle(
-                color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.SemiBold
-            )
+            modifier =
+                Modifier
+                    .padding(end = 8.dp)
+                    .clickable { loginViewModel.onForgotPassClick() },
+            style =
+                TextStyle(
+                    color = Color.White,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.SemiBold,
+                ),
         )
         ButtonGreySolid(
             text = "sign in",

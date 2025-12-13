@@ -41,7 +41,10 @@ fun ContentView() {
 }
 
 @Composable
-fun RowView(title: String, description: String) {
+fun RowView(
+    title: String,
+    description: String,
+) {
     Column(Modifier.padding(8.dp)) {
         Text(text = title, style = MaterialTheme.typography.bodySmall, color = Color.Gray)
         Text(text = description, style = MaterialTheme.typography.bodyLarge)
@@ -54,8 +57,9 @@ fun makeItems(): List<AboutDeviceDetails> {
     listOfItems.add(AboutDeviceDetails(title = "OS Version", description = Platform.osVersion))
     listOfItems.add(
         AboutDeviceDetails(
-            title = "Device Details", description = Platform.deviceModel
-        )
+            title = "Device Details",
+            description = Platform.deviceModel,
+        ),
     )
     return listOfItems
 }

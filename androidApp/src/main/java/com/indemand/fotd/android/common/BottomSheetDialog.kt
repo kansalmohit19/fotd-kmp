@@ -29,77 +29,87 @@ import com.indemand.fotd.domain.model.ButtonType
 fun TransparentBottomSheetDemo(
     details: BottomSheetDetails,
     onPositiveClick: () -> Unit,
-    onNegativeClick: () -> Unit
+    onNegativeClick: () -> Unit,
 ) {
     var showSheet by remember { mutableStateOf(true) }
-    val sheetState = rememberModalBottomSheetState(
-        skipPartiallyExpanded = true,
-        confirmValueChange = { newValue ->
-            // Allow hiding only if cancellable
-            if (details.isCancellable == false && newValue == SheetValue.Hidden) {
-                false
-            } else {
-                true
-            }
-        }
-    )
+    val sheetState =
+        rememberModalBottomSheetState(
+            skipPartiallyExpanded = true,
+            confirmValueChange = { newValue ->
+                // Allow hiding only if cancellable
+                if (details.isCancellable == false && newValue == SheetValue.Hidden) {
+                    false
+                } else {
+                    true
+                }
+            },
+        )
     if (showSheet) {
         ModalBottomSheet(
             onDismissRequest = { if (details.isCancellable == true) showSheet = false },
             sheetState = sheetState,
-            containerColor = Color.White
+            containerColor = Color.White,
         ) {
             // Content inside bottom sheet
             Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(24.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
                     text = details.title.orEmpty(),
-                    style = TextStyle(
-                        fontSize = 24.sp, color = Color.Black,
-                    ),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 24.dp),
-                    textAlign = TextAlign.Start
+                    style =
+                        TextStyle(
+                            fontSize = 24.sp,
+                            color = Color.Black,
+                        ),
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 24.dp),
+                    textAlign = TextAlign.Start,
                 )
 
                 Text(
                     text = details.message.orEmpty(),
-                    style = TextStyle(
-                        fontSize = 18.sp, color = Color(0xFF6B6B6B),
-                    ),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 24.dp),
-                    textAlign = TextAlign.Start
+                    style =
+                        TextStyle(
+                            fontSize = 18.sp,
+                            color = Color(0xFF6B6B6B),
+                        ),
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 24.dp),
+                    textAlign = TextAlign.Start,
                 )
 
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 24.dp),
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 24.dp),
                 ) {
-                    val buttons = mutableListOf<ButtonType>().apply {
-                        details.negativeButton?.let { button ->
-                            add(
-                                ButtonType.NegativeButton(
-                                    text = button.text
+                    val buttons =
+                        mutableListOf<ButtonType>().apply {
+                            details.negativeButton?.let { button ->
+                                add(
+                                    ButtonType.NegativeButton(
+                                        text = button.text,
+                                    ),
                                 )
-                            )
-                        }
+                            }
 
-                        details.positiveButton?.let { button ->
-                            add(
-                                ButtonType.PositiveButton(
-                                    text = button.text
+                            details.positiveButton?.let { button ->
+                                add(
+                                    ButtonType.PositiveButton(
+                                        text = button.text,
+                                    ),
                                 )
-                            )
+                            }
                         }
-                    }
 
                     buttons.forEachIndexed { index, type ->
                         AppButton(
@@ -111,9 +121,10 @@ fun TransparentBottomSheetDemo(
                                 }
                                 showSheet = false
                             },
-                            modifier = Modifier
-                                .weight(1f)
-                                .padding(end = if (index < buttons.lastIndex) 8.dp else 0.dp)
+                            modifier =
+                                Modifier
+                                    .weight(1f)
+                                    .padding(end = if (index < buttons.lastIndex) 8.dp else 0.dp),
                         )
                     }
                 }

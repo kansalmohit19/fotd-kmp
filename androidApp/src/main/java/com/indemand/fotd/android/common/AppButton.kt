@@ -17,34 +17,39 @@ import com.indemand.fotd.domain.model.Quadruple
 
 @Composable
 fun AppButton(
-    type: ButtonType, onClick: () -> Unit, modifier: Modifier = Modifier
+    type: ButtonType,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
-    val (text, bgColor, textColor, padding) = when (type) {
-        is ButtonType.PositiveButton -> Quadruple(
-            type.text,
-            Color(0xFF212121),
-            Color(0xFFDFDFDF),
-            Modifier.padding(horizontal = 30.dp, vertical = 10.dp)
-        )
+    val (text, bgColor, textColor, padding) =
+        when (type) {
+            is ButtonType.PositiveButton ->
+                Quadruple(
+                    type.text,
+                    Color(0xFF212121),
+                    Color(0xFFDFDFDF),
+                    Modifier.padding(horizontal = 30.dp, vertical = 10.dp),
+                )
 
-        is ButtonType.NegativeButton -> Quadruple(
-            type.text,
-            Color(0xFFE1E1E1),
-            Color(0xFF212121),
-            Modifier.padding(horizontal = 20.dp, vertical = 10.dp)
-        )
-    }
+            is ButtonType.NegativeButton ->
+                Quadruple(
+                    type.text,
+                    Color(0xFFE1E1E1),
+                    Color(0xFF212121),
+                    Modifier.padding(horizontal = 20.dp, vertical = 10.dp),
+                )
+        }
 
     Button(
         onClick = onClick,
         modifier = modifier,
         colors = ButtonDefaults.buttonColors(containerColor = bgColor),
-        shape = RoundedCornerShape(14.dp)
+        shape = RoundedCornerShape(14.dp),
     ) {
         Text(
             text = text,
             style = TextStyle(fontSize = 16.sp, color = textColor, fontWeight = FontWeight.Medium),
-            modifier = padding
+            modifier = padding,
         )
     }
 }

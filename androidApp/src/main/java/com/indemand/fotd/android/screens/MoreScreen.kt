@@ -18,10 +18,11 @@ import androidx.compose.ui.unit.sp
 fun MoreScreenView() {
     val modifier = Modifier
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(16.dp)
-            .background(Color(0xFF102131))
+        modifier =
+            modifier
+                .fillMaxSize()
+                .padding(16.dp)
+                .background(Color(0xFF102131)),
     ) {
         Toolbar()
     }

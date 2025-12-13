@@ -26,9 +26,7 @@ import com.indemand.fotd.viewmodel.splash.SplashViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun SplashScreen(
-    splashViewModel: SplashViewModel = getViewModel()
-) {
+fun SplashScreen(splashViewModel: SplashViewModel = getViewModel()) {
     val navController = LocalNavController.current
     val splashState = splashViewModel.splashUIFlow.collectAsState()
     var showDialog by remember { mutableStateOf(false) }
@@ -43,7 +41,8 @@ fun SplashScreen(
                 }*/
             }
 
-            is SplashUiState.ToLogin -> {/*navController.navigate("login") {
+            is SplashUiState.ToLogin -> {
+                /*navController.navigate("login") {
                     popUpTo("splash") { inclusive = true }
                 }*/
             }
@@ -60,21 +59,21 @@ fun SplashScreen(
     }
 
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         // Background Image
         Image(
             painter = painterResource(id = R.drawable.bg_splash),
             contentDescription = null,
             contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
         )
 
         // Center Image
         Image(
             painter = painterResource(id = R.drawable.ic_logo_splash),
             contentDescription = null,
-            modifier = Modifier.align(Alignment.Center)
+            modifier = Modifier.align(Alignment.Center),
         )
     }
 
@@ -84,7 +83,7 @@ fun SplashScreen(
             openPlayStore(
                 context,
                 appPackageName = appUpdateDialogDetails?.positiveButton?.appPackageName.orEmpty(),
-                appLink = appUpdateDialogDetails?.positiveButton?.appLink.orEmpty()
+                appLink = appUpdateDialogDetails?.positiveButton?.appLink.orEmpty(),
             )
             showDialog = false
         }, onNegativeClick = {
