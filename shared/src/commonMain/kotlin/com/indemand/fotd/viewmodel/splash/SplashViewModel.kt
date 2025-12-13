@@ -6,6 +6,7 @@ import com.indemand.fotd.domain.model.ConfigurationDetails
 import com.indemand.fotd.domain.uistate.SplashUiState
 import com.indemand.fotd.domain.usecase.AppUpdateDialogUseCase
 import com.indemand.fotd.domain.usecase.ConfigurationUseCase
+import com.indemand.fotd.domain.usecase.GetNotificationTokenUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -16,7 +17,8 @@ import kotlinx.coroutines.launch
 
 class SplashViewModel(
     private val configurationUseCase: ConfigurationUseCase,
-    private val appUpdateDialogUseCase: AppUpdateDialogUseCase
+    private val appUpdateDialogUseCase: AppUpdateDialogUseCase,
+    private val getNotificationTokenUseCase: GetNotificationTokenUseCase,
 ) : BaseViewModel() {
     private var isTimerStopped = false
     private var isFetchConfigSuccess = false
@@ -39,6 +41,16 @@ class SplashViewModel(
     }
 
     private fun fetchAppConfig() {
+        scope.launch {
+            getNotificationTokenUseCase.invoke(scope = CoroutineScope(Dispatchers.IO),
+                params = Unit,
+                onSuccess = {
+                    println("Success: ${it}")
+                },
+                onFailure = {
+                    println("Test: ${it.errorMessage}")
+                })
+        }
         scope.launch {
             configurationUseCase.invoke(scope = CoroutineScope(Dispatchers.IO),
                 params = Unit,
