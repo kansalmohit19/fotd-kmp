@@ -7,10 +7,15 @@ import com.indemand.fotd.domain.model.BottomSheetDetails
 import com.indemand.fotd.domain.model.ButtonType
 import com.indemand.fotd.domain.model.ConfigurationDetails
 import com.indemand.fotd.domain.uistate.SplashUiState
+import io.ktor.util.logging.Logger
 
-class AppUpdateDialogUseCase : UseCase<ConfigurationDetails?, SplashUiState>() {
-    override suspend fun run(params: ConfigurationDetails?): Either<SplashUiState, IFailure> {
-        return if (params == null) {
+class AppUpdateDialogUseCase : UseCase<Pair<ConfigurationDetails?, Int>, SplashUiState>() {
+    override suspend fun run(params: Pair<ConfigurationDetails?, Int>): Either<SplashUiState, IFailure> {
+        val configDetails = params.first
+        val appVersionCode = params.second
+        println("")
+
+        return if (configDetails == null) {
             Either.Success(
                 SplashUiState.AppUpdateDialog(
                     BottomSheetDetails(
@@ -21,33 +26,33 @@ class AppUpdateDialogUseCase : UseCase<ConfigurationDetails?, SplashUiState>() {
                     )
                 )
             )
-        } else if (params.appUpdate.isForceUpdate) {
+        } else if (isUpdateAvailable(configDetails.appUpdate.hardVersion, appVersionCode)) {
             Either.Success(
                 SplashUiState.AppUpdateDialog(
                     BottomSheetDetails(
-                        title = "time to update!",
-                        message = "we have added a lot of new features for you.\nplease, update it to the latest version.",
+                        title = configDetails.appUpdate.hardUpdateTitle,
+                        message = configDetails.appUpdate.hardUpdateMessage,
                         isCancellable = false,
                         positiveButton = ButtonType.PositiveButton(
-                            text = "update",
-                            appPackageName = params.appUpdate.packageName,
-                            appLink = params.appUpdate.appLink
+                            text = configDetails.appUpdate.hardUpdateButton,
+                            appPackageName = configDetails.appUpdate.packageName,
+                            appLink = configDetails.appUpdate.appLink
                         )
                     )
                 )
             )
-        } else if (params.appUpdate.isManualUpdate) {
+        } else if (isUpdateAvailable(configDetails.appUpdate.softVersion, appVersionCode)) {
             Either.Success(
                 SplashUiState.AppUpdateDialog(
                     BottomSheetDetails(
-                        title = "update Available",
-                        message = "a new version of the app is available. would you like to update?",
+                        title = configDetails.appUpdate.softUpdateTitle,
+                        message = configDetails.appUpdate.softUpdateMessage,
                         isCancellable = true,
-                        negativeButton = ButtonType.NegativeButton(text = "later"),
+                        negativeButton = ButtonType.NegativeButton(text = configDetails.appUpdate.softUpdateNegativeButton),
                         positiveButton = ButtonType.PositiveButton(
-                            text = "yes",
-                            appPackageName = params.appUpdate.packageName,
-                            appLink = params.appUpdate.appLink
+                            text = configDetails.appUpdate.softUpdatePositiveButton,
+                            appPackageName = configDetails.appUpdate.packageName,
+                            appLink = configDetails.appUpdate.appLink
                         )
                     )
                 )
@@ -56,4 +61,7 @@ class AppUpdateDialogUseCase : UseCase<ConfigurationDetails?, SplashUiState>() {
             Either.Success(SplashUiState.ToHome)
         }
     }
+
+    private fun isUpdateAvailable(versionCode: Int, appVersionCode: Int) =
+        appVersionCode < versionCode
 }

@@ -15,8 +15,15 @@ data class AppUpdateDTO(
     val isManualUpdate: Boolean?,
     val appLink: String?,
     val packageName: String?,
-    val hardVersion: Long?,
-    val softVersion: Long?,
+    val hardVersion: Int?,
+    val softVersion: Int?,
+    val softUpdateTitle: String?,
+    val softUpdateMessage: String?,
+    val softUpdatePositiveButton: String?,
+    val softUpdateNegativeButton: String?,
+    val hardUpdateTitle: String?,
+    val hardUpdateMessage: String?,
+    val hardUpdateButton: String?,
 )
 
 @Serializable

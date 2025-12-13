@@ -1,6 +1,7 @@
 package com.indemand.fotd.viewmodel.splash
 
 import com.indemand.fotd.BaseViewModel
+import com.indemand.fotd.Platform
 import com.indemand.fotd.domain.model.ConfigurationDetails
 import com.indemand.fotd.domain.uistate.SplashUiState
 import com.indemand.fotd.domain.usecase.AppUpdateDialogUseCase
@@ -18,7 +19,7 @@ class SplashViewModel(
     private val appUpdateDialogUseCase: AppUpdateDialogUseCase
 ) : BaseViewModel() {
     private var isTimerStopped = false
-    private var isAppVersionSuccess = false
+    private var isFetchConfigSuccess = false
     private var configurationDetails: ConfigurationDetails? = null
     private val _splashUIFlow: MutableStateFlow<SplashUiState> =
         MutableStateFlow(SplashUiState.Idle)
@@ -26,7 +27,7 @@ class SplashViewModel(
 
     init {
         startTimer()
-        checkAppVersion()
+        fetchAppConfig()
     }
 
     private fun startTimer() {
@@ -37,13 +38,13 @@ class SplashViewModel(
         }
     }
 
-    private fun checkAppVersion() {
+    private fun fetchAppConfig() {
         scope.launch {
             configurationUseCase.invoke(scope = CoroutineScope(Dispatchers.IO),
                 params = Unit,
                 onSuccess = {
                     configurationDetails = it
-                    isAppVersionSuccess = true
+                    isFetchConfigSuccess = true
                     checkForAllProcesses()
                 },
                 onFailure = {
@@ -53,11 +54,11 @@ class SplashViewModel(
     }
 
     private fun checkForAllProcesses() {
-        if (isTimerStopped && isAppVersionSuccess) {
+        if (isTimerStopped && isFetchConfigSuccess) {
             configurationDetails?.let {
                 appUpdateDialogUseCase.invoke(
                     scope = CoroutineScope(Dispatchers.IO),
-                    params = configurationDetails,
+                    params = configurationDetails to Platform.appVersionCode,
                     onSuccess = {
                         _splashUIFlow.value = it
                     },

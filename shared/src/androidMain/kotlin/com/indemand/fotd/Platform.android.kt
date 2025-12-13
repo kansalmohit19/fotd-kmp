@@ -2,7 +2,7 @@ package com.indemand.fotd
 
 import android.os.Build
 
-actual class Platform {
+actual object Platform {
     actual val osName: String
         get() = "Android"
     actual val osVersion: String
@@ -13,4 +13,7 @@ actual class Platform {
     actual fun logSystemInfo(): String {
         return "osName: $osName, osVersion: $osVersion, deviceModel: $deviceModel"
     }
+
+    actual val appVersionCode: Int
+        get() = BuildConfig.VERSION_CODE
 }

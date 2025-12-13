@@ -50,11 +50,11 @@ fun RowView(title: String, description: String) {
 
 fun makeItems(): List<AboutDeviceDetails> {
     val listOfItems = mutableListOf<AboutDeviceDetails>()
-    listOfItems.add(AboutDeviceDetails(title = "OS Name", description = Platform().osName))
-    listOfItems.add(AboutDeviceDetails(title = "OS Version", description = Platform().osVersion))
+    listOfItems.add(AboutDeviceDetails(title = "OS Name", description = Platform.osName))
+    listOfItems.add(AboutDeviceDetails(title = "OS Version", description = Platform.osVersion))
     listOfItems.add(
         AboutDeviceDetails(
-            title = "Device Details", description = Platform().deviceModel
+            title = "Device Details", description = Platform.deviceModel
         )
     )
     return listOfItems

@@ -22,7 +22,6 @@ import com.indemand.fotd.android.screens.SplashScreen
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContent {
             MyApplicationTheme {
                 val navController = rememberNavController()
@@ -49,6 +48,7 @@ fun AppNavHost(navController: NavHostController) {
         }
         composable("login") {
             LoginScreen()
+            BuildConfig.VERSION_CODE
         }
         composable("main") {
             MainScreen()
