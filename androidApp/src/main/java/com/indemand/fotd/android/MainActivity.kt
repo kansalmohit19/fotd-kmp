@@ -48,7 +48,6 @@ fun AppNavHost(navController: NavHostController) {
         }
         composable("login") {
             LoginScreen()
-            BuildConfig.VERSION_CODE
         }
         composable("main") {
             MainScreen()

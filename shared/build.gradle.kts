@@ -48,6 +48,7 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.androidx.lifecycle.viewmodel.ktx)
             implementation(libs.ktor.client.android)
+            implementation(libs.firebase.messaging)
         }
 
         iosMain.dependencies {

@@ -41,18 +41,26 @@ class SplashViewModel(
     }
 
     private fun fetchAppConfig() {
-        scope.launch {
-            getNotificationTokenUseCase.invoke(scope = CoroutineScope(Dispatchers.IO),
+        /*scope.launch {
+            getNotificationTokenUseCase.invoke(
+                scope = CoroutineScope(Dispatchers.IO),
                 params = Unit,
                 onSuccess = {
-                    println("Success: ${it}")
+                    println("Success1: Token: ${it}")
                 },
                 onFailure = {
                     println("Test: ${it.errorMessage}")
                 })
         }
+
         scope.launch {
-            configurationUseCase.invoke(scope = CoroutineScope(Dispatchers.IO),
+            getNotificationTokenUseCase.token.collect {
+                println("Success2: Token: ${it}")
+            }
+        }*/
+        scope.launch {
+            configurationUseCase.invoke(
+                scope = CoroutineScope(Dispatchers.IO),
                 params = Unit,
                 onSuccess = {
                     configurationDetails = it

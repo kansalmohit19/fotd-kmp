@@ -4,15 +4,20 @@ import com.indemand.fotd.core.Either
 import com.indemand.fotd.core.IFailure
 import com.indemand.fotd.core.UseCase
 import com.indemand.fotd.providers.NotificationTokenProvider
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 
 class GetNotificationTokenUseCase(val notificationTokenProvider: NotificationTokenProvider) :
     UseCase<Unit, String>() {
+    private var _token = MutableStateFlow<String?>(null)
+    val token: Flow<String> = _token.filterNotNull().map { it }
 
     override suspend fun run(params: Unit): Either<String, IFailure> {
-        notificationTokenProvider.token.collect {
-            println("============Token============$it")
-        }
-
-        return Either.Success("")
+        val token = notificationTokenProvider.token.filterNotNull().first()
+        _token.value = token
+        return Either.Success(token)
     }
 }
