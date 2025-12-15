@@ -1,6 +1,5 @@
 package com.indemand.fotd.data.repo
 
-import com.indemand.fotd.KeyValueStorage
 import com.indemand.fotd.core.Either
 import com.indemand.fotd.core.IFailure
 import com.indemand.fotd.data.extensions.safeApiCall

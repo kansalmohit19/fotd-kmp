@@ -10,7 +10,6 @@ import com.indemand.fotd.domain.usecase.GetNotificationTokenUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -22,26 +21,24 @@ class SplashViewModel(
 ) : BaseViewModel() {
     private var isTimerStopped = false
     private var isFetchConfigSuccess = false
-    private var configurationDetails: ConfigurationDetails? = null
     private val _splashUIFlow: MutableStateFlow<SplashUiState> =
         MutableStateFlow(SplashUiState.Idle)
     val splashUIFlow: StateFlow<SplashUiState> get() = _splashUIFlow
 
     init {
-        startTimer()
+        //startTimer()
         fetchAppConfig()
     }
 
-    private fun startTimer() {
+    /*private fun startTimer() {
         scope.launch {
             delay(2000)
             isTimerStopped = true
             checkForAllProcesses()
         }
-    }
+    }*/
 
-    private fun fetchAppConfig() {
-        /*scope.launch {
+    private fun fetchAppConfig() {/*scope.launch {
             getNotificationTokenUseCase.invoke(
                 scope = CoroutineScope(Dispatchers.IO),
                 params = Unit,
@@ -63,17 +60,53 @@ class SplashViewModel(
                 scope = CoroutineScope(Dispatchers.IO),
                 params = Unit,
                 onSuccess = {
-                    configurationDetails = it
-                    isFetchConfigSuccess = true
-                    checkForAllProcesses()
+                    checkForAppUpdate(it)
                 },
                 onFailure = {
-                    println("Test: ${it.errorMessage}")
+                    println("Error: ${it.errorMessage}")
                 })
         }
     }
 
-    private fun checkForAllProcesses() {
+    private fun checkForAppUpdate(configurationDetails: ConfigurationDetails?) {
+        configurationDetails?.let {
+            scope.launch {
+                appUpdateDialogUseCase.invoke(
+                    scope = CoroutineScope(Dispatchers.IO),
+                    params = configurationDetails to Platform.appVersionCode,
+                    onSuccess = {
+                        if (it is SplashUiState.AppUpdateDialog) {
+                            if (it.bottomSheetDetails != null) {
+                                _splashUIFlow.value = it
+                            } else {
+                                //check for next steps
+                                //checkForAllProcesses()
+                                _splashUIFlow.value = SplashUiState.NavigateToLogin
+                            }
+                        }
+                    },
+                    onFailure = {
+                        println("Error: ${it.errorMessage}")
+                    })
+            }
+        }
+    }
+
+    private fun validateAccessToken() {
+        scope.launch {
+            configurationUseCase.invoke(
+                scope = CoroutineScope(Dispatchers.IO),
+                params = Unit,
+                onSuccess = {
+                    checkForAppUpdate(it)
+                },
+                onFailure = {
+                    println("Error: ${it.errorMessage}")
+                })
+        }
+    }
+
+    /*private fun checkForAllProcesses() {
         if (isTimerStopped && isFetchConfigSuccess) {
             configurationDetails?.let {
                 appUpdateDialogUseCase.invoke(
@@ -87,5 +120,5 @@ class SplashViewModel(
                 _splashUIFlow.value = SplashUiState.ToHome
             }
         }
-    }
+    }*/
 }

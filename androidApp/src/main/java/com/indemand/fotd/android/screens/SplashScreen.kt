@@ -20,7 +20,6 @@ import com.indemand.fotd.android.LocalNavController
 import com.indemand.fotd.android.R
 import com.indemand.fotd.android.common.TransparentBottomSheetDemo
 import com.indemand.fotd.android.utils.openPlayStore
-import com.indemand.fotd.domain.model.BottomSheetDetails
 import com.indemand.fotd.domain.uistate.SplashUiState
 import com.indemand.fotd.viewmodel.splash.SplashViewModel
 import org.koin.androidx.compose.getViewModel
@@ -30,27 +29,23 @@ fun SplashScreen(splashViewModel: SplashViewModel = getViewModel()) {
     val navController = LocalNavController.current
     val splashState = splashViewModel.splashUIFlow.collectAsState()
     var showDialog by remember { mutableStateOf(false) }
-    var appUpdateDialogDetails by remember { mutableStateOf<BottomSheetDetails?>(null) }
+    var appUpdateDialogDetails by remember { mutableStateOf<SplashUiState.AppUpdateDialog?>(null) }
 
     LaunchedEffect(splashState.value) {
         when (splashState.value) {
-            is SplashUiState.ToHome -> {
-                gotoHomeScreen(navController)
-                /*navController.navigate("home") {
-                    popUpTo("splash") { inclusive = true }
-                }*/
+            is SplashUiState.NavigateToMain -> {
+                gotoMainScreen(navController)
             }
 
-            is SplashUiState.ToLogin -> {
-                /*navController.navigate("login") {
+            is SplashUiState.NavigateToLogin -> {
+                navController.navigate("login") {
                     popUpTo("splash") { inclusive = true }
-                }*/
+                }
             }
 
             is SplashUiState.AppUpdateDialog -> {
                 showDialog = true
-                appUpdateDialogDetails =
-                    (splashState.value as SplashUiState.AppUpdateDialog).bottomSheetDetails
+                appUpdateDialogDetails = splashState.value as SplashUiState.AppUpdateDialog
             }
 
             is SplashUiState.Idle -> {
@@ -79,23 +74,23 @@ fun SplashScreen(splashViewModel: SplashViewModel = getViewModel()) {
 
     if (showDialog && appUpdateDialogDetails != null) {
         val context = LocalContext.current
-        TransparentBottomSheetDemo(appUpdateDialogDetails!!, onPositiveClick = {
+        TransparentBottomSheetDemo(appUpdateDialogDetails?.bottomSheetDetails!!, onPositiveClick = {
             openPlayStore(
                 context,
-                appPackageName = appUpdateDialogDetails?.positiveButton?.appPackageName.orEmpty(),
-                appLink = appUpdateDialogDetails?.positiveButton?.appLink.orEmpty(),
+                appPackageName = appUpdateDialogDetails?.appPackageName.orEmpty(),
+                appLink = appUpdateDialogDetails?.appLink.orEmpty(),
             )
             showDialog = false
         }, onNegativeClick = {
             showDialog = false
-            if (appUpdateDialogDetails?.isCancellable == true) {
-                gotoHomeScreen(navController)
+            if (appUpdateDialogDetails?.bottomSheetDetails?.isCancellable == true) {
+                gotoMainScreen(navController)
             }
         })
     }
 }
 
-private fun gotoHomeScreen(navController: NavController) {
+private fun gotoMainScreen(navController: NavController) {
     navController.navigate("main") {
         popUpTo("splash") { inclusive = true }
     }

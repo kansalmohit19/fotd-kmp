@@ -51,7 +51,7 @@ fun LoginScreen(loginViewModel: LoginViewModel = getViewModel()) {
     LaunchedEffect(loginUiState.value) {
         when (loginUiState.value) {
             is LoginUiState.ToHome -> {
-                navController.navigate("home") {
+                navController.navigate("main") {
                     popUpTo("login") { inclusive = true }
                 }
             }
