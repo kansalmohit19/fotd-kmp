@@ -1,3 +1,4 @@
+import org.gradle.kotlin.dsl.implementation
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -49,6 +50,8 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel.ktx)
             implementation(libs.ktor.client.android)
             implementation(libs.firebase.messaging)
+            implementation(libs.datastore.preferences)
+            implementation(libs.koin.android)
         }
 
         iosMain.dependencies {

@@ -9,8 +9,7 @@ import com.indemand.fotd.data.model.UserInfoDTO
 import com.indemand.fotd.data.remote.DataSourceImpl
 import com.indemand.fotd.domain.model.UserDetails
 
-class AccessTokenRepository(
-    private val keyValueStorage: KeyValueStorage, private val dataSource: DataSourceImpl
+class AccessTokenRepository(private val dataSource: DataSourceImpl
 ) {
     suspend fun accessTokenLogin(request: LoginUserRequest): Either<UserDetails?, IFailure> {
         val result = safeApiCall(
@@ -19,9 +18,9 @@ class AccessTokenRepository(
             successTransform = { it?.userInfo?.toDomain() })
 
 
-        if (result is Either.Success) {
+        /*if (result is Either.Success) {
             keyValueStorage.putString("accessToken", result.successVal?.accessToken.orEmpty())
-        }
+        }*/
         return result
     }
 }
