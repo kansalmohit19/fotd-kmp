@@ -39,9 +39,10 @@ fun BottomBarView(mainViewModel: MainViewModel) {
     val indicatorColor = Color.White.copy(alpha = 0.12f)
 
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(10.dp)
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(10.dp),
     ) {
         tabsList.value.forEach { item ->
             val navItem = item.navItem
@@ -56,7 +57,7 @@ fun BottomBarView(mainViewModel: MainViewModel) {
                 label = navItem.label,
                 selectedColor = Color.White,
                 unselectedColor = Color.Gray,
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f),
             )
         }
     }
@@ -76,19 +77,24 @@ private fun BottomBarItem(
     label: String,
     selectedColor: Color = MaterialTheme.colorScheme.primary,
     unselectedColor: Color = MaterialTheme.colorScheme.onSurfaceVariant,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val color = if (selected) selectedColor else unselectedColor
 
     Box(
-        modifier = modifier
-            .clip(RoundedCornerShape(40))
-            .background(
-                if (selected) selectedColor.copy(alpha = 0.12f)
-                else Color.Transparent
-            )
-            .clickable { onClick() }
-            .padding(horizontal = 16.dp, vertical = 10.dp)) {
+        modifier =
+            modifier
+                .clip(RoundedCornerShape(40))
+                .background(
+                    if (selected) {
+                        selectedColor.copy(alpha = 0.12f)
+                    } else {
+                        Color.Transparent
+                    },
+                )
+                .clickable { onClick() }
+                .padding(horizontal = 16.dp, vertical = 10.dp),
+    ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center,
@@ -98,13 +104,15 @@ private fun BottomBarItem(
                 painter = if (selected) selectedIcon else unselectedIcon,
                 contentDescription = label,
                 tint = color,
-                modifier = Modifier.size(26.dp)
+                modifier = Modifier.size(26.dp),
             )
 
             if (selected) {
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = label, color = color, style = TextStyle(fontSize = 16.sp)
+                    text = label,
+                    color = color,
+                    style = TextStyle(fontSize = 16.sp),
                 )
             }
         }

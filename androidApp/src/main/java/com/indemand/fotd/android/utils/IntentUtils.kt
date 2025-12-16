@@ -5,7 +5,11 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 
-fun openPlayStore(context: Context, appPackageName: String, appLink: String) {
+fun openPlayStore(
+    context: Context,
+    appPackageName: String,
+    appLink: String,
+) {
     try {
         // Try to open Play Store app
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$appPackageName"))
@@ -13,10 +17,11 @@ fun openPlayStore(context: Context, appPackageName: String, appLink: String) {
         context.startActivity(intent)
     } catch (e: ActivityNotFoundException) {
         // If Play Store app is not available, open in browser
-        val intent = Intent(
-            Intent.ACTION_VIEW,
-            Uri.parse(appLink)
-        )
+        val intent =
+            Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(appLink),
+            )
         context.startActivity(intent)
     }
 }

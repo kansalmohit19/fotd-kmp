@@ -33,19 +33,19 @@ import org.koin.androidx.compose.getViewModel
 @Composable
 fun BlogScreenView(
     factsListViewModel: FactsListViewModel = getViewModel(),
-    paddingValues: PaddingValues
+    paddingValues: PaddingValues,
 ) {
-
     val factsState = factsListViewModel.factsListFlow.collectAsState()
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(
-                top = paddingValues.calculateTopPadding(),
-                bottom = paddingValues.calculateBottomPadding(),
-                start = 16.dp,
-                end = 16.dp
-            )
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(
+                    top = paddingValues.calculateTopPadding(),
+                    bottom = paddingValues.calculateBottomPadding(),
+                    start = 16.dp,
+                    end = 16.dp,
+                ),
     ) {
         Toolbar()
         when (factsState.value) {
@@ -66,7 +66,7 @@ fun BlogScreenView(
 
 @Composable
 private fun Toolbar() {
-    //Spacer(modifier = Modifier.height(80.dp))
+    // Spacer(modifier = Modifier.height(80.dp))
     Text(
         text = "blog!",
         style = TextStyle(fontSize = 24.sp, color = Color(0xFFFFFFFF)),
@@ -77,12 +77,13 @@ private fun Toolbar() {
 @Composable
 private fun Loading() {
     Box(
-        modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center,
     ) {
         CircularProgressIndicator(
             modifier = Modifier.width(64.dp),
             color = MaterialTheme.colorScheme.surfaceVariant,
-            trackColor = MaterialTheme.colorScheme.secondary
+            trackColor = MaterialTheme.colorScheme.secondary,
         )
     }
 }
@@ -90,25 +91,32 @@ private fun Loading() {
 @Composable
 private fun ErrorView(message: String? = "") {
     Box(
-        modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center,
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(bottom = 24.dp, start = 8.dp, end = 8.dp)
+            modifier = Modifier.padding(bottom = 24.dp, start = 8.dp, end = 8.dp),
         ) {
             Text(
                 text = "Error!",
-                style = TextStyle(
-                    color = Color.Black, fontWeight = FontWeight.Bold, fontSize = 26.sp
-                ),
+                style =
+                    TextStyle(
+                        color = Color.Black,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 26.sp,
+                    ),
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 textAlign = TextAlign.Center,
                 text = message ?: "",
-                style = TextStyle(
-                    color = Color.Black, fontWeight = FontWeight.Normal, fontSize = 18.sp
-                ),
+                style =
+                    TextStyle(
+                        color = Color.Black,
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 18.sp,
+                    ),
             )
         }
     }
@@ -125,22 +133,30 @@ private fun ListView(listOfFacts: List<FactDetails>) {
 }
 
 @Composable
-private fun FactRowView(factDetails: FactDetails, modifier: Modifier) {
+private fun FactRowView(
+    factDetails: FactDetails,
+    modifier: Modifier,
+) {
     Column(modifier = modifier) {
         AsyncImage(model = factDetails.imageUrl, contentDescription = null)
         Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = factDetails.title,
-            style = TextStyle(
-                fontSize = 24.sp, color = Color(0xFFFFFFFF)
-            ),
+            style =
+                TextStyle(
+                    fontSize = 24.sp,
+                    color = Color(0xFFFFFFFF),
+                ),
         )
         if (factDetails.description.isNotEmpty()) {
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = factDetails.description, style = TextStyle(
-                    fontSize = 16.sp, color = Color(0xFFFFFFFF)
-                )
+                text = factDetails.description,
+                style =
+                    TextStyle(
+                        fontSize = 16.sp,
+                        color = Color(0xFFFFFFFF),
+                    ),
             )
         }
         Spacer(modifier = Modifier.height(6.dp))

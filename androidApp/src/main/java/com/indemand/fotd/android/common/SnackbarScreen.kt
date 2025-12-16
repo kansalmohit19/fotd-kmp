@@ -15,19 +15,27 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 
 @Composable
-fun CustomSnackbar(isForError: Boolean = true, message: String, onDismiss: () -> Unit) {
+fun CustomSnackbar(
+    isForError: Boolean = true,
+    message: String,
+    onDismiss: () -> Unit,
+) {
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp), contentAlignment = Alignment.BottomCenter
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+        contentAlignment = Alignment.BottomCenter,
     ) {
         Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(
-                    if (isForError) Color.Red else Color.Green, shape = RoundedCornerShape(8.dp)
-                )
-                .padding(16.dp)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .background(
+                        if (isForError) Color.Red else Color.Green,
+                        shape = RoundedCornerShape(8.dp),
+                    )
+                    .padding(16.dp),
         ) {
             Text(text = message, color = Color.White)
         }

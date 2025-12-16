@@ -1,3 +1,4 @@
+import org.gradle.kotlin.dsl.implementation
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -5,6 +6,11 @@ plugins {
     alias(libs.plugins.androidLibrary)
     id("co.touchlab.skie") version "0.10.1"
     kotlin("plugin.serialization") version "1.9.20"
+    id("io.github.kansalmohit19.git-version") version "1.0.1"
+}
+
+gitVersion {
+    versionName.set("2.0.0")
 }
 
 kotlin {
@@ -12,7 +18,7 @@ kotlin {
         compilations.all {
             compileTaskProvider.configure {
                 compilerOptions {
-                    jvmTarget.set(JvmTarget.JVM_1_8)
+                    jvmTarget.set(JvmTarget.JVM_17)
                 }
             }
         }
@@ -43,6 +49,9 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.androidx.lifecycle.viewmodel.ktx)
             implementation(libs.ktor.client.android)
+            implementation(libs.firebase.messaging)
+            implementation(libs.datastore.preferences)
+            implementation(libs.koin.android)
         }
 
         iosMain.dependencies {
@@ -60,9 +69,13 @@ android {
     compileSdk = 35
     defaultConfig {
         minSdk = 24
+        buildConfigField("int", "VERSION_CODE", gitVersion.code.get().toString())
+    }
+    buildFeatures {
+        buildConfig = true
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }

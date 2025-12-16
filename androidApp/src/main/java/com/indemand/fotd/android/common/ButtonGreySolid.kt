@@ -14,7 +14,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-
 @Composable
 fun ButtonGreySolid(
     text: String,
@@ -24,17 +23,23 @@ fun ButtonGreySolid(
     contentColor: Color = Color(0xFF212121),
     enabled: Boolean = true,
     cornerRadius: Dp = 15.dp,
-    textStyle: TextStyle = TextStyle(fontSize = 18.sp, fontWeight = FontWeight.Medium)
+    textStyle: TextStyle = TextStyle(fontSize = 18.sp, fontWeight = FontWeight.Medium),
 ) {
     Button(
-        onClick = onClick, enabled = enabled, colors = ButtonDefaults.buttonColors(
-            containerColor = backgroundColor, contentColor = contentColor
-        ), shape = RoundedCornerShape(cornerRadius), modifier = modifier
+        onClick = onClick,
+        enabled = enabled,
+        colors =
+            ButtonDefaults.buttonColors(
+                containerColor = backgroundColor,
+                contentColor = contentColor,
+            ),
+        shape = RoundedCornerShape(cornerRadius),
+        modifier = modifier,
     ) {
         Text(
             text = text,
             style = textStyle,
-            modifier = Modifier.padding(vertical = 6.dp, horizontal = 12.dp)
+            modifier = Modifier.padding(vertical = 6.dp, horizontal = 12.dp),
         )
     }
 }

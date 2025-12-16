@@ -1,16 +1,20 @@
 package com.indemand.fotd.data.di
 
-import com.indemand.fotd.data.remote.DataSourceImpl
+import com.indemand.fotd.data.remote.RemoteDataSource
+import com.indemand.fotd.data.remote.RemoteDataSourceImpl
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.client.plugins.logging.*
+import io.ktor.client.plugins.logging.LogLevel
+import io.ktor.client.plugins.logging.Logger
+import io.ktor.client.plugins.logging.Logging
+import io.ktor.client.plugins.logging.SIMPLE
 import io.ktor.http.ContentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 
-val networkModule = module {
-    single<DataSourceImpl> { DataSourceImpl(get()) }
+val remoteModule = module {
+    single<RemoteDataSource> { RemoteDataSourceImpl(get()) }
 
     single<HttpClient> {
         HttpClient {

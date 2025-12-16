@@ -22,6 +22,13 @@ private fun AppUpdateDTO.toDomain() = AppUpdateDetails(
     packageName = this.packageName.orEmpty(),
     hardVersion = this.hardVersion ?: 0,
     softVersion = this.softVersion ?: 0,
+    softUpdateTitle = this.softUpdateTitle.orEmpty(),
+    softUpdateMessage = this.softUpdateMessage.orEmpty(),
+    softUpdatePositiveButton = this.softUpdatePositiveButton.orEmpty(),
+    softUpdateNegativeButton = this.softUpdateNegativeButton.orEmpty(),
+    hardUpdateTitle = this.hardUpdateTitle.orEmpty(),
+    hardUpdateMessage = this.hardUpdateMessage.orEmpty(),
+    hardUpdateButton = this.hardUpdateButton.orEmpty(),
 )
 
 private fun TokenDTO.toDomain() = TokenDetails(

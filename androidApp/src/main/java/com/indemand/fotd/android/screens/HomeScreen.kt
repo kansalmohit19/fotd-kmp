@@ -31,21 +31,22 @@ import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun HomeScreenView(
-    homeViewModel: HomeViewModel = getViewModel(), paddingValues: PaddingValues
+    homeViewModel: HomeViewModel = getViewModel(),
+    paddingValues: PaddingValues,
 ) {
-
     val homeState = homeViewModel.factsListFlow.collectAsState()
     val modifier = Modifier
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(
-                top = paddingValues.calculateTopPadding(),
-                bottom = paddingValues.calculateBottomPadding(),
-                start = 16.dp,
-                end = 16.dp
-            )
-            .background(Color(0xFF102131))
+        modifier =
+            modifier
+                .fillMaxSize()
+                .padding(
+                    top = paddingValues.calculateTopPadding(),
+                    bottom = paddingValues.calculateBottomPadding(),
+                    start = 16.dp,
+                    end = 16.dp,
+                )
+                .background(Color(0xFF102131)),
     ) {
         Toolbar()
         when (homeState.value) {
@@ -65,7 +66,6 @@ fun HomeScreenView(
 
             HomeUiState.Idle -> Unit
         }
-
     }
 }
 
@@ -85,12 +85,13 @@ private fun Toolbar() {
 @Composable
 private fun Loading() {
     Box(
-        modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center,
     ) {
         CircularProgressIndicator(
             modifier = Modifier.width(64.dp),
             color = MaterialTheme.colorScheme.surfaceVariant,
-            trackColor = MaterialTheme.colorScheme.secondary
+            trackColor = MaterialTheme.colorScheme.secondary,
         )
     }
 }
@@ -98,43 +99,54 @@ private fun Loading() {
 @Composable
 private fun ErrorView(message: String? = "") {
     Box(
-        modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center,
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(bottom = 24.dp, start = 8.dp, end = 8.dp)
+            modifier = Modifier.padding(bottom = 24.dp, start = 8.dp, end = 8.dp),
         ) {
             Text(
                 text = "Error!",
-                style = TextStyle(
-                    color = Color.Black, fontWeight = FontWeight.Bold, fontSize = 26.sp
-                ),
+                style =
+                    TextStyle(
+                        color = Color.Black,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 26.sp,
+                    ),
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 textAlign = TextAlign.Center,
                 text = message ?: "",
-                style = TextStyle(
-                    color = Color.Black, fontWeight = FontWeight.Normal, fontSize = 18.sp
-                ),
+                style =
+                    TextStyle(
+                        color = Color.Black,
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 18.sp,
+                    ),
             )
         }
     }
 }
 
 @Composable
-private fun FactRowView(factDetails: FactDetails, modifier: Modifier) {
+private fun FactRowView(
+    factDetails: FactDetails,
+    modifier: Modifier,
+) {
     Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(top = 24.dp)
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .padding(top = 24.dp),
     ) {
-        //Spacer(modifier = Modifier.height(20.dp))
+        // Spacer(modifier = Modifier.height(20.dp))
         Text(
             overflow = TextOverflow.Ellipsis,
             text = factDetails.title,
             style = TextStyle(fontSize = 40.sp, color = Color(0xFFFFFFFF)),
         )
-        //Spacer(modifier = Modifier.height(8.dp))
+        // Spacer(modifier = Modifier.height(8.dp))
     }
 }

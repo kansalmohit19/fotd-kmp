@@ -5,6 +5,13 @@ data class AppUpdateDetails(
     var isManualUpdate: Boolean = false,
     var appLink: String = "",
     var packageName: String = "",
-    var hardVersion: Long = 0L,
-    var softVersion: Long = 0L
+    var hardVersion: Int = 0,
+    var softVersion: Int = 0,
+    val softUpdateTitle: String = "",
+    val softUpdateMessage: String = "",
+    val softUpdatePositiveButton: String = "",
+    val softUpdateNegativeButton: String = "",
+    val hardUpdateTitle: String = "",
+    val hardUpdateMessage: String = "",
+    val hardUpdateButton: String = "",
 )

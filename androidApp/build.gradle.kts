@@ -4,8 +4,9 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
-    id("io.github.kansalmohit19.git-version") version "1.0.1"
-    //id("io.github.kansalmohit19.ktext") version "0.0.5"
+    alias(libs.plugins.ktlint)
+    alias(libs.plugins.git.version)
+    // id("io.github.kansalmohit19.ktext") version "0.0.5"
 }
 
 /*ktext {
@@ -33,6 +34,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     packaging {
         resources {
@@ -45,11 +47,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     /*applicationVariants.all {
         outputs.all {

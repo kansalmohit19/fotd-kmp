@@ -10,28 +10,34 @@ import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.client.statement.HttpResponse
 
-class DataSourceImpl(private val httpClient: HttpClient) {
-    suspend fun fetchConfiguration(): HttpResponse {
+class RemoteDataSourceImpl(private val httpClient: HttpClient) : RemoteDataSource {
+    override suspend fun fetchConfiguration(): HttpResponse {
         return httpClient.get("https://raw.githubusercontent.com/kansalmohit19/configs/refs/heads/master/fotd/app-config.json") /*{
             parameter("app_version", request.app_version)
             parameter("device_type", request.device_type)
         }*/
     }
 
-    suspend fun dailyFact(accessToken: String): HttpResponse {
+    override suspend fun dailyFact(accessToken: String): HttpResponse {
         return httpClient.get("http://152.67.10.2:8080/fact/today") {
             parameter("access_token", accessToken)
         }
     }
 
-    suspend fun loginUser(request: LoginUserRequest): HttpResponse {
+    override suspend fun loginUser(request: LoginUserRequest): HttpResponse {
         return httpClient.post("http://152.67.10.2:8080/user/login") {
             //contentType(ContentType.Application.FormUrlEncoded)
             setBody(FormDataContent(request.toParameters()))
         }
     }
 
-    suspend fun factsList(accessToken: String): HttpResponse {
+    override suspend fun validateToken(request: LoginUserRequest): HttpResponse {
+        return httpClient.post("http://152.67.10.2:8080/user/loginViaAccessToken") {
+            setBody(FormDataContent(request.toParameters()))
+        }
+    }
+
+    override suspend fun factsList(accessToken: String): HttpResponse {
         return httpClient.get("http://152.67.10.2:8080/fact/featured") {
             parameter("access_token", accessToken)
         }

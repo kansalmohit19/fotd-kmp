@@ -9,19 +9,17 @@ import com.indemand.fotd.viewmodel.main.MainViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun MainScreen(
-    mainViewModel: MainViewModel = getViewModel()
-) {
+fun MainScreen(mainViewModel: MainViewModel = getViewModel()) {
     val uiFlow = mainViewModel.mainUIFlow.collectAsState()
 
     Scaffold(
         bottomBar = {
             BottomBarView(mainViewModel)
-        }, containerColor = Color(0xFF102131)
+        },
+        containerColor = Color(0xFF102131),
     ) { paddingValues ->
 
         when (uiFlow.value) {
-
             is MainUiState.Idle -> {}
 
             is MainUiState.ShowHomeView -> {

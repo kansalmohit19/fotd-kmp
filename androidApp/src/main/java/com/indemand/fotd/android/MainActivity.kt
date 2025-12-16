@@ -22,7 +22,6 @@ import com.indemand.fotd.android.screens.SplashScreen
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContent {
             MyApplicationTheme {
                 val navController = rememberNavController()
@@ -31,7 +30,7 @@ class MainActivity : ComponentActivity() {
                 CompositionLocalProvider(LocalNavController provides navController) {
                     Surface(
                         modifier = Modifier.fillMaxSize(),
-                        color = MaterialTheme.colorScheme.background
+                        color = MaterialTheme.colorScheme.background,
                     ) {
                         AppNavHost(navController)
                     }
@@ -65,9 +64,10 @@ fun DefaultPreview() {
     MyApplicationTheme {
         val modifier = Modifier.fillMaxSize()
         Surface(
-            modifier = modifier, color = MaterialTheme.colorScheme.background
+            modifier = modifier,
+            color = MaterialTheme.colorScheme.background,
         ) {
-            //FactsListScreenView()
+            // FactsListScreenView()
         }
     }
 }
