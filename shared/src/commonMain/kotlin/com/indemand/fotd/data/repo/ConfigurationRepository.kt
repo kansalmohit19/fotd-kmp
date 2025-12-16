@@ -5,12 +5,12 @@ import com.indemand.fotd.core.IFailure
 import com.indemand.fotd.data.extensions.safeApiCall
 import com.indemand.fotd.data.mapper.toDomain
 import com.indemand.fotd.data.model.ConfigurationDetailsDTO
-import com.indemand.fotd.data.remote.DataSourceImpl
+import com.indemand.fotd.data.remote.RemoteDataSource
 import com.indemand.fotd.domain.model.ConfigurationDetails
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-class ConfigurationRepository(private val dataSource: DataSourceImpl) {
+class ConfigurationRepository(private val dataSource: RemoteDataSource) {
     private var internalConfiguration: MutableStateFlow<ConfigurationDetails?> =
         MutableStateFlow(null)
     val configuration: StateFlow<ConfigurationDetails?> get() = internalConfiguration

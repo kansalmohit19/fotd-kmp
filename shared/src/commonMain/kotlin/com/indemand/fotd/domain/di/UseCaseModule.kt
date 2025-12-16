@@ -9,7 +9,7 @@ import com.indemand.fotd.domain.usecase.LoginUserUseCase
 import org.koin.dsl.module
 
 val useCaseModule = module {
-    single<ConfigurationUseCase> { ConfigurationUseCase(get()) }
+    single<ConfigurationUseCase> { ConfigurationUseCase(get(), get()) }
     single<AppUpdateDialogUseCase> { AppUpdateDialogUseCase() }
     single<LoginUserUseCase> { LoginUserUseCase(get()) }
     single<DailyFactUseCase> { DailyFactUseCase(get(), get()) }
