@@ -9,12 +9,13 @@ import com.indemand.fotd.data.model.UserInfoDTO
 import com.indemand.fotd.data.remote.RemoteDataSource
 import com.indemand.fotd.domain.model.UserDetails
 
-class AccessTokenRepository(private val dataSource: RemoteDataSource
+class ValidateTokenRepo(
+    private val dataSource: RemoteDataSource
 ) {
     suspend fun accessTokenLogin(request: LoginUserRequest): Either<UserDetails?, IFailure> {
         val result = safeApiCall(
             serializer = UserInfoDTO.serializer(),
-            apiCall = { dataSource.loginUser(request) },
+            apiCall = { dataSource.validateToken(request) },
             successTransform = { it?.userInfo?.toDomain() })
 
 

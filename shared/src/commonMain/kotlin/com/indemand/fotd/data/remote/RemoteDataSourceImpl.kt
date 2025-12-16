@@ -31,6 +31,12 @@ class RemoteDataSourceImpl(private val httpClient: HttpClient) : RemoteDataSourc
         }
     }
 
+    override suspend fun validateToken(request: LoginUserRequest): HttpResponse {
+        return httpClient.post("http://152.67.10.2:8080/user/loginViaAccessToken") {
+            setBody(FormDataContent(request.toParameters()))
+        }
+    }
+
     override suspend fun factsList(accessToken: String): HttpResponse {
         return httpClient.get("http://152.67.10.2:8080/fact/featured") {
             parameter("access_token", accessToken)

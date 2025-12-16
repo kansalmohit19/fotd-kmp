@@ -2,11 +2,14 @@ package com.indemand.fotd.viewmodel.splash
 
 import com.indemand.fotd.BaseViewModel
 import com.indemand.fotd.Platform
+import com.indemand.fotd.data.model.LoginUserRequest
 import com.indemand.fotd.domain.model.ConfigurationDetails
 import com.indemand.fotd.domain.uistate.SplashUiState
 import com.indemand.fotd.domain.usecase.AppUpdateDialogUseCase
 import com.indemand.fotd.domain.usecase.ConfigurationUseCase
+import com.indemand.fotd.domain.usecase.GetAccessTokenUseCase
 import com.indemand.fotd.domain.usecase.GetNotificationTokenUseCase
+import com.indemand.fotd.domain.usecase.ValidateTokenUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -18,6 +21,8 @@ class SplashViewModel(
     private val configurationUseCase: ConfigurationUseCase,
     private val appUpdateDialogUseCase: AppUpdateDialogUseCase,
     private val getNotificationTokenUseCase: GetNotificationTokenUseCase,
+    private val getAccessTokenUseCase: GetAccessTokenUseCase,
+    private val validateTokenUseCase: ValidateTokenUseCase,
 ) : BaseViewModel() {
     private var isTimerStopped = false
     private var isFetchConfigSuccess = false
@@ -80,8 +85,7 @@ class SplashViewModel(
                                 _splashUIFlow.value = it
                             } else {
                                 //check for next steps
-                                //checkForAllProcesses()
-                                _splashUIFlow.value = SplashUiState.NavigateToLogin
+                                checkAccessToken()
                             }
                         }
                     },
@@ -92,13 +96,17 @@ class SplashViewModel(
         }
     }
 
-    private fun validateAccessToken() {
+    private fun checkAccessToken() {
         scope.launch {
-            configurationUseCase.invoke(
+            getAccessTokenUseCase.invoke(
                 scope = CoroutineScope(Dispatchers.IO),
                 params = Unit,
                 onSuccess = {
-                    checkForAppUpdate(it)
+                    if (it.isNullOrEmpty()) {
+                        _splashUIFlow.value = SplashUiState.NavigateToLogin
+                    } else {
+                        validateAccessToken(it)
+                    }
                 },
                 onFailure = {
                     println("Error: ${it.errorMessage}")
@@ -106,19 +114,17 @@ class SplashViewModel(
         }
     }
 
-    /*private fun checkForAllProcesses() {
-        if (isTimerStopped && isFetchConfigSuccess) {
-            configurationDetails?.let {
-                appUpdateDialogUseCase.invoke(
-                    scope = CoroutineScope(Dispatchers.IO),
-                    params = configurationDetails to Platform.appVersionCode,
-                    onSuccess = {
-                        _splashUIFlow.value = it
-                    },
-                )
-            } ?: run {
-                _splashUIFlow.value = SplashUiState.ToHome
-            }
+    private fun validateAccessToken(accessToken: String) {
+        scope.launch {
+            validateTokenUseCase.invoke(
+                scope = CoroutineScope(Dispatchers.IO),
+                params = LoginUserRequest(accessToken = accessToken),
+                onSuccess = {
+                    _splashUIFlow.value = SplashUiState.NavigateToMain
+                },
+                onFailure = {
+                    println("Error: ${it.errorMessage}")
+                })
         }
-    }*/
+    }
 }
