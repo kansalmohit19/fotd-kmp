@@ -19,7 +19,7 @@ plugins {
 }*/
 
 gitVersion {
-    versionName.set("2.0.0")
+    versionName.set("2.1.0")
 }
 
 android {
@@ -78,7 +78,7 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
     implementation(libs.navigation.compose)
-    implementation(platform(libs.firebase.bom))
+    implementation(project.dependencies.platform(libs.firebase.bom))
     implementation(libs.firebase.crashlytics)
 
     debugImplementation(libs.compose.ui.tooling)

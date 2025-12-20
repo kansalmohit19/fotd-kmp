@@ -49,9 +49,11 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.androidx.lifecycle.viewmodel.ktx)
             implementation(libs.ktor.client.android)
-            implementation(libs.firebase.messaging)
             implementation(libs.datastore.preferences)
             implementation(libs.koin.android)
+            implementation(project.dependencies.platform(libs.firebase.bom))
+            implementation(libs.firebase.crashlytics)
+            implementation(libs.firebase.messaging)
         }
 
         iosMain.dependencies {
