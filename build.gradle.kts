@@ -9,4 +9,5 @@ plugins {
     alias(libs.plugins.firebase.crashlytics).apply(false)
     alias(libs.plugins.ktlint).apply(false)
     alias(libs.plugins.git.version).apply(false)
+    alias(libs.plugins.google.ksp).apply(false)
 }
