@@ -36,6 +36,7 @@ class SplashViewModel(
         //startTimer()
         fetchAppConfig()
         analyticsAggregator.onTabClick("HOME")
+        getFCMToken()
     }
 
     /*private fun startTimer() {
@@ -128,6 +129,14 @@ class SplashViewModel(
                 onFailure = {
                     println("Error: ${it.errorMessage}")
                 })
+        }
+    }
+
+    private fun getFCMToken() {
+        scope.launch {
+            getNotificationTokenUseCase.token.collect { token ->
+                println("====TOKEN==== $token")
+            }
         }
     }
 }
