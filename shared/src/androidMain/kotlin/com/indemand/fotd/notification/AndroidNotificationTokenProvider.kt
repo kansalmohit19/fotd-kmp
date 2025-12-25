@@ -1,6 +1,6 @@
 package com.indemand.fotd.notification
 
-import com.indemand.fotd.NotificationTokenProvider
+import com.indemand.fotd.notification.provider.NotificationTokenProvider
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 

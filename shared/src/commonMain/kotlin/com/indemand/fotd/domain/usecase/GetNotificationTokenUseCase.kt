@@ -1,6 +1,6 @@
 package com.indemand.fotd.domain.usecase
 
-import com.indemand.fotd.NotificationTokenProvider
+import com.indemand.fotd.notification.provider.NotificationTokenProvider
 import com.indemand.fotd.core.Either
 import com.indemand.fotd.core.IFailure
 import com.indemand.fotd.core.UseCase

@@ -3,7 +3,7 @@ package com.indemand.fotd.notification
 import com.google.firebase.messaging.FirebaseMessaging
 
 
-class FirebaseMessagingManager {
+internal class FirebaseMessagingManager {
 
     fun getToken(onResult: (String?) -> Unit) {
         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
