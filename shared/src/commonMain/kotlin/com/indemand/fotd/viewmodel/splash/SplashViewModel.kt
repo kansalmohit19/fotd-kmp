@@ -2,6 +2,7 @@ package com.indemand.fotd.viewmodel.splash
 
 import com.indemand.fotd.BaseViewModel
 import com.indemand.fotd.Platform
+import com.indemand.fotd.analytics.AnalyticsAggregator
 import com.indemand.fotd.data.model.LoginUserRequest
 import com.indemand.fotd.domain.model.ConfigurationDetails
 import com.indemand.fotd.domain.uistate.SplashUiState
@@ -23,6 +24,7 @@ class SplashViewModel(
     private val getNotificationTokenUseCase: GetNotificationTokenUseCase,
     private val getAccessTokenUseCase: GetAccessTokenUseCase,
     private val validateTokenUseCase: ValidateTokenUseCase,
+    private val analyticsAggregator: AnalyticsAggregator,
 ) : BaseViewModel() {
     private var isTimerStopped = false
     private var isFetchConfigSuccess = false
@@ -33,6 +35,7 @@ class SplashViewModel(
     init {
         //startTimer()
         fetchAppConfig()
+        analyticsAggregator.onTabClick("HOME")
     }
 
     /*private fun startTimer() {
