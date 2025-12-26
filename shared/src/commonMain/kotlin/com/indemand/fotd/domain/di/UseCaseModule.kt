@@ -8,15 +8,16 @@ import com.indemand.fotd.domain.usecase.GetAccessTokenUseCase
 import com.indemand.fotd.domain.usecase.GetNotificationTokenUseCase
 import com.indemand.fotd.domain.usecase.LoginUserUseCase
 import com.indemand.fotd.domain.usecase.ValidateTokenUseCase
+import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
 val useCaseModule = module {
-    single<AppUpdateDialogUseCase> { AppUpdateDialogUseCase() }
-    single<ConfigurationUseCase> { ConfigurationUseCase(get(), get()) }
-    single<DailyFactUseCase> { DailyFactUseCase(get(), get()) }
-    single<FactsListUseCase> { FactsListUseCase(get(), get()) }
-    single<GetAccessTokenUseCase> { GetAccessTokenUseCase(get()) }
-    single<GetNotificationTokenUseCase> { GetNotificationTokenUseCase(get()) }
-    single<LoginUserUseCase> { LoginUserUseCase(get()) }
-    single<ValidateTokenUseCase> { ValidateTokenUseCase(get()) }
+    singleOf(::AppUpdateDialogUseCase)
+    singleOf(::ConfigurationUseCase)
+    singleOf(::DailyFactUseCase)
+    singleOf(::FactsListUseCase)
+    singleOf(::GetAccessTokenUseCase)
+    singleOf(::GetNotificationTokenUseCase)
+    singleOf(::LoginUserUseCase)
+    singleOf(::ValidateTokenUseCase)
 }
