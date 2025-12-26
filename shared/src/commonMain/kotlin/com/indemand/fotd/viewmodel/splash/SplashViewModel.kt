@@ -36,7 +36,7 @@ class SplashViewModel(
         //startTimer()
         fetchAppConfig()
         analyticsAggregator.onTabClick("HOME")
-        getFCMToken()
+        //getFCMToken()
     }
 
     /*private fun startTimer() {
@@ -135,7 +135,7 @@ class SplashViewModel(
     private fun getFCMToken() {
         scope.launch {
             getNotificationTokenUseCase.token.collect { token ->
-                println("====TOKEN==== $token")
+                println("====TOKEN Splash==== $token")
             }
         }
     }
