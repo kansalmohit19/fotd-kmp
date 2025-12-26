@@ -40,6 +40,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@Suppress("FunctionName")
 @Composable
 fun AppNavHost(navController: NavHostController) {
     NavHost(navController = navController, startDestination = "splash") {
@@ -58,6 +59,7 @@ fun AppNavHost(navController: NavHostController) {
     }
 }
 
+@Suppress("FunctionName")
 @Preview
 @Composable
 fun DefaultPreview() {

@@ -24,6 +24,7 @@ import com.indemand.fotd.domain.uistate.SplashUiState
 import com.indemand.fotd.viewmodel.splash.SplashViewModel
 import org.koin.androidx.compose.getViewModel
 
+@Suppress("FunctionName")
 @Composable
 fun SplashScreen(splashViewModel: SplashViewModel = getViewModel()) {
     val navController = LocalNavController.current

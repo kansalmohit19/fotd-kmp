@@ -15,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.indemand.fotd.android.R
 
+@Suppress("FunctionName")
 @Composable
 fun ForgotPassScreen() {
     Box(
@@ -39,6 +40,7 @@ fun ForgotPassScreen() {
     }
 }
 
+@Suppress("FunctionName")
 @Preview(showBackground = true, backgroundColor = 0xFF000000)
 @Composable
 fun ForgotPassPreview() {

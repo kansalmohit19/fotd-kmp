@@ -29,6 +29,7 @@ import com.indemand.fotd.domain.uistate.HomeUiState
 import com.indemand.fotd.viewmodel.facts.home.HomeViewModel
 import org.koin.androidx.compose.getViewModel
 
+@Suppress("FunctionName")
 @Composable
 fun HomeScreenView(
     homeViewModel: HomeViewModel = getViewModel(),
@@ -69,6 +70,7 @@ fun HomeScreenView(
     }
 }
 
+@Suppress("FunctionName")
 @Composable
 private fun Toolbar() {
     Text(
@@ -82,6 +84,7 @@ private fun Toolbar() {
     )
 }
 
+@Suppress("FunctionName")
 @Composable
 private fun Loading() {
     Box(
@@ -96,6 +99,7 @@ private fun Loading() {
     }
 }
 
+@Suppress("FunctionName")
 @Composable
 private fun ErrorView(message: String? = "") {
     Box(
@@ -130,6 +134,7 @@ private fun ErrorView(message: String? = "") {
     }
 }
 
+@Suppress("FunctionName")
 @Composable
 private fun FactRowView(
     factDetails: FactDetails,

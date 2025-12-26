@@ -8,6 +8,7 @@ import com.indemand.fotd.domain.uistate.MainUiState
 import com.indemand.fotd.viewmodel.main.MainViewModel
 import org.koin.androidx.compose.getViewModel
 
+@Suppress("FunctionName")
 @Composable
 fun MainScreen(mainViewModel: MainViewModel = getViewModel()) {
     val uiFlow = mainViewModel.mainUIFlow.collectAsState()

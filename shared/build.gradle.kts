@@ -43,6 +43,7 @@ kotlin {
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.kotlinx.datetime)
             implementation(libs.koin.core)
+            implementation("co.touchlab:kermit:2.0.4")
         }
 
         androidMain.dependencies {

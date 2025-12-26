@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.sp
 import com.indemand.fotd.domain.model.BottomSheetDetails
 import com.indemand.fotd.domain.model.ButtonType
 
+@Suppress("FunctionName")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TransparentBottomSheetDemo(

@@ -1,5 +1,6 @@
 package com.indemand.fotd.viewmodel.splash
 
+import co.touchlab.kermit.Logger
 import com.indemand.fotd.BaseViewModel
 import com.indemand.fotd.Platform
 import com.indemand.fotd.analytics.AnalyticsAggregator
@@ -21,7 +22,6 @@ import kotlinx.coroutines.launch
 class SplashViewModel(
     private val configurationUseCase: ConfigurationUseCase,
     private val appUpdateDialogUseCase: AppUpdateDialogUseCase,
-    private val getNotificationTokenUseCase: GetNotificationTokenUseCase,
     private val getAccessTokenUseCase: GetAccessTokenUseCase,
     private val validateTokenUseCase: ValidateTokenUseCase,
     private val analyticsAggregator: AnalyticsAggregator,
@@ -35,7 +35,7 @@ class SplashViewModel(
     init {
         //startTimer()
         fetchAppConfig()
-        analyticsAggregator.onTabClick("HOME")
+        analyticsAggregator.onPageView("SPLASH")
     }
 
     /*private fun startTimer() {
@@ -46,23 +46,7 @@ class SplashViewModel(
         }
     }*/
 
-    private fun fetchAppConfig() {/*scope.launch {
-            getNotificationTokenUseCase.invoke(
-                scope = CoroutineScope(Dispatchers.IO),
-                params = Unit,
-                onSuccess = {
-                    println("Success1: Token: ${it}")
-                },
-                onFailure = {
-                    println("Test: ${it.errorMessage}")
-                })
-        }
-
-        scope.launch {
-            getNotificationTokenUseCase.token.collect {
-                println("Success2: Token: ${it}")
-            }
-        }*/
+    private fun fetchAppConfig() {
         scope.launch {
             configurationUseCase.invoke(
                 scope = CoroutineScope(Dispatchers.IO),
@@ -71,7 +55,7 @@ class SplashViewModel(
                     checkForAppUpdate(it)
                 },
                 onFailure = {
-                    println("Error: ${it.errorMessage}")
+                    Logger.e("Error: ${it.errorMessage}")
                 })
         }
     }
@@ -93,7 +77,7 @@ class SplashViewModel(
                         }
                     },
                     onFailure = {
-                        println("Error: ${it.errorMessage}")
+                        Logger.e("Error: ${it.errorMessage}")
                     })
             }
         }
@@ -112,7 +96,7 @@ class SplashViewModel(
                     }
                 },
                 onFailure = {
-                    println("Error: ${it.errorMessage}")
+                    Logger.e("Error: ${it.errorMessage}")
                 })
         }
     }
@@ -126,7 +110,7 @@ class SplashViewModel(
                     _splashUIFlow.value = SplashUiState.NavigateToMain
                 },
                 onFailure = {
-                    println("Error: ${it.errorMessage}")
+                    Logger.e("Error: ${it.errorMessage}")
                 })
         }
     }

@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.sp
 import com.indemand.fotd.ui.resources.loadAssetIcon
 import com.indemand.fotd.viewmodel.main.MainViewModel
 
+@Suppress("FunctionName")
 @Composable
 fun BottomBarView(mainViewModel: MainViewModel) {
     val tabsList = mainViewModel.tabsListFlow.collectAsState()
@@ -68,6 +69,7 @@ fun BottomBarView(mainViewModel: MainViewModel) {
     }
 }
 
+@Suppress("FunctionName")
 @Composable
 private fun BottomBarItem(
     selected: Boolean,
