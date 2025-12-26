@@ -30,6 +30,7 @@ import com.indemand.fotd.domain.uistate.FactListState
 import com.indemand.fotd.viewmodel.facts.list.FactsListViewModel
 import org.koin.androidx.compose.getViewModel
 
+@Suppress("FunctionName")
 @Composable
 fun BlogScreenView(
     factsListViewModel: FactsListViewModel = getViewModel(),
@@ -64,6 +65,7 @@ fun BlogScreenView(
     }
 }
 
+@Suppress("FunctionName")
 @Composable
 private fun Toolbar() {
     // Spacer(modifier = Modifier.height(80.dp))
@@ -74,6 +76,7 @@ private fun Toolbar() {
     Spacer(modifier = Modifier.height(4.dp))
 }
 
+@Suppress("FunctionName")
 @Composable
 private fun Loading() {
     Box(
@@ -88,6 +91,7 @@ private fun Loading() {
     }
 }
 
+@Suppress("FunctionName")
 @Composable
 private fun ErrorView(message: String? = "") {
     Box(
@@ -122,6 +126,7 @@ private fun ErrorView(message: String? = "") {
     }
 }
 
+@Suppress("FunctionName")
 @Composable
 private fun ListView(listOfFacts: List<FactDetails>) {
     val modifier = Modifier.fillMaxSize()
@@ -132,6 +137,7 @@ private fun ListView(listOfFacts: List<FactDetails>) {
     }
 }
 
+@Suppress("FunctionName")
 @Composable
 private fun FactRowView(
     factDetails: FactDetails,

@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.sp
 import com.indemand.fotd.domain.model.ButtonType
 import com.indemand.fotd.domain.model.Quadruple
 
+@Suppress("FunctionName")
 @Composable
 fun AppButton(
     type: ButtonType,

@@ -14,6 +14,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+@Suppress("FunctionName")
 @Composable
 fun MoreScreenView() {
     val modifier = Modifier
@@ -28,6 +29,7 @@ fun MoreScreenView() {
     }
 }
 
+@Suppress("FunctionName")
 @Composable
 private fun Toolbar() {
     Spacer(modifier = Modifier.height(80.dp))

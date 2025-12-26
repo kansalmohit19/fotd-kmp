@@ -9,11 +9,12 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 
-val viewModelsModule = module {
-    viewModelOf(::SplashViewModel)
-    //viewModel { SplashViewModel(get(), get(), get(), get(), get(), get()) }
-    viewModel { LoginViewModel(get()) }
-    viewModel { FactsListViewModel(get()) }
-    viewModel { MainViewModel() }
-    viewModel { HomeViewModel(get()) }
-}
+val viewModelsModule =
+    module {
+        viewModelOf(::SplashViewModel)
+        // viewModel { SplashViewModel(get(), get(), get(), get(), get(), get()) }
+        viewModel { LoginViewModel(get()) }
+        viewModel { FactsListViewModel(get()) }
+        viewModel { MainViewModel() }
+        viewModel { HomeViewModel(get()) }
+    }

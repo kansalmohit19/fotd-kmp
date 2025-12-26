@@ -1,5 +1,6 @@
 package com.indemand.fotd.domain.usecase
 
+import co.touchlab.kermit.Logger
 import com.indemand.fotd.core.Either
 import com.indemand.fotd.core.IFailure
 import com.indemand.fotd.core.Unknown
@@ -24,6 +25,7 @@ class LoginUserUseCase(
             return Either.Error(Unknown("Please enter the valid password"))
         }
         notificationTokenUseCase.token.filterNotNull().first().also { token ->
+            Logger.d("TOKEN: $token")
             params.deviceToken = token
         }
 

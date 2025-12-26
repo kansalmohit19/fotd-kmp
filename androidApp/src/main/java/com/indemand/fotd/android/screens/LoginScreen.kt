@@ -40,6 +40,7 @@ import com.indemand.fotd.domain.uistate.LoginUiState
 import com.indemand.fotd.viewmodel.login.LoginViewModel
 import org.koin.androidx.compose.getViewModel
 
+@Suppress("FunctionName")
 @Composable
 fun LoginScreen(loginViewModel: LoginViewModel = getViewModel()) {
     val navController = LocalNavController.current
@@ -136,6 +137,7 @@ fun LoginScreen(loginViewModel: LoginViewModel = getViewModel()) {
     }
 }
 
+@Suppress("FunctionName")
 @Composable
 private fun SignUpView() {
     Row(
@@ -161,6 +163,7 @@ private fun SignUpView() {
     }
 }
 
+@Suppress("FunctionName")
 @Composable
 private fun ToolbarView() {
     Row(
@@ -185,6 +188,7 @@ private fun ToolbarView() {
     }
 }
 
+@Suppress("FunctionName")
 @Composable
 private fun RowForgotPassView(
     loginViewModel: LoginViewModel,
@@ -218,6 +222,7 @@ private fun RowForgotPassView(
     }
 }
 
+@Suppress("FunctionName")
 @Preview(showBackground = true, backgroundColor = 0xFF000000) // optional bg color
 @Composable
 fun LoginPreview() {

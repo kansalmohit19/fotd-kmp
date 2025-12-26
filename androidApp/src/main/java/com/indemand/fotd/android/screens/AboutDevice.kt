@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.indemand.fotd.Platform
 
+@Suppress("FunctionName")
 @Composable
 fun AboutDevice() {
     Column {
@@ -23,12 +24,14 @@ fun AboutDevice() {
     }
 }
 
+@Suppress("FunctionName")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun Toolbar() {
     TopAppBar(title = { Text(text = "About Device") })
 }
 
+@Suppress("FunctionName")
 @Composable
 fun ContentView() {
     val items = makeItems()
@@ -40,6 +43,7 @@ fun ContentView() {
     }
 }
 
+@Suppress("FunctionName")
 @Composable
 fun RowView(
     title: String,
