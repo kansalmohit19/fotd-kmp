@@ -6,20 +6,27 @@ class FirebaseAnalyticsReceiver(val firebaseAnalyticsProvider: FirebaseAnalytics
     AnalyticsReceiver {
 
     override fun onPageView(screenName: String?) {
-        firebaseAnalyticsProvider.log("screen: $screenName")
+        firebaseAnalyticsProvider.log("PageViewed: $screenName")
     }
 
     override fun onTabClick(tabName: String?) {
-        firebaseAnalyticsProvider.log("tab: $tabName")
+        firebaseAnalyticsProvider.log("TabClicked: $tabName")
+        tabName?.let {
+            firebaseAnalyticsProvider.setUserProperty(
+                key = "TabClicked", value = tabName
+            )
+        }
     }
 
     override fun onUserLogin(userId: String?) {
-        firebaseAnalyticsProvider.log("logged in: $userId")
-        firebaseAnalyticsProvider.setUserId(userId)
+        userId?.let {
+            firebaseAnalyticsProvider.log("UserLoggedIn: $it")
+            firebaseAnalyticsProvider.setUserId(it)
+        }
     }
 
     override fun onUserLogout() {
-        firebaseAnalyticsProvider.log("logged out")
+        firebaseAnalyticsProvider.log("UserLoggedOut")
         firebaseAnalyticsProvider.setUserId("")
     }
 }
