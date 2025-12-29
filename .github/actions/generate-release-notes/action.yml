@@ -24,5 +24,5 @@ runs:
           git log -${{ inputs.count }} --pretty=format:"- [%h]: %s"
           echo ""
           echo ""
-          echo "Note: This is automated build from GitHub Actions"
-        } > release_notes.md
+          echo "Note: This is an automated build from GitHub Actions"
+        } | tee release_notes.md
