@@ -1,0 +1,27 @@
+name: Generate Release Notes
+description: Generate release notes from last N commits of current branch
+
+inputs:
+  count:
+    description: Number of commits to include
+    required: false
+    default: "5"
+
+outputs:
+  file:
+    description: Release notes file path
+    value: release_notes.md
+
+runs:
+  using: composite
+  steps:
+    - name: Generate release notes
+      shell: bash
+      run: |
+        {
+          echo "Automated build from GitHub Actions"
+          echo ""
+          echo "### Release Notes"
+          echo ""
+          git log -${{ inputs.count }} --pretty=format:"- [%h]: %s""
+        } > release_notes.md
