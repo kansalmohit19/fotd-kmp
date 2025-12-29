@@ -3,14 +3,13 @@ package com.indemand.fotd.viewmodel.splash
 import co.touchlab.kermit.Logger
 import com.indemand.fotd.BaseViewModel
 import com.indemand.fotd.Platform
-import com.indemand.fotd.analytics.AnalyticsAggregator
+import com.indemand.fotd.analytics.receiver.AnalyticsReceiver
 import com.indemand.fotd.data.model.LoginUserRequest
 import com.indemand.fotd.domain.model.ConfigurationDetails
 import com.indemand.fotd.domain.uistate.SplashUiState
 import com.indemand.fotd.domain.usecase.AppUpdateDialogUseCase
 import com.indemand.fotd.domain.usecase.ConfigurationUseCase
 import com.indemand.fotd.domain.usecase.GetAccessTokenUseCase
-import com.indemand.fotd.domain.usecase.GetNotificationTokenUseCase
 import com.indemand.fotd.domain.usecase.ValidateTokenUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,7 +23,7 @@ class SplashViewModel(
     private val appUpdateDialogUseCase: AppUpdateDialogUseCase,
     private val getAccessTokenUseCase: GetAccessTokenUseCase,
     private val validateTokenUseCase: ValidateTokenUseCase,
-    private val analyticsAggregator: AnalyticsAggregator,
+    private val analyticsReceiver: AnalyticsReceiver,
 ) : BaseViewModel() {
     private var isTimerStopped = false
     private var isFetchConfigSuccess = false
@@ -33,9 +32,9 @@ class SplashViewModel(
     val splashUIFlow: StateFlow<SplashUiState> get() = _splashUIFlow
 
     init {
+        analyticsReceiver.onPageView("SPLASH")
         //startTimer()
         fetchAppConfig()
-        analyticsAggregator.onPageView("SPLASH")
     }
 
     /*private fun startTimer() {
@@ -106,7 +105,8 @@ class SplashViewModel(
             validateTokenUseCase.invoke(
                 scope = CoroutineScope(Dispatchers.IO),
                 params = LoginUserRequest(accessToken = accessToken),
-                onSuccess = {
+                onSuccess = { userDetails ->
+                    analyticsReceiver.onUserLogin(userDetails?.email)
                     _splashUIFlow.value = SplashUiState.NavigateToMain
                 },
                 onFailure = {

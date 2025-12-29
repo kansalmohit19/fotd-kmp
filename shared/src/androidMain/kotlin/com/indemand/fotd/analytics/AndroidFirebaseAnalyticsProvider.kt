@@ -1,6 +1,7 @@
 package com.indemand.fotd.analytics
 
-import android.util.Log
+import com.google.firebase.Firebase
+import com.google.firebase.crashlytics.crashlytics
 import com.indemand.fotd.analytics.provider.FirebaseAnalyticsProvider
 
 class AndroidFirebaseAnalyticsProvider : FirebaseAnalyticsProvider() {
@@ -9,15 +10,18 @@ class AndroidFirebaseAnalyticsProvider : FirebaseAnalyticsProvider() {
         //no operation
     }
 
-    override fun setUserId(userId: String?) {
-        Log.d("Firebase", "setUserId fun invoked userId is $userId")
+    override fun setUserId(userId: String) {
+        Logger.d("Firebase", "setUserId fun invoked and userId is $userId")
+        Firebase.crashlytics.setUserId(userId)
     }
 
-    override fun setUserProperty(key: String, value: String?) {
-        Log.d("Firebase", "setUserProperty fun invoked key is $key and $value is $value")
+    override fun setUserProperty(key: String, value: String) {
+        Logger.d(message = "setUserProperty fun invoked and key is $key, value is $value")
+        Firebase.crashlytics.setCustomKey(key, value)
     }
 
-    override fun log(log: String?) {
-        Log.d("Firebase", "log fun invoked log is $log")
+    override fun log(log: String) {
+        Logger.d(message = "Firebase log fun invoked and log is $log")
+        Firebase.crashlytics.log(log)
     }
 }

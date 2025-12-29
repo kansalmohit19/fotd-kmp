@@ -60,8 +60,13 @@ kotlin {
             implementation(libs.ktor.client.darwin)
         }
 
-        commonTest.dependencies {
-            implementation(libs.kotlin.test)
+        val androidUnitTest by getting {
+            dependencies {
+                implementation("org.mockito:mockito-core:5.11.0")
+                implementation("org.mockito.kotlin:mockito-kotlin:5.2.1")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+                implementation(libs.kotlin.test)
+            }
         }
     }
 }
@@ -80,4 +85,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+}
+dependencies {
+    implementation(kotlin("test"))
 }
