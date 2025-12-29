@@ -4,9 +4,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
-abstract class UseCase<in Params, out Type> where Type : Any? {
+interface UseCase<in Params, out Type> where Type : Any? {
 
-    abstract suspend fun run(params: Params): Either<Type, IFailure>
+    suspend fun run(params: Params): Either<Type, IFailure>
 
     operator fun invoke(
         scope: CoroutineScope,
