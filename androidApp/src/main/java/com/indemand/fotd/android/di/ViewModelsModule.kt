@@ -16,5 +16,6 @@ val viewModelsModule =
         viewModel { LoginViewModel(get()) }
         viewModel { FactsListViewModel(get()) }
         viewModel { MainViewModel() }
-        viewModel { HomeViewModel(get()) }
+        viewModelOf(::HomeViewModel)
+        //viewModel { HomeViewModel(get()) }
     }

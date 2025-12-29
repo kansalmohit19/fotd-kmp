@@ -4,13 +4,18 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.Color
+import com.indemand.fotd.analytics.AnalyticsAggregator
 import com.indemand.fotd.domain.uistate.MainUiState
 import com.indemand.fotd.viewmodel.main.MainViewModel
 import org.koin.androidx.compose.getViewModel
+import org.koin.compose.koinInject
 
 @Suppress("FunctionName")
 @Composable
-fun MainScreen(mainViewModel: MainViewModel = getViewModel()) {
+fun MainScreen(
+    mainViewModel: MainViewModel = getViewModel(),
+    analyticsAggregator: AnalyticsAggregator = koinInject()
+) {
     val uiFlow = mainViewModel.mainUIFlow.collectAsState()
 
     Scaffold(
@@ -24,14 +29,17 @@ fun MainScreen(mainViewModel: MainViewModel = getViewModel()) {
             is MainUiState.Idle -> {}
 
             is MainUiState.ShowHomeView -> {
+                analyticsAggregator.onTabClick("HOME")
                 HomeScreenView(paddingValues = paddingValues)
             }
 
             is MainUiState.ShowBlogView -> {
+                analyticsAggregator.onTabClick("BLOG")
                 BlogScreenView(paddingValues = paddingValues)
             }
 
             is MainUiState.ShowMoreView -> {
+                analyticsAggregator.onTabClick("MORE")
                 MoreScreenView()
             }
 

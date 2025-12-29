@@ -10,7 +10,6 @@ import com.indemand.fotd.domain.uistate.SplashUiState
 import com.indemand.fotd.domain.usecase.AppUpdateDialogUseCase
 import com.indemand.fotd.domain.usecase.ConfigurationUseCase
 import com.indemand.fotd.domain.usecase.GetAccessTokenUseCase
-import com.indemand.fotd.domain.usecase.GetNotificationTokenUseCase
 import com.indemand.fotd.domain.usecase.ValidateTokenUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -33,9 +32,9 @@ class SplashViewModel(
     val splashUIFlow: StateFlow<SplashUiState> get() = _splashUIFlow
 
     init {
+        analyticsAggregator.onPageView("SPLASH")
         //startTimer()
         fetchAppConfig()
-        analyticsAggregator.onPageView("SPLASH")
     }
 
     /*private fun startTimer() {
@@ -106,7 +105,8 @@ class SplashViewModel(
             validateTokenUseCase.invoke(
                 scope = CoroutineScope(Dispatchers.IO),
                 params = LoginUserRequest(accessToken = accessToken),
-                onSuccess = {
+                onSuccess = { userDetails ->
+                    analyticsAggregator.onUserLogin(userDetails?.email)
                     _splashUIFlow.value = SplashUiState.NavigateToMain
                 },
                 onFailure = {
