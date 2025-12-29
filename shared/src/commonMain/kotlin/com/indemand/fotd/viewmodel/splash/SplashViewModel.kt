@@ -1,6 +1,5 @@
 package com.indemand.fotd.viewmodel.splash
 
-import co.touchlab.kermit.Logger
 import com.indemand.fotd.BaseViewModel
 import com.indemand.fotd.Platform
 import com.indemand.fotd.analytics.receiver.AnalyticsReceiver
