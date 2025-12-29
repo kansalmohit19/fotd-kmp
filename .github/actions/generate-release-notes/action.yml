@@ -19,9 +19,10 @@ runs:
       shell: bash
       run: |
         {
-          echo "Automated build from GitHub Actions"
-          echo ""
-          echo "### Release Notes"
+          echo "Release Notes"
           echo ""
           git log -${{ inputs.count }} --pretty=format:"- [%h]: %s"
+          echo ""
+          echo ""
+          echo "Note: This is automated build from GitHub Actions"
         } > release_notes.md
