@@ -6,6 +6,11 @@ on:
       - master
   workflow_dispatch:
 
+
+concurrency: #cancel per branch
+  group: android-ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
