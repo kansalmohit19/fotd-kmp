@@ -23,5 +23,5 @@ runs:
           echo ""
           echo "### Release Notes"
           echo ""
-          git log -${{ inputs.count }} --pretty=format:"- [%h]: %s""
+          git log -${{ inputs.count }} --pretty=format:"- [%h]: %s"
         } > release_notes.md
