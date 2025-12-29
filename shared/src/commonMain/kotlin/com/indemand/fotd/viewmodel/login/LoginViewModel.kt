@@ -1,7 +1,7 @@
 package com.indemand.fotd.viewmodel.login
 
 import com.indemand.fotd.BaseViewModel
-import com.indemand.fotd.analytics.AnalyticsAggregator
+import com.indemand.fotd.analytics.receiver.AnalyticsReceiver
 import com.indemand.fotd.data.model.LoginUserRequest
 import com.indemand.fotd.domain.uistate.LoginUiState
 import com.indemand.fotd.domain.usecase.LoginUserUseCase
@@ -15,14 +15,14 @@ import kotlinx.coroutines.launch
 
 class LoginViewModel(
     private val loginUserUseCase: LoginUserUseCase,
-    private val analyticsAggregator: AnalyticsAggregator
+    private val analyticsReceiver: AnalyticsReceiver
 ) : BaseViewModel() {
 
     private val _loginUIState: MutableStateFlow<LoginUiState> = MutableStateFlow(LoginUiState.Idle)
     val loginUIState: StateFlow<LoginUiState> get() = _loginUIState
 
     init {
-        analyticsAggregator.onPageView("LOGIN")
+        analyticsReceiver.onPageView("LOGIN")
     }
 
     fun loginUser(username: String, password: String) {

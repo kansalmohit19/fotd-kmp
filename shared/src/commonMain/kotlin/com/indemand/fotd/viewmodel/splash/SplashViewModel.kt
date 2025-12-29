@@ -3,7 +3,7 @@ package com.indemand.fotd.viewmodel.splash
 import co.touchlab.kermit.Logger
 import com.indemand.fotd.BaseViewModel
 import com.indemand.fotd.Platform
-import com.indemand.fotd.analytics.AnalyticsAggregator
+import com.indemand.fotd.analytics.receiver.AnalyticsReceiver
 import com.indemand.fotd.data.model.LoginUserRequest
 import com.indemand.fotd.domain.model.ConfigurationDetails
 import com.indemand.fotd.domain.uistate.SplashUiState
@@ -23,7 +23,7 @@ class SplashViewModel(
     private val appUpdateDialogUseCase: AppUpdateDialogUseCase,
     private val getAccessTokenUseCase: GetAccessTokenUseCase,
     private val validateTokenUseCase: ValidateTokenUseCase,
-    private val analyticsAggregator: AnalyticsAggregator,
+    private val analyticsReceiver: AnalyticsReceiver,
 ) : BaseViewModel() {
     private var isTimerStopped = false
     private var isFetchConfigSuccess = false
@@ -32,7 +32,7 @@ class SplashViewModel(
     val splashUIFlow: StateFlow<SplashUiState> get() = _splashUIFlow
 
     init {
-        analyticsAggregator.onPageView("SPLASH")
+        analyticsReceiver.onPageView("SPLASH")
         //startTimer()
         fetchAppConfig()
     }
@@ -106,7 +106,7 @@ class SplashViewModel(
                 scope = CoroutineScope(Dispatchers.IO),
                 params = LoginUserRequest(accessToken = accessToken),
                 onSuccess = { userDetails ->
-                    analyticsAggregator.onUserLogin(userDetails?.email)
+                    analyticsReceiver.onUserLogin(userDetails?.email)
                     _splashUIFlow.value = SplashUiState.NavigateToMain
                 },
                 onFailure = {
