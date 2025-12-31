@@ -24,16 +24,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import coil3.compose.AsyncImage
 import com.indemand.fotd.domain.model.FactDetails
 import com.indemand.fotd.domain.uistate.FactListState
 import com.indemand.fotd.viewmodel.facts.list.FactsListViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Suppress("FunctionName")
 @Composable
 fun BlogScreenView(
-    factsListViewModel: FactsListViewModel = viewModel(),
+    factsListViewModel: FactsListViewModel = koinViewModel(),
     paddingValues: PaddingValues,
 ) {
     val factsState = factsListViewModel.factsListFlow.collectAsState()

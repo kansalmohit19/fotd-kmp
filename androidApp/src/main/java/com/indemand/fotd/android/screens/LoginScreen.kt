@@ -30,7 +30,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.indemand.fotd.android.LocalNavController
 import com.indemand.fotd.android.R
 import com.indemand.fotd.android.common.ButtonGreySolid
@@ -39,10 +38,11 @@ import com.indemand.fotd.android.common.PrimaryInputTextField
 import com.indemand.fotd.android.common.SecondaryInputTextField
 import com.indemand.fotd.domain.uistate.LoginUiState
 import com.indemand.fotd.viewmodel.login.LoginViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Suppress("FunctionName")
 @Composable
-fun LoginScreen(loginViewModel: LoginViewModel = viewModel()) {
+fun LoginScreen(loginViewModel: LoginViewModel = koinViewModel()) {
     val navController = LocalNavController.current
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
