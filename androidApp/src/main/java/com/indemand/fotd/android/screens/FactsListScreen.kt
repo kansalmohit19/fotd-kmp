@@ -28,12 +28,12 @@ import coil3.compose.AsyncImage
 import com.indemand.fotd.domain.model.FactDetails
 import com.indemand.fotd.domain.uistate.FactListState
 import com.indemand.fotd.viewmodel.facts.list.FactsListViewModel
-import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Suppress("FunctionName")
 @Composable
 fun BlogScreenView(
-    factsListViewModel: FactsListViewModel = getViewModel(),
+    factsListViewModel: FactsListViewModel = koinViewModel(),
     paddingValues: PaddingValues,
 ) {
     val factsState = factsListViewModel.factsListFlow.collectAsState()

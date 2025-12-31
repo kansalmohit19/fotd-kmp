@@ -68,4 +68,7 @@ fun makeItems(): List<AboutDeviceDetails> {
     return listOfItems
 }
 
-data class AboutDeviceDetails(val title: String, val description: String)
+data class AboutDeviceDetails(
+    val title: String,
+    val description: String,
+)

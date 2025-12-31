@@ -14,7 +14,6 @@ class ConfigurationUseCaseImpl(
     override val configuration: ConfigurationDetails? get() = configurationRepository.configuration.value
 
     override suspend fun run(params: Unit): Either<ConfigurationDetails, IFailure> {
-        println("======ACCESS_TOKEN=========${localDataSource.getString("ACCESS_TOKEN")}")
         return configurationRepository.fetchConfiguration()
     }
 }

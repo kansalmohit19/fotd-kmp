@@ -22,11 +22,11 @@ import com.indemand.fotd.android.common.TransparentBottomSheetDemo
 import com.indemand.fotd.android.utils.openPlayStore
 import com.indemand.fotd.domain.uistate.SplashUiState
 import com.indemand.fotd.viewmodel.splash.SplashViewModel
-import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Suppress("FunctionName")
 @Composable
-fun SplashScreen(splashViewModel: SplashViewModel = getViewModel()) {
+fun SplashScreen(splashViewModel: SplashViewModel = koinViewModel()) {
     val navController = LocalNavController.current
     val splashState = splashViewModel.splashUIFlow.collectAsState()
     var showDialog by remember { mutableStateOf(false) }

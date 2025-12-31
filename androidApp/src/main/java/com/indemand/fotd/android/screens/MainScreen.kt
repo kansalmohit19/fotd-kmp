@@ -7,14 +7,14 @@ import androidx.compose.ui.graphics.Color
 import com.indemand.fotd.analytics.receiver.AnalyticsReceiver
 import com.indemand.fotd.domain.uistate.MainUiState
 import com.indemand.fotd.viewmodel.main.MainViewModel
-import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
 
 @Suppress("FunctionName")
 @Composable
 fun MainScreen(
-    mainViewModel: MainViewModel = getViewModel(),
-    analyticsReceiver: AnalyticsReceiver = koinInject()
+    mainViewModel: MainViewModel = koinViewModel(),
+    analyticsReceiver: AnalyticsReceiver = koinInject(),
 ) {
     val uiFlow = mainViewModel.mainUIFlow.collectAsState()
 

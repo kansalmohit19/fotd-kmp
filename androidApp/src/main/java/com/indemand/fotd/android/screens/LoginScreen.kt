@@ -38,11 +38,11 @@ import com.indemand.fotd.android.common.PrimaryInputTextField
 import com.indemand.fotd.android.common.SecondaryInputTextField
 import com.indemand.fotd.domain.uistate.LoginUiState
 import com.indemand.fotd.viewmodel.login.LoginViewModel
-import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Suppress("FunctionName")
 @Composable
-fun LoginScreen(loginViewModel: LoginViewModel = getViewModel()) {
+fun LoginScreen(loginViewModel: LoginViewModel = koinViewModel()) {
     val navController = LocalNavController.current
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }

@@ -43,7 +43,7 @@ kotlin {
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.kotlinx.datetime)
             implementation(libs.koin.core)
-            implementation("co.touchlab:kermit:2.0.4")
+            implementation(libs.touchlab.kermit)
         }
 
         androidMain.dependencies {
@@ -62,9 +62,9 @@ kotlin {
 
         val androidUnitTest by getting {
             dependencies {
-                implementation("org.mockito:mockito-core:5.11.0")
-                implementation("org.mockito.kotlin:mockito-kotlin:5.2.1")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+                implementation(libs.mockito)
+                implementation(libs.mockito.kotlin)
+                implementation(libs.kotlinx.coroutines.test)
                 implementation(libs.kotlin.test)
             }
         }
@@ -73,7 +73,7 @@ kotlin {
 
 android {
     namespace = "com.indemand.fotd"
-    compileSdk = 35
+    compileSdk = 36
     defaultConfig {
         minSdk = 24
         buildConfigField("int", "VERSION_CODE", gitVersion.code.get().toString())

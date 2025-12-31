@@ -5,14 +5,14 @@ import com.indemand.fotd.viewmodel.facts.list.FactsListViewModel
 import com.indemand.fotd.viewmodel.login.LoginViewModel
 import com.indemand.fotd.viewmodel.main.MainViewModel
 import com.indemand.fotd.viewmodel.splash.SplashViewModel
-import org.koin.androidx.viewmodel.dsl.viewModelOf
+import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
 val viewModelsModule =
     module {
-        viewModelOf(::SplashViewModel)
-        viewModelOf(::LoginViewModel)
-        viewModelOf(::FactsListViewModel)
-        viewModelOf(::MainViewModel)
-        viewModelOf(::HomeViewModel)
+        viewModel { SplashViewModel(get(), get(), get(), get(), get()) }
+        viewModel { LoginViewModel(get(), get()) }
+        viewModel { FactsListViewModel(get()) }
+        viewModel { MainViewModel() }
+        viewModel { HomeViewModel(get(), get()) }
     }

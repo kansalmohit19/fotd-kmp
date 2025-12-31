@@ -27,12 +27,12 @@ import androidx.compose.ui.unit.sp
 import com.indemand.fotd.domain.model.FactDetails
 import com.indemand.fotd.domain.uistate.HomeUiState
 import com.indemand.fotd.viewmodel.facts.home.HomeViewModel
-import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Suppress("FunctionName")
 @Composable
 fun HomeScreenView(
-    homeViewModel: HomeViewModel = getViewModel(),
+    homeViewModel: HomeViewModel = koinViewModel(),
     paddingValues: PaddingValues,
 ) {
     val homeState = homeViewModel.factsListFlow.collectAsState()
@@ -46,8 +46,7 @@ fun HomeScreenView(
                     bottom = paddingValues.calculateBottomPadding(),
                     start = 16.dp,
                     end = 16.dp,
-                )
-                .background(Color(0xFF102131)),
+                ).background(Color(0xFF102131)),
     ) {
         Toolbar()
         when (homeState.value) {

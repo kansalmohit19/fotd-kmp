@@ -14,7 +14,6 @@ class LoginUserRepository(
     private val localDataSource: LocalDataSource, private val dataSource: RemoteDataSource
 ) {
     suspend fun loginUser(request: LoginUserRequest): Either<UserDetails?, IFailure> {
-        localDataSource.saveString("", "")
         val result = safeApiCall(
             serializer = UserInfoDTO.serializer(),
             apiCall = { dataSource.loginUser(request) },
