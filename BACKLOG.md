@@ -12,4 +12,4 @@
 
 ## Enhancement
 1. [Feat-1] Send list of previous screen separated by / in firebase crash logs.
-2. Add Ad mob for remonetization
+2. [Feat-2] Add Ad mob for remonetization
