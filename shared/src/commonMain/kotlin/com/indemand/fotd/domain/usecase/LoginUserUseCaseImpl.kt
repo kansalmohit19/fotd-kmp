@@ -24,7 +24,7 @@ class LoginUserUseCaseImpl(
             return Either.Error(Unknown("Please enter the valid password"))
         }
         notificationTokenUseCase.token.filterNotNull().first().also { token ->
-            Logger.d("TOKEN: $token")
+            Logger.d(tag = "FCM", messageString = "TOKEN: $token")
             params.deviceToken = token
         }
 
