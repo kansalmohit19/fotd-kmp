@@ -93,8 +93,7 @@ private fun BottomBarItem(
                     } else {
                         Color.Transparent
                     },
-                )
-                .clickable { onClick() }
+                ).clickable { onClick() }
                 .padding(horizontal = 16.dp, vertical = 10.dp),
     ) {
         Row(

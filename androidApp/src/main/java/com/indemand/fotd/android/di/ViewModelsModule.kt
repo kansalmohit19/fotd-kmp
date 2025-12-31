@@ -8,10 +8,11 @@ import com.indemand.fotd.viewmodel.splash.SplashViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
-val viewModelsModule = module {
-    viewModel { SplashViewModel(get(), get(), get(), get(), get()) }
-    viewModel { LoginViewModel(get(), get()) }
-    viewModel { FactsListViewModel(get()) }
-    viewModel { MainViewModel() }
-    viewModel { HomeViewModel(get(), get()) }
-}
+val viewModelsModule =
+    module {
+        viewModel { SplashViewModel(get(), get(), get(), get(), get()) }
+        viewModel { LoginViewModel(get(), get()) }
+        viewModel { FactsListViewModel(get()) }
+        viewModel { MainViewModel() }
+        viewModel { HomeViewModel(get(), get()) }
+    }

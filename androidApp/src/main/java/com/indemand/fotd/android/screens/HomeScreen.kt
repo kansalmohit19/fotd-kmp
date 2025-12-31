@@ -46,8 +46,7 @@ fun HomeScreenView(
                     bottom = paddingValues.calculateBottomPadding(),
                     start = 16.dp,
                     end = 16.dp,
-                )
-                .background(Color(0xFF102131)),
+                ).background(Color(0xFF102131)),
     ) {
         Toolbar()
         when (homeState.value) {

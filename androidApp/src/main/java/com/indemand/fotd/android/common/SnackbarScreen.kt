@@ -35,8 +35,7 @@ fun CustomSnackbar(
                     .background(
                         if (isForError) Color.Red else Color.Green,
                         shape = RoundedCornerShape(8.dp),
-                    )
-                    .padding(16.dp),
+                    ).padding(16.dp),
         ) {
             Text(text = message, color = Color.White)
         }

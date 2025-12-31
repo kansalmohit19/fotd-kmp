@@ -14,7 +14,7 @@ import org.koin.compose.koinInject
 @Composable
 fun MainScreen(
     mainViewModel: MainViewModel = koinViewModel(),
-    analyticsReceiver: AnalyticsReceiver = koinInject()
+    analyticsReceiver: AnalyticsReceiver = koinInject(),
 ) {
     val uiFlow = mainViewModel.mainUIFlow.collectAsState()
 
