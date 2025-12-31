@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.google.services)
+    // alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.git.version)
@@ -24,11 +24,11 @@ gitVersion {
 
 android {
     namespace = "com.indemand.fotd.android"
-    compileSdk = 35
+    compileSdk = 36
     defaultConfig {
         applicationId = "com.indemand.fotd"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 36
         versionCode = gitVersion.code.get()
         versionName = gitVersion.name.get()
     }
@@ -50,8 +50,10 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "17"
+    kotlin {
+        compileOptions {
+            jvmToolchain(17)
+        }
     }
     /*applicationVariants.all {
         outputs.all {
