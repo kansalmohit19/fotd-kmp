@@ -1,5 +1,7 @@
 package com.indemand.fotd.android.screens
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -11,6 +13,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -22,6 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
@@ -57,7 +64,7 @@ fun BlogScreenView(
             }
 
             is FactListState.ShowFacts -> {
-                ListView((factsState.value as FactListState.ShowFacts).listOfFacts)
+                CarouselPager((factsState.value as FactListState.ShowFacts).listOfFacts)
             }
 
             is FactListState.Idle -> Unit
@@ -127,6 +134,39 @@ private fun ErrorView(message: String? = "") {
 }
 
 @Suppress("FunctionName")
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun CarouselPager(listOfFacts: List<FactDetails>) {
+    val pagerState = rememberPagerState { listOfFacts.size }
+
+    Spacer(modifier = Modifier.height(20.dp))
+    HorizontalPager(
+        state = pagerState,
+        pageSpacing = 12.dp,
+        contentPadding = PaddingValues(horizontal = 32.dp),
+    ) { page ->
+        Card(
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .height(180.dp),
+            shape = RoundedCornerShape(16.dp),
+        ) {
+            Box(
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .background(Color.DarkGray)
+                        .padding(20.dp),
+                contentAlignment = Alignment.TopStart,
+            ) {
+                FactRowView(listOfFacts[page], Modifier)
+            }
+        }
+    }
+}
+
+@Suppress("FunctionName")
 @Composable
 private fun ListView(listOfFacts: List<FactDetails>) {
     val modifier = Modifier.fillMaxSize()
@@ -175,4 +215,34 @@ private fun FactRowView(
             style = TextStyle(fontSize = 12.sp, color = Color(0xFFFFFFFF)),
         )
     }
+}
+
+@Suppress("FunctionName")
+@Preview(showBackground = true, backgroundColor = 0xFF000000) // optional bg color
+@Composable
+fun BlogScreenView() {
+    val listOfFacts =
+        listOf(
+            FactDetails(
+                "",
+                "Title1 Title1 Title1 Title1 Title1 Title1 Title1 Title1 Title1 Title1",
+                ",",
+                1,
+                2,
+                "",
+                "",
+            ),
+            FactDetails("", "Title2 Title2 Title2 Title2 Title2 Title2 Title2", ",", 1, 2, "", ""),
+            FactDetails(
+                "",
+                "Title3 Title3 Title3 Title3 Title3",
+                ",",
+                1,
+                2,
+                "",
+                "",
+            ),
+        )
+    Toolbar()
+    CarouselPager(listOfFacts)
 }
