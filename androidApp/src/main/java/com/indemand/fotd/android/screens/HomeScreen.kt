@@ -24,15 +24,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.indemand.fotd.domain.model.FactDetails
 import com.indemand.fotd.domain.uistate.HomeUiState
 import com.indemand.fotd.viewmodel.facts.home.HomeViewModel
-import org.koin.androidx.compose.getViewModel
 
 @Suppress("FunctionName")
 @Composable
 fun HomeScreenView(
-    homeViewModel: HomeViewModel = getViewModel(),
+    homeViewModel: HomeViewModel = viewModel(),
     paddingValues: PaddingValues,
 ) {
     val homeState = homeViewModel.factsListFlow.collectAsState()

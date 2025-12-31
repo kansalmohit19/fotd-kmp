@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.indemand.fotd.android.LocalNavController
 import com.indemand.fotd.android.R
@@ -22,11 +23,10 @@ import com.indemand.fotd.android.common.TransparentBottomSheetDemo
 import com.indemand.fotd.android.utils.openPlayStore
 import com.indemand.fotd.domain.uistate.SplashUiState
 import com.indemand.fotd.viewmodel.splash.SplashViewModel
-import org.koin.androidx.compose.getViewModel
 
 @Suppress("FunctionName")
 @Composable
-fun SplashScreen(splashViewModel: SplashViewModel = getViewModel()) {
+fun SplashScreen(splashViewModel: SplashViewModel = viewModel()) {
     val navController = LocalNavController.current
     val splashState = splashViewModel.splashUIFlow.collectAsState()
     var showDialog by remember { mutableStateOf(false) }
