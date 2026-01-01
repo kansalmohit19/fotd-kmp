@@ -73,7 +73,7 @@ fun HomeScreenView(
 @Composable
 private fun Toolbar() {
     Text(
-        text = "welcome!",
+        text = "welcome",
         style = TextStyle(fontSize = 16.sp, color = Color(0xFFFFFFFF)),
     )
     Spacer(modifier = Modifier.height(4.dp))
