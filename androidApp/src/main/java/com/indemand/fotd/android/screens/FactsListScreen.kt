@@ -77,7 +77,7 @@ fun BlogScreenView(
 private fun Toolbar() {
     // Spacer(modifier = Modifier.height(80.dp))
     Text(
-        text = "blog!",
+        text = "blog",
         style = TextStyle(fontSize = 24.sp, color = Color(0xFFFFFFFF)),
     )
     Spacer(modifier = Modifier.height(4.dp))

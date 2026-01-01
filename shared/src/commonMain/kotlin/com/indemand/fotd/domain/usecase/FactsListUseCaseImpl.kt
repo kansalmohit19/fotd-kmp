@@ -12,7 +12,7 @@ class FactsListUseCaseImpl(
 ) : FactsListUseCase {
 
     override suspend fun run(params: Unit): Either<List<FactDetails>, IFailure> {
-        val accessToken = configurationUseCase.configuration?.token?.accessToken
+        val accessToken = configurationUseCase.configuration?.tokenDetails?.accessToken
         return if (!accessToken.isNullOrEmpty()) {
             factsListRepository.getListOfFacts(accessToken)
         } else {

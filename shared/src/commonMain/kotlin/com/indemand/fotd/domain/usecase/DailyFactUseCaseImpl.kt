@@ -12,7 +12,7 @@ class DailyFactUseCaseImpl(
 ) : DailyFactUseCase {
 
     override suspend fun run(params: Unit): Either<FactDetails?, IFailure> {
-        val accessToken = configurationUseCase.configuration?.token?.accessToken
+        val accessToken = configurationUseCase.configuration?.tokenDetails?.accessToken
         return if (!accessToken.isNullOrEmpty()) {
             dailyFactRepository.getDailyFact(accessToken)
         } else {

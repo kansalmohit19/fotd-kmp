@@ -11,7 +11,7 @@ import com.indemand.fotd.domain.model.TokenDetails
 
 fun ConfigurationDetailsDTO?.toDomain(): ConfigurationDetails = ConfigurationDetails(
     appUpdate = this?.appUpdate?.toDomain() ?: AppUpdateDetails(),
-    token = this?.token?.toDomain() ?: TokenDetails(),
+    tokenDetails = this?.token?.toDomain() ?: TokenDetails(),
     socialProfile = this?.socialProfile?.toDomain() ?: SocialProfileDetails()
 )
 
@@ -32,6 +32,7 @@ private fun AppUpdateDTO.toDomain() = AppUpdateDetails(
 )
 
 private fun TokenDTO.toDomain() = TokenDetails(
+    useToken = this.useToken ?: false,
     accessToken = this.accessToken.orEmpty()
 )
 
