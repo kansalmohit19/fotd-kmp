@@ -11,27 +11,27 @@ data class ConfigurationDetailsDTO(
 
 @Serializable
 data class AppUpdateDTO(
-    var isForceUpdate: Boolean?,
-    val isManualUpdate: Boolean?,
-    val appLink: String?,
-    val packageName: String?,
-    val hardVersion: Int?,
-    val softVersion: Int?,
-    val softUpdateTitle: String?,
-    val softUpdateMessage: String?,
-    val softUpdatePositiveButton: String?,
-    val softUpdateNegativeButton: String?,
-    val hardUpdateTitle: String?,
-    val hardUpdateMessage: String?,
-    val hardUpdateButton: String?,
+    var isForceUpdate: Boolean? = false,
+    val isManualUpdate: Boolean? = false,
+    val appLink: String? = "",
+    val packageName: String? = "",
+    val hardVersion: Int? = 0,
+    val softVersion: Int? = 0,
+    val softUpdateTitle: String? = "",
+    val softUpdateMessage: String? = "",
+    val softUpdatePositiveButton: String? = "",
+    val softUpdateNegativeButton: String? = "",
+    val hardUpdateTitle: String? = "",
+    val hardUpdateMessage: String? = "",
+    val hardUpdateButton: String? = "",
 )
 
 @Serializable
 data class TokenDTO(
-    var accessToken: String?
+    var useToken: Boolean? = false, var accessToken: String? = ""
 )
 
 @Serializable
 data class SocialProfileDTO(
-    var instaHandle: String?, var aboutUsUrl: String?, var privacyPolicyUrl: String?
+    var instaHandle: String? = "", var aboutUsUrl: String? = "", var privacyPolicyUrl: String? = ""
 )
