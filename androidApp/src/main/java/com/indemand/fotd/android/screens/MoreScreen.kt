@@ -34,7 +34,7 @@ fun MoreScreenView() {
 private fun Toolbar() {
     Spacer(modifier = Modifier.height(80.dp))
     Text(
-        text = "More Section!",
+        text = "more section!",
         style = TextStyle(fontSize = 16.sp, color = Color(0xFFFFFFFF)),
     )
     Spacer(modifier = Modifier.height(4.dp))
