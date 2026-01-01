@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.StateFlow
 
 
 class ConfigurationRepository(
-    private val dataSource: RemoteDataSource, private val localDataSource: LocalDataSource
+    val dataSource: RemoteDataSource, val localDataSource: LocalDataSource
 ) {
     private var internalConfiguration: MutableStateFlow<ConfigurationDetails?> =
         MutableStateFlow(null)
@@ -27,10 +27,15 @@ class ConfigurationRepository(
             successTransform = { it.toDomain() })
         result.also {
             internalConfiguration.value = it.successValue()
-            localDataSource.saveString(
-                ACCESS_TOKEN, it.successValue()?.token?.accessToken.orEmpty()
-            )
+            saveToken()
         }
         return result
+    }
+
+    private suspend fun saveToken() {
+        val tokenDetails = internalConfiguration.value?.tokenDetails
+        if (tokenDetails?.useToken == true) {
+            localDataSource.saveString(ACCESS_TOKEN, tokenDetails.accessToken)
+        }
     }
 }

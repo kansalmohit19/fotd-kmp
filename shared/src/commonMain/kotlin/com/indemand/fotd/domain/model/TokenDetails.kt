@@ -1,5 +1,5 @@
 package com.indemand.fotd.domain.model
 
 data class TokenDetails(
-    var accessToken: String = ""
+    var useToken: Boolean = false, var accessToken: String = ""
 )
