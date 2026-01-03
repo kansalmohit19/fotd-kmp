@@ -9,6 +9,7 @@
 1. [TASK-1] Use token from app config api ✅
 2. [TASK-2] Add UI in more section
 3. [TASK-3] Add Ad mob
+4. [TASK-4] Remove deprecated firebase token from workflow ✅
 
 
 ## Enhancement
