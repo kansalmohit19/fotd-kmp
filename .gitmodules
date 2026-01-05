@@ -1,0 +1,3 @@
+[submodule "submodules/common-config"]
+	path = submodules/common-config
+	url = git@github.com:kansalmohit19/configs.git
