@@ -92,3 +92,17 @@ tasks.whenTaskAdded {
         dependsOn("generateGitVersion")
     }
 }
+
+val baseConfigInputPath: String = "../submodules/common-config/fotd"
+val baseConfigOutputPath: String = "../config"
+
+val buildDevConfigTask: TaskProvider<BuildConfigTask> =
+    tasks.register<BuildConfigTask>("buildDevConfig") {
+        inputDirectories.setFrom(
+            files(
+                baseConfigInputPath,
+                "$baseConfigInputPath/dev",
+            ),
+        )
+        outputFile.set(file("$baseConfigOutputPath/dev/config.json"))
+    }
