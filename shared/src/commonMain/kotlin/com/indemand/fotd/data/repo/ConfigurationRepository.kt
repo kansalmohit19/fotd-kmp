@@ -6,7 +6,6 @@ import com.indemand.fotd.data.extensions.safeApiCall
 import com.indemand.fotd.data.local.Constants.ACCESS_TOKEN
 import com.indemand.fotd.data.local.LocalDataSource
 import com.indemand.fotd.data.mapper.toDomain
-import com.indemand.fotd.data.model.ConfigurationDetailsDTO
 import com.indemand.fotd.data.remote.RemoteDataSource
 import com.indemand.fotd.domain.model.ConfigurationDetails
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,9 +21,8 @@ class ConfigurationRepository(
 
     suspend fun fetchConfiguration(): Either<ConfigurationDetails, IFailure> {
         val result = safeApiCall(
-            serializer = ConfigurationDetailsDTO.serializer(),
-            apiCall = { dataSource.fetchConfiguration() },
-            successTransform = { it.toDomain() })
+            //serializer = ConfigurationDetailsDTO.serializer(),
+            apiCall = { dataSource.fetchConfiguration() }, successTransform = { it.toDomain() })
         result.also {
             internalConfiguration.value = it.successValue()
             saveToken()
