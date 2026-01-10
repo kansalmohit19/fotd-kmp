@@ -17,4 +17,4 @@
 1. [Feat-1] Send list of previous screen separated by / in firebase crash logs.
 2. [Feat-2] Add Ad mob for remonetization
 3. [Feat-3] Follow adapter pattern for safeApiCall
-4. [Feat-4] Make file name more relevant for FAD 
+4. [Feat-4] Make file name more relevant for FAD ✅
