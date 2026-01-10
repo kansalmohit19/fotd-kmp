@@ -41,6 +41,18 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    flavorDimensions += "env"
+    productFlavors {
+        create("dev") {
+            dimension = "env"
+            //applicationIdSuffix = ".dev"
+            //versionNameSuffix = "-dev"
+        }
+
+        create("prod") {
+            dimension = "env"
+        }
+    }
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
@@ -55,18 +67,19 @@ android {
             jvmToolchain(17)
         }
     }
-    /*applicationVariants.all {
+    applicationVariants.all {
         outputs.all {
             val output = this as com.android.build.gradle.internal.api.BaseVariantOutputImpl
-            val appName = "MyApp"
-            //val variantName = name // e.g. debug, release
+            val variantName = name // flavour-buildType
             val vCode = versionCode
             val vName = versionName
+            val fileName = "${vName}(${vCode})-$variantName.apk"
+            println("File name: $fileName")
 
-            output.outputFileName = "${appName}-v${vName}(${vCode}).apk"
-            // Example: MyApp-release-v1.0.0(120).apk
+            output.outputFileName = fileName
+            // Example: 1.0.0(120)-dev-release.apk
         }
-    }*/
+    }
 }
 
 dependencies {
