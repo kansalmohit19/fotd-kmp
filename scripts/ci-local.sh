@@ -6,7 +6,7 @@ echo "Running local CI validation..."
 cd ..
 ./gradlew assembleQaDebug
 
-APK=$(ls androidApp/build/outputs/apk/qa/debug/*.apk | head -n 1)
+APK=$(ls androidApp/build/outputs/apk/qa/debug/androidApp-qa-debug.apk | head -n 1)
 
 if [[ ! -f "$APK" ]]; then
   echo "❌ APK not found"

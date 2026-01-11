@@ -48,4 +48,4 @@ jobs:
           serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
           groups: testers
           releaseNotesFile: release_notes.md
-          file: androidApp/build/outputs/apk/debug/androidApp-qa-debug.apk
+          file: androidApp/build/outputs/apk/qa/debug/androidApp-qa-debug.apk
