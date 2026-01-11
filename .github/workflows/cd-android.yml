@@ -44,6 +44,12 @@ jobs:
       - name: Build QA Debug APK
         run: ./gradlew assembleQADebug
 
+      - name: Locate APK
+        id: find_apk
+        run: |
+          APK_PATH=$(ls androidApp/build/outputs/apk/qa/debug/*.apk | head -n 1)
+          echo "apk=$APK_PATH" >> $GITHUB_OUTPUT
+
       - name: Upload to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
@@ -52,5 +58,4 @@ jobs:
           serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
           groups: testers
           releaseNotesFile: release_notes.md
-          #file: androidApp/build/outputs/apk/debug/androidApp-debug.apk
-          file: androidApp/build/outputs/apk/qa/debug/**.apk
+          file: ${{ steps.find_apk.outputs.apk }}
