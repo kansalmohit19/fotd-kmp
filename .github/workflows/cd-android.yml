@@ -20,7 +20,7 @@ jobs:
           fetch-depth: 0
 
       - name: Generate release notes
-        uses: kansalmohit19/common-actions/.github/actions/generate-release-notes
+        uses: kansalmohit19/common-actions/.github/actions/generate-release-notes@v1
         with:
           count: 5
 
