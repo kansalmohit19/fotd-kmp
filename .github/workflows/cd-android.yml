@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - master
-  workflow_dispatch:
-
 
 concurrency: #cancel per branch
   group: android-ci-${{ github.ref }}
@@ -50,4 +48,5 @@ jobs:
           serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
           groups: testers
           releaseNotesFile: release_notes.md
-          file: androidApp/build/outputs/apk/debug/androidApp-debug.apk
+          #file: androidApp/build/outputs/apk/debug/androidApp-debug.apk
+          file: androidApp/build/outputs/apk/qa/release/**.apk

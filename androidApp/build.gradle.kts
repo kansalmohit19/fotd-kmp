@@ -48,14 +48,16 @@ android {
             //applicationIdSuffix = ".dev"
             //versionNameSuffix = "-dev"
         }
-
+        create("qa") {
+            dimension = "env"
+        }
         create("prod") {
             dimension = "env"
         }
     }
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
         }
     }
     compileOptions {
