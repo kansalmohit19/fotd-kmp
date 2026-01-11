@@ -75,7 +75,7 @@ android {
             val variantName = name // flavour-buildType
             val vCode = versionCode
             val vName = versionName
-            val fileName = "${vName}(${vCode})-$variantName.apk"
+            val fileName = "${vName}-${vCode}-$variantName.apk"
             println("File name: $fileName")
 
             output.outputFileName = fileName
