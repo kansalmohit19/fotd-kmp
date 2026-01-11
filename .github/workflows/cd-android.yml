@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - master
+  pull_request:
+    branches:
+      - master
 
 concurrency: #cancel per branch
   group: android-ci-${{ github.ref }}
