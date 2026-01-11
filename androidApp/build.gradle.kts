@@ -69,7 +69,7 @@ android {
             jvmToolchain(17)
         }
     }
-    applicationVariants.all {
+    /*applicationVariants.all {
         outputs.all {
             val output = this as com.android.build.gradle.internal.api.BaseVariantOutputImpl
             val variantName = name // flavour-buildType
@@ -81,7 +81,7 @@ android {
             output.outputFileName = fileName
             // Example: 1.0.0(120)-dev-release.apk
         }
-    }
+    }*/
 }
 
 dependencies {
