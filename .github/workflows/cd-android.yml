@@ -53,4 +53,4 @@ jobs:
           groups: testers
           releaseNotesFile: release_notes.md
           #file: androidApp/build/outputs/apk/debug/androidApp-debug.apk
-          file: androidApp/build/outputs/apk/qa/release/**.apk
+          file: androidApp/build/outputs/apk/qa/debug/**.apk
