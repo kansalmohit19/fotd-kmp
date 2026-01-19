@@ -69,6 +69,11 @@ android {
             jvmToolchain(17)
         }
     }
+    sourceSets {
+        getByName("main") {
+            assets.srcDir("../config/dev")
+        }
+    }
     /*applicationVariants.all {
         outputs.all {
             val output = this as com.android.build.gradle.internal.api.BaseVariantOutputImpl
@@ -111,7 +116,7 @@ tasks.whenTaskAdded {
 val baseConfigInputPath: String = "../submodules/common-config/fotd"
 val baseConfigOutputPath: String = "../config"
 
-val buildDevConfigTask: TaskProvider<BuildConfigTask> =
+val buildFOTDDevConfigTask: TaskProvider<BuildConfigTask> =
     tasks.register<BuildConfigTask>("buildDevConfig") {
         inputDirectories.setFrom(
             files(

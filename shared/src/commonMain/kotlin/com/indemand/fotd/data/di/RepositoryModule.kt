@@ -11,7 +11,7 @@ import org.koin.dsl.module
 val repositoryModule = module {
     single<ValidateTokenRepo> { ValidateTokenRepo(get()) }
     single<LoginUserRepository> { LoginUserRepository(get(), get()) }
-    single<ConfigurationRepository> { ConfigurationRepository(get(), get()) }
+    single<ConfigurationRepository> { ConfigurationRepository(get(), get(), get()) }
     single<DailyFactRepository> { DailyFactRepository(get()) }
     single<FactsListRepository> { FactsListRepository(get()) }
     single<GetAccessTokenRepo> { GetAccessTokenRepo(get()) }
