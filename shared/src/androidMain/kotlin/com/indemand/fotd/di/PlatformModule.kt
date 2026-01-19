@@ -1,5 +1,7 @@
 package com.indemand.fotd.di
 
+import com.indemand.fotd.AndroidAssetDataSource
+import com.indemand.fotd.AssetDataSource
 import com.indemand.fotd.analytics.AndroidFirebaseAnalyticsProvider
 import com.indemand.fotd.analytics.AndroidMParticleAnalyticsProvider
 import com.indemand.fotd.analytics.provider.FirebaseAnalyticsProvider
@@ -16,6 +18,7 @@ import org.koin.dsl.module
 
 val androidSharedModule = module {
     single<LocalDataSource> { AndroidDataSourceImpl(androidContext().dataStore) }
+    single<AssetDataSource> { AndroidAssetDataSource(get()) }
 
     //analytics
     singleOf(::AndroidFirebaseAnalyticsProvider) { bind<FirebaseAnalyticsProvider>() }
