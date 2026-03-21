@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 
 class LoginViewModel(
     private val loginUserUseCase: LoginUserUseCase,
-    private val analyticsReceiver: AnalyticsReceiver
+    private val analyticsReceiver: AnalyticsReceiver,
 ) : BaseViewModel() {
 
     private val _loginUIState: MutableStateFlow<LoginUiState> = MutableStateFlow(LoginUiState.Idle)
@@ -35,8 +35,9 @@ class LoginViewModel(
                     _loginUIState.value = LoginUiState.ToHome
                 },
                 onFailure = {
-                    _loginUIState.value = LoginUiState.ShowError(it.errorMessage)
-                })
+                    _loginUIState.value = LoginUiState.ShowError(it.message.orEmpty())
+                },
+            )
         }
     }
 
