@@ -54,8 +54,9 @@ class SplashViewModel(
                     checkForAppUpdate(it)
                 },
                 onFailure = {
-                    Logger.e("Error: ${it.errorMessage}")
-                })
+                    Logger.e("Error: ${it.message}")
+                },
+            )
         }
     }
 
@@ -76,8 +77,9 @@ class SplashViewModel(
                         }
                     },
                     onFailure = {
-                        Logger.e("Error: ${it.errorMessage}")
-                    })
+                        Logger.e("Error: ${it.message}")
+                    },
+                )
             }
         }
     }
@@ -95,8 +97,9 @@ class SplashViewModel(
                     }
                 },
                 onFailure = {
-                    Logger.e("Error: ${it.errorMessage}")
-                })
+                    Logger.e("Error: ${it.message}")
+                },
+            )
         }
     }
 
@@ -110,8 +113,9 @@ class SplashViewModel(
                     _splashUIFlow.value = SplashUiState.NavigateToMain
                 },
                 onFailure = {
-                    Logger.e("Error: ${it.errorMessage}")
-                })
+                    Logger.e("Error: ${it.message}")
+                },
+            )
         }
     }
 }

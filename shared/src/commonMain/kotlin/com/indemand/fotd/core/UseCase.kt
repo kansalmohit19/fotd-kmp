@@ -16,7 +16,7 @@ interface UseCase<in Params, out Type> where Type : Any? {
     ) {
         val job = scope.async { run(params) }
         scope.launch {
-            job.await().evaluate(onSuccess, onFailure)
+            job.await().fold(onSuccess, onFailure)
         }
     }
 }

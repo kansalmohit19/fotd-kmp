@@ -30,8 +30,8 @@ class FactsListViewModel(private val factsListUseCase: FactsListUseCase) : BaseV
                     _factsListFlow.value = FactListState.ShowFacts(listOfFacts = it)
                 },
                 onFailure = {
-                    println("Error: ${it.errorMessage}")
-                    _factsListFlow.value = FactListState.Error(it.errorMessage)
+                    println("Error: ${it.message}")
+                    _factsListFlow.value = FactListState.Error(it.message.orEmpty())
                 })
         }
     }

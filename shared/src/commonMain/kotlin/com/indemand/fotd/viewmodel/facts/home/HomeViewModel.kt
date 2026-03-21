@@ -27,16 +27,17 @@ class HomeViewModel(
 
     private fun getFacts() {
         scope.launch {
-            dailyFactUseCase.invoke(scope = CoroutineScope(Dispatchers.IO),
+            dailyFactUseCase.invoke(
+                scope = CoroutineScope(Dispatchers.IO),
                 params = Unit,
                 onSuccess = {
                     println("Success Response: ${it}")
                     it?.let { _homeFlow.value = HomeUiState.ShowFact(it) }
                 },
                 onFailure = {
-                    println("Error: ${it.errorMessage}")
-                    _homeFlow.value = HomeUiState.Error(it.errorMessage)
-                })
+                    _homeFlow.value = HomeUiState.Error(it.message.orEmpty())
+                },
+            )
         }
     }
 }

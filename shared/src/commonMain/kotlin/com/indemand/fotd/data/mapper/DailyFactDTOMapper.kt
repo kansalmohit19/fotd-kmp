@@ -1,9 +1,10 @@
 package com.indemand.fotd.data.mapper
 
 import com.indemand.fotd.data.model.DailyFactDTO
+import com.indemand.fotd.data.model.DailyFactDataDTO
 import com.indemand.fotd.domain.model.FactDetails
 
-fun DailyFactDTO?.toDomain(): FactDetails = FactDetails(
+fun DailyFactDataDTO?.toDomain(): FactDetails = FactDetails(
     imageUrl = "",
     title = this?.fact?.fact.orEmpty(),
     description = "",

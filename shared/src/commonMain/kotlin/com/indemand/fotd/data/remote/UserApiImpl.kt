@@ -10,14 +10,7 @@ import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.client.statement.HttpResponse
 
-class RemoteDataSourceImpl(private val httpClient: HttpClient) : RemoteDataSource {
-    override suspend fun fetchConfiguration(): HttpResponse {
-        return httpClient.get("https://raw.githubusercontent.com/kansalmohit19/configs/refs/heads/master/releases/config.json") /*{
-            parameter("app_version", request.app_version)
-            parameter("device_type", request.device_type)
-        }*/
-    }
-
+class UserApiImpl(private val httpClient: HttpClient) : UserApi {
     override suspend fun dailyFact(accessToken: String): HttpResponse {
         return httpClient.get("http://152.67.10.2:8080/fact/today") {
             parameter("access_token", accessToken)

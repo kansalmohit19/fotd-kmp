@@ -1,9 +1,13 @@
 package com.indemand.fotd.core
 
 interface IFailure {
-    val errorMessage: String
+    val code: Int?
+    val message: String?
 }
 
-data class Network(override val errorMessage: String) : IFailure
-data class Server(override val errorMessage: String) : IFailure
-data class Unknown(override val errorMessage: String = "Something went wrong") : IFailure
+data class HttpFailure(override val code: Int? = null, override val message: String? = null) : IFailure
+data class NetworkFailure(override val code: Int? = null, override val message: String? = null) : IFailure
+data class ParsingFailure(override val code: Int? = null, override val message: String? = null) : IFailure
+data class BackendFailure(override val code: Int? = null, override val message: String? = null) : IFailure
+data class UserError(override val code: Int? = null, override val message: String? = null) : IFailure
+data class Unknown(override val code: Int? = -1, override val message: String = "Something went wrong") : IFailure

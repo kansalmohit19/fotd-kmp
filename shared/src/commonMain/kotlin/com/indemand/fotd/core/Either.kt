@@ -1,20 +1,30 @@
 package com.indemand.fotd.core
 
-sealed class Either<out S, out E> where S : Any? {
+sealed class Either<out S, out F> {
 
-    data class Success<out S>(val successVal: S) : Either<S, Nothing>()
-    data class Error<out E>(val errorVal: E) : Either<Nothing, E>()
+    data class Success<out S>(val value: S) : Either<S, Nothing>()
+    data class Error<out F>(val error: F) : Either<Nothing, F>()
 
-    val isSuccess get() = this is Success<S>
+    val isSuccess: Boolean get() = this is Success
+    val isError: Boolean get() = this is Error
 
-    val isError get() = this is Error<E>
-
-    fun evaluate(fnS: (S) -> Any, fnE: (E) -> Any): Any = when (this) {
-        is Success -> fnS(successVal)
-        is Error -> fnE(errorVal)
+    inline fun <R> fold(
+        onSuccess: (S) -> R,
+        onError: (F) -> R,
+    ): R = when (this) {
+        is Success -> onSuccess(value)
+        is Error -> onError(error)
     }
 
-    fun errorValue() = if (this is Error) errorVal else null
+    /*inline fun <R> map(transform: (S) -> R): Either<R, F> = when (this) {
+        is Success -> Success(transform(value))
+        is Error -> this
+    }*/
 
-    fun successValue() = if (this is Success) successVal else null
+    inline fun <R> flatMap(transform: (S) -> Either<R, @UnsafeVariance F>): Either<R, F> = when (this) {
+        is Success -> transform(value)
+        is Error -> this
+    }
+
+    fun successValue() = if (this is Success) value else null
 }

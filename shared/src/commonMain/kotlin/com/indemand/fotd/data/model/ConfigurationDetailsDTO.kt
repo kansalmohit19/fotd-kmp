@@ -3,35 +3,43 @@ package com.indemand.fotd.data.model
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ConfigurationDetailsDTO(
-    var appUpdate: AppUpdateDTO?,
-    var token: TokenDTO?,
-    var socialProfile: SocialProfileDTO?,
+data class ConfigurationDTO(
+    var appUpdate: AppUpdateDTO? = null,
+    var token: TokenDTO? = null,
+    var socialProfile: SocialProfileDTO? = null,
+    var addFact: AddFactDTO? = null,
 )
 
 @Serializable
 data class AppUpdateDTO(
-    var isForceUpdate: Boolean? = false,
-    val isManualUpdate: Boolean? = false,
-    val appLink: String? = "",
-    val packageName: String? = "",
-    val hardVersion: Int? = 0,
-    val softVersion: Int? = 0,
-    val softUpdateTitle: String? = "",
-    val softUpdateMessage: String? = "",
-    val softUpdatePositiveButton: String? = "",
-    val softUpdateNegativeButton: String? = "",
-    val hardUpdateTitle: String? = "",
-    val hardUpdateMessage: String? = "",
-    val hardUpdateButton: String? = "",
+    var isForceUpdate: Boolean? = null,
+    val isManualUpdate: Boolean? = null,
+    val appLink: String? = null,
+    val packageName: String? = null,
+    val hardVersion: Int? = null,
+    val softVersion: Int? = null,
+    val softUpdateTitle: String? = null,
+    val softUpdateMessage: String? = null,
+    val softUpdatePositiveButton: String? = null,
+    val softUpdateNegativeButton: String? = null,
+    val hardUpdateTitle: String? = null,
+    val hardUpdateMessage: String? = null,
+    val hardUpdateButton: String? = null,
 )
 
 @Serializable
 data class TokenDTO(
-    var useToken: Boolean? = false, var accessToken: String? = ""
+    var useToken: Boolean? = null, var accessToken: String? = null,
 )
 
 @Serializable
 data class SocialProfileDTO(
-    var instaHandle: String? = "", var aboutUsUrl: String? = "", var privacyPolicyUrl: String? = ""
+    var instaHandle: String? = null,
+    var aboutUsUrl: String? = null,
+    var privacyPolicyUrl: String? = null,
+)
+
+@Serializable
+data class AddFactDTO(
+    val enabled: Boolean? = null,
 )
