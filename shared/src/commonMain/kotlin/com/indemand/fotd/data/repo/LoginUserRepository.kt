@@ -7,11 +7,11 @@ import com.indemand.fotd.data.local.LocalDataSource
 import com.indemand.fotd.data.mapper.toDomain
 import com.indemand.fotd.data.model.LoginUserRequest
 import com.indemand.fotd.data.model.UserInfoDTO
-import com.indemand.fotd.data.remote.RemoteDataSource
+import com.indemand.fotd.data.remote.UserApi
 import com.indemand.fotd.domain.model.UserDetails
 
 class LoginUserRepository(
-    private val localDataSource: LocalDataSource, private val dataSource: RemoteDataSource
+    private val localDataSource: LocalDataSource, private val dataSource: UserApi
 ) {
     suspend fun loginUser(request: LoginUserRequest): Either<UserDetails?, IFailure> {
         val result = safeApiCall(

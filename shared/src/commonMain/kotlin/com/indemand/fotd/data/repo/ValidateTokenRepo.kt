@@ -6,11 +6,11 @@ import com.indemand.fotd.data.extensions.safeApiCall
 import com.indemand.fotd.data.mapper.toDomain
 import com.indemand.fotd.data.model.LoginUserRequest
 import com.indemand.fotd.data.model.UserInfoDTO
-import com.indemand.fotd.data.remote.RemoteDataSource
+import com.indemand.fotd.data.remote.UserApi
 import com.indemand.fotd.domain.model.UserDetails
 
 class ValidateTokenRepo(
-    private val dataSource: RemoteDataSource
+    private val dataSource: UserApi
 ) {
     suspend fun accessTokenLogin(request: LoginUserRequest): Either<UserDetails?, IFailure> {
         val result = safeApiCall(

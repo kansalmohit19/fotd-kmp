@@ -1,19 +1,23 @@
 package com.indemand.fotd.data.extensions
 
-import com.indemand.fotd.core.CommonResponse
 import com.indemand.fotd.core.Either
+import com.indemand.fotd.core.HttpFailure
 import com.indemand.fotd.core.IFailure
+import com.indemand.fotd.core.NetworkFailure
+import com.indemand.fotd.core.ParsingFailure
 import com.indemand.fotd.core.Unknown
 import com.indemand.fotd.data.model.ConfigurationDetailsDTO
 import io.ktor.client.call.body
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
+import io.ktor.http.isSuccess
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.withContext
+import kotlinx.io.IOException
 import kotlinx.serialization.KSerializer
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonNull
 
 val json = Json {
     ignoreUnknownKeys = true
@@ -21,33 +25,33 @@ val json = Json {
     prettyPrint = true
 }
 
-suspend inline fun <T, X> safeApiCall(
+suspend inline fun <T> safeApiCall(
     serializer: KSerializer<T>,
     crossinline apiCall: suspend () -> HttpResponse,
-    successTransform: (T?) -> X
-): Either<X, IFailure> {
+): Either<T, IFailure> {
     return try {
-        val httpResponse = withContext(Dispatchers.IO) {
+        val response = withContext(Dispatchers.IO) {
             apiCall()
         }
 
-        val responseText = httpResponse.bodyAsText()
-        val parsedResponse = Json.decodeFromString<CommonResponse>(responseText)
-        //val parsedResponse: CommonResponse<T> = Json.decodeFromString(serializer, responseText)
-
-        if (parsedResponse.status == 200) {
-            println("Response: 200")
-            val parsedData: T =
-                json.decodeFromJsonElement(serializer, parsedResponse.data ?: JsonNull)
-            Either.Success(successTransform(parsedData))
-        } else {
-            println("Response: ${parsedResponse.status}")
-            Either.Error(Unknown(parsedResponse.message ?: "Unknown error"))
+        if (!response.status.isSuccess()) {
+            return Either.Error(
+                HttpFailure(
+                    code = response.status.value,
+                    message = response.status.description,
+                ),
+            )
         }
 
+        val body = response.bodyAsText()
+        val parsed = Json.decodeFromString(serializer, body)
+        Either.Success(parsed)
+    } catch (_: IOException) {
+        Either.Error(NetworkFailure())
+    } catch (_: SerializationException) {
+        Either.Error(ParsingFailure())
     } catch (e: Exception) {
-        println("Response: ${e.message}")
-        Either.Error(Unknown(e.message ?: "Unexpected error"))
+        Either.Error(Unknown(message = e.message ?: "Unexpected error"))
     }
 }
 

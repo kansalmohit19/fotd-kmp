@@ -1,12 +1,19 @@
 package com.indemand.fotd.data.model
 
+import com.indemand.fotd.core.CommonResponse
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ConfigurationDetailsDTO(
-    var appUpdate: AppUpdateDTO?,
-    var token: TokenDTO?,
-    var socialProfile: SocialProfileDTO?,
+data class ConfigurationDTO(
+    override val status: Int? = null, override val message: String? = null,
+    var data: ConfigurationDataDTO? = null,
+) : CommonResponse
+
+@Serializable
+data class ConfigurationDataDTO(
+    var appUpdate: AppUpdateDTO? = null,
+    var token: TokenDTO? = null,
+    var socialProfile: SocialProfileDTO? = null,
 )
 
 @Serializable
@@ -28,10 +35,10 @@ data class AppUpdateDTO(
 
 @Serializable
 data class TokenDTO(
-    var useToken: Boolean? = false, var accessToken: String? = ""
+    var useToken: Boolean? = false, var accessToken: String? = "",
 )
 
 @Serializable
 data class SocialProfileDTO(
-    var instaHandle: String? = "", var aboutUsUrl: String? = "", var privacyPolicyUrl: String? = ""
+    var instaHandle: String? = "", var aboutUsUrl: String? = "", var privacyPolicyUrl: String? = "",
 )

@@ -5,10 +5,10 @@ import com.indemand.fotd.core.IFailure
 import com.indemand.fotd.data.extensions.safeApiCall
 import com.indemand.fotd.data.mapper.toDomain
 import com.indemand.fotd.data.model.DailyFactDTO
-import com.indemand.fotd.data.remote.RemoteDataSource
+import com.indemand.fotd.data.remote.UserApi
 import com.indemand.fotd.domain.model.FactDetails
 
-class DailyFactRepository(private val dataSource: RemoteDataSource) {
+class DailyFactRepository(private val dataSource: UserApi) {
     suspend fun getDailyFact(accessToken: String): Either<FactDetails?, IFailure> {
         return safeApiCall(
             serializer = DailyFactDTO.serializer(),

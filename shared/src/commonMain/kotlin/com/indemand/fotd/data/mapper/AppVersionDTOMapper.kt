@@ -1,7 +1,7 @@
 package com.indemand.fotd.data.mapper
 
 import com.indemand.fotd.data.model.AppUpdateDTO
-import com.indemand.fotd.data.model.ConfigurationDetailsDTO
+import com.indemand.fotd.data.model.ConfigurationDataDTO
 import com.indemand.fotd.data.model.SocialProfileDTO
 import com.indemand.fotd.data.model.TokenDTO
 import com.indemand.fotd.domain.model.AppUpdateDetails
@@ -9,10 +9,10 @@ import com.indemand.fotd.domain.model.ConfigurationDetails
 import com.indemand.fotd.domain.model.SocialProfileDetails
 import com.indemand.fotd.domain.model.TokenDetails
 
-fun ConfigurationDetailsDTO?.toDomain(): ConfigurationDetails = ConfigurationDetails(
+fun ConfigurationDataDTO?.toDomain(): ConfigurationDetails = ConfigurationDetails(
     appUpdate = this?.appUpdate?.toDomain() ?: AppUpdateDetails(),
     tokenDetails = this?.token?.toDomain() ?: TokenDetails(),
-    socialProfile = this?.socialProfile?.toDomain() ?: SocialProfileDetails()
+    socialProfile = this?.socialProfile?.toDomain() ?: SocialProfileDetails(),
 )
 
 private fun AppUpdateDTO.toDomain() = AppUpdateDetails(
@@ -33,11 +33,11 @@ private fun AppUpdateDTO.toDomain() = AppUpdateDetails(
 
 private fun TokenDTO.toDomain() = TokenDetails(
     useToken = this.useToken ?: false,
-    accessToken = this.accessToken.orEmpty()
+    accessToken = this.accessToken.orEmpty(),
 )
 
 private fun SocialProfileDTO.toDomain() = SocialProfileDetails(
     instaHandle = this.instaHandle.orEmpty(),
     aboutUsUrl = this.aboutUsUrl.orEmpty(),
-    privacyPolicyUrl = this.privacyPolicyUrl.orEmpty()
+    privacyPolicyUrl = this.privacyPolicyUrl.orEmpty(),
 )
