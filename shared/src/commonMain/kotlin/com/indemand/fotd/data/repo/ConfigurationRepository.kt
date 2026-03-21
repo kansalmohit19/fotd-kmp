@@ -1,5 +1,6 @@
 package com.indemand.fotd.data.repo
 
+import com.indemand.fotd.AssetDataSource
 import com.indemand.fotd.core.BackendFailure
 import com.indemand.fotd.core.Either
 import com.indemand.fotd.core.IFailure
@@ -14,7 +15,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 class ConfigurationRepository(
-    val configApi: ConfigApi, val localDataSource: LocalDataSource,
+    val configApi: ConfigApi, val localDataSource: LocalDataSource, val assetDataSource: AssetDataSource,
 ) {
     private var internalConfiguration: MutableStateFlow<ConfigurationDetails?> = MutableStateFlow(null)
     val configuration: StateFlow<ConfigurationDetails?> get() = internalConfiguration

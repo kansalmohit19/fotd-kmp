@@ -6,8 +6,6 @@ import com.indemand.fotd.core.IFailure
 import com.indemand.fotd.core.NetworkFailure
 import com.indemand.fotd.core.ParsingFailure
 import com.indemand.fotd.core.Unknown
-import com.indemand.fotd.data.model.ConfigurationDetailsDTO
-import io.ktor.client.call.body
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.isSuccess
@@ -52,27 +50,5 @@ suspend inline fun <T> safeApiCall(
         Either.Error(ParsingFailure())
     } catch (e: Exception) {
         Either.Error(Unknown(message = e.message ?: "Unexpected error"))
-    }
-}
-
-suspend inline fun <X> safeApiCall(
-    crossinline apiCall: suspend () -> HttpResponse,
-    successTransform: (ConfigurationDetailsDTO?) -> X
-): Either<X, IFailure> {
-    return try {
-        val httpResponse = withContext(Dispatchers.IO) {
-            apiCall()
-        }
-
-        //val responseText = httpResponse.bodyAsText()
-        val parsedData = json.decodeFromJsonElement(
-            ConfigurationDetailsDTO.serializer(),
-            httpResponse.body() ?: JsonNull
-        )
-        Either.Success(successTransform(parsedData))
-
-    } catch (e: Exception) {
-        println("Response: ${e.message}")
-        Either.Error(Unknown(e.message ?: "Unexpected error"))
     }
 }
