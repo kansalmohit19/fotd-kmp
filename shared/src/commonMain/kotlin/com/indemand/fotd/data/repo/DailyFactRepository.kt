@@ -15,7 +15,7 @@ class DailyFactRepository(private val dataSource: UserApi) {
             serializer = DailyFactDTO.serializer(),
         ) { dataSource.dailyFact(accessToken) }.flatMap { response ->
             if (response.status == 200) {
-                Either.Success(response.toDomain())
+                Either.Success(response.data?.toDomain())
             } else {
                 Either.Error(BackendFailure())
             }

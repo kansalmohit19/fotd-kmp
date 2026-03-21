@@ -1,5 +1,6 @@
 package com.indemand.fotd.data.extensions
 
+import co.touchlab.kermit.Logger
 import com.indemand.fotd.core.Either
 import com.indemand.fotd.core.HttpFailure
 import com.indemand.fotd.core.IFailure
@@ -42,13 +43,21 @@ suspend inline fun <T> safeApiCall(
         }
 
         val body = response.bodyAsText()
+        printLog("Success response: $body")
         val parsed = Json.decodeFromString(serializer, body)
         Either.Success(parsed)
-    } catch (_: IOException) {
+    } catch (e: IOException) {
+        printLog("IOException: ${e.message}")
         Either.Error(NetworkFailure())
-    } catch (_: SerializationException) {
+    } catch (e: SerializationException) {
+        printLog("SerializationException: ${e.message}")
         Either.Error(ParsingFailure())
     } catch (e: Exception) {
+        printLog("Exception: ${e.message}")
         Either.Error(Unknown(message = e.message ?: "Unexpected error"))
     }
+}
+
+fun printLog(message: String?) {
+    Logger.d(tag = "APICALL", messageString = message.orEmpty())
 }

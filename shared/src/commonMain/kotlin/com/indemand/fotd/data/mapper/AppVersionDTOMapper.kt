@@ -1,7 +1,7 @@
 package com.indemand.fotd.data.mapper
 
 import com.indemand.fotd.data.model.AppUpdateDTO
-import com.indemand.fotd.data.model.ConfigurationDataDTO
+import com.indemand.fotd.data.model.ConfigurationDTO
 import com.indemand.fotd.data.model.SocialProfileDTO
 import com.indemand.fotd.data.model.TokenDTO
 import com.indemand.fotd.domain.model.AppUpdateDetails
@@ -9,7 +9,7 @@ import com.indemand.fotd.domain.model.ConfigurationDetails
 import com.indemand.fotd.domain.model.SocialProfileDetails
 import com.indemand.fotd.domain.model.TokenDetails
 
-fun ConfigurationDataDTO?.toDomain(): ConfigurationDetails = ConfigurationDetails(
+fun ConfigurationDTO?.toDomain(): ConfigurationDetails = ConfigurationDetails(
     appUpdate = this?.appUpdate?.toDomain() ?: AppUpdateDetails(),
     tokenDetails = this?.token?.toDomain() ?: TokenDetails(),
     socialProfile = this?.socialProfile?.toDomain() ?: SocialProfileDetails(),

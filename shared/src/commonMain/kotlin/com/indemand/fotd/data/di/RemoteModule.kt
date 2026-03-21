@@ -1,5 +1,7 @@
 package com.indemand.fotd.data.di
 
+import com.indemand.fotd.data.remote.ConfigApi
+import com.indemand.fotd.data.remote.ConfigApiImpl
 import com.indemand.fotd.data.remote.UserApi
 import com.indemand.fotd.data.remote.UserApiImpl
 import io.ktor.client.HttpClient
@@ -14,6 +16,7 @@ import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 
 val remoteModule = module {
+    single<ConfigApi> { ConfigApiImpl(get()) }
     single<UserApi> { UserApiImpl(get()) }
 
     single<HttpClient> {

@@ -4,4 +4,11 @@ import com.indemand.fotd.core.CommonResponse
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class UserInfoDTO(override val status: Int?, override val message: String?, val userInfo: UserDetailsDTO?) : CommonResponse
+data class LoginInfoDTO(
+    override val status: Int? = null,
+    override val message: String? = null,
+    val data: LoginInfoDataDTO? = null
+) : CommonResponse
+
+@Serializable
+data class LoginInfoDataDTO(val userInfo: UserDetailsDTO? = null)

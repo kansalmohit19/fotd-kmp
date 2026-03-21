@@ -1,7 +1,6 @@
 package com.indemand.fotd.data.repo
 
 import com.indemand.fotd.AssetDataSource
-import com.indemand.fotd.core.BackendFailure
 import com.indemand.fotd.core.Either
 import com.indemand.fotd.core.IFailure
 import com.indemand.fotd.data.extensions.safeApiCall
@@ -15,9 +14,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 class ConfigurationRepository(
-    val configApi: ConfigApi, val localDataSource: LocalDataSource, val assetDataSource: AssetDataSource,
+    val configApi: ConfigApi,
+    val localDataSource: LocalDataSource,
+    val assetDataSource: AssetDataSource,
 ) {
-    private var internalConfiguration: MutableStateFlow<ConfigurationDetails?> = MutableStateFlow(null)
+    private var internalConfiguration: MutableStateFlow<ConfigurationDetails?> =
+        MutableStateFlow(null)
     val configuration: StateFlow<ConfigurationDetails?> get() = internalConfiguration
 
     suspend fun fetchConfiguration(): Either<ConfigurationDetails, IFailure> {
@@ -26,16 +28,7 @@ class ConfigurationRepository(
         ) {
             configApi.fetchConfiguration()
         }.flatMap { response ->
-            if (response.status == 200) {
-                Either.Success(response.data!!.toDomain())
-            } else {
-                Either.Error(
-                    BackendFailure(
-                        message = response.message,
-                    ),
-                )
-
-            }
+            Either.Success(response.toDomain())
         }
 
         result.also {

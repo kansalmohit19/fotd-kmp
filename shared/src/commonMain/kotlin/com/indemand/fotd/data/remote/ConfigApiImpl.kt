@@ -12,7 +12,7 @@ import io.ktor.client.statement.HttpResponse
 
 class ConfigApiImpl(private val httpClient: HttpClient) : ConfigApi {
     override suspend fun fetchConfiguration(): HttpResponse {
-        return httpClient.get("https://raw.githubusercontent.com/kansalmohit19/configs/refs/heads/master/fotd/app-config.json") /*{
+        return httpClient.get("https://raw.githubusercontent.com/kansalmohit19/configs/refs/heads/master/releases/config.json") /*{
             parameter("app_version", request.app_version)
             parameter("device_type", request.device_type)
         }*/
