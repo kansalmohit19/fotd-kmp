@@ -2,12 +2,12 @@ package com.indemand.fotd.data.local
 
 import com.indemand.fotd.core.Either
 import com.indemand.fotd.core.IFailure
+import com.indemand.fotd.data.extensions.currentMillis
 import com.indemand.fotd.data.extensions.safeApiCall
 import io.ktor.client.statement.HttpResponse
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 
 enum class CacheType {
@@ -23,21 +23,23 @@ class ExpirableDataSourceImpl(val cache: LocalDataSource) {
 
     @OptIn(ExperimentalTime::class)
     suspend inline fun <T> fetch(
-        id: String,
-        expiryTime: Long,
-        cacheType: CacheType,
+        cacheableId: String? = null,
+        expiryTime: Long? = 0L,
+        cacheType: CacheType? = CacheType.REFRESH_CACHE,
         serializer: KSerializer<T>,
         crossinline apiCall: suspend () -> HttpResponse
     ): Either<T, IFailure> {
 
-        val cachedData = cache.getString(id)?.let { cached ->
-            Json.decodeFromString(
-                CachedData.serializer(serializer), cached
-            )
+        val cachedData = cacheableId?.let { id ->
+            cache.getString(id)?.let { cached ->
+                Json.decodeFromString(
+                    CachedData.serializer(serializer), cached
+                )
+            }
         }
 
-        // CACHE_FIRST
-        if (cacheType == CacheType.USE_CACHE && cachedData != null) {
+        // USE_CACHE
+        if (cacheType == CacheType.USE_CACHE && cachedData != null && expiryTime != null) {
             if (!isExpired(cachedData.timestamp, expiryTime)) {
                 return Either.Success(cachedData.data)
             }
@@ -49,12 +51,13 @@ class ExpirableDataSourceImpl(val cache: LocalDataSource) {
                 val data = networkResult.value
 
                 // Save to cache
-                cache.saveString(
-                    id, Json.encodeToString(
-                        CachedData.serializer(serializer),
-                        CachedData(data, Clock.System.now().toEpochMilliseconds())
+                cacheableId?.let { id ->
+                    cache.saveString(
+                        id, Json.encodeToString(
+                            CachedData.serializer(serializer), CachedData(data, expiryTime ?: 0)
+                        )
                     )
-                )
+                }
 
                 Either.Success(data)
             }
@@ -70,8 +73,7 @@ class ExpirableDataSourceImpl(val cache: LocalDataSource) {
         }
     }
 
-    @OptIn(ExperimentalTime::class)
     fun isExpired(timestamp: Long, expiryTime: Long): Boolean {
-        return Clock.System.now().toEpochMilliseconds() - timestamp > expiryTime
+        return currentMillis() - timestamp > expiryTime
     }
 }
