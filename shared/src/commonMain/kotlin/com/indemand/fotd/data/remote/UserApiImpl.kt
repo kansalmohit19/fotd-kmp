@@ -11,7 +11,7 @@ import io.ktor.client.request.setBody
 import io.ktor.client.statement.HttpResponse
 
 class UserApiImpl(private val httpClient: HttpClient) : UserApi {
-    override suspend fun dailyFact(accessToken: String): HttpResponse {
+    override suspend fun dailyFact(url: String, accessToken: String): HttpResponse {
         return httpClient.get("http://152.67.10.2:8080/fact/today") {
             parameter("access_token", accessToken)
         }
@@ -30,8 +30,8 @@ class UserApiImpl(private val httpClient: HttpClient) : UserApi {
         }
     }
 
-    override suspend fun factsList(accessToken: String): HttpResponse {
-        return httpClient.get("http://152.67.10.2:8080/fact/featured") {
+    override suspend fun factsList(url: String, accessToken: String): HttpResponse {
+        return httpClient.get(url) {
             parameter("access_token", accessToken)
         }
     }

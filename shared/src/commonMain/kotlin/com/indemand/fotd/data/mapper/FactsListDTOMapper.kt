@@ -11,7 +11,7 @@ import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
-fun FactsListDTO?.toDomain(): List<FactDetails> = this?.featured?.map { item ->
+fun FactsListDTO?.toDomain(): List<FactDetails> = this?.data?.featured?.map { item ->
     FactDetails(
         imageUrl = "",
         title = item.fact.orEmpty(),
@@ -27,8 +27,7 @@ fun FactsListDTO?.toDomain(): List<FactDetails> = this?.featured?.map { item ->
 private fun getFormattedDate(inputDate: String): String {
     val today = Clock.System.todayIn(TimeZone.Companion.currentSystemDefault())
     val days = today.daysUntil(
-        Instant.parse(inputDate)
-            .toLocalDateTime(TimeZone.Companion.currentSystemDefault()).date
+        Instant.parse(inputDate).toLocalDateTime(TimeZone.Companion.currentSystemDefault()).date
     )
 
     return when {
