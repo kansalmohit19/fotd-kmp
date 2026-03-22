@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.touchlab.skie)
     kotlin("plugin.serialization") version "1.9.20"
     alias(libs.plugins.git.version)
+    alias(libs.plugins.ktlint)
 }
 
 gitVersion {
@@ -22,7 +23,7 @@ kotlin {
             }
         }
     }
-    
+
     listOf(
         iosX64(),
         iosArm64(),
