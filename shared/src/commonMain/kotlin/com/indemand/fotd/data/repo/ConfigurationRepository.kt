@@ -3,6 +3,7 @@ package com.indemand.fotd.data.repo
 import com.indemand.fotd.AssetDataSource
 import com.indemand.fotd.core.Either
 import com.indemand.fotd.core.IFailure
+import com.indemand.fotd.data.extensions.currentMillis
 import com.indemand.fotd.data.local.CacheType
 import com.indemand.fotd.data.local.Constants.ACCESS_TOKEN
 import com.indemand.fotd.data.local.ExpirableDataSourceImpl
@@ -13,7 +14,7 @@ import com.indemand.fotd.data.remote.ConfigApi
 import com.indemand.fotd.domain.model.ConfigurationDetails
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlin.time.Duration.Companion.days
+import kotlin.time.Duration.Companion.hours
 
 class ConfigurationRepository(
     val configApi: ConfigApi,
@@ -28,8 +29,8 @@ class ConfigurationRepository(
         val url =
             "https://raw.githubusercontent.com/kansalmohit19/configs/refs/heads/master/releases/config.json"
         val result = ExpirableDataSourceImpl(localDataSource).fetch(
-            id = url,
-            expiryTime = 1.days.inWholeMilliseconds,
+            cacheableId = url,
+            expiryTime = currentMillis() + 1.hours.inWholeMilliseconds,
             cacheType = CacheType.USE_CACHE,
             serializer = ConfigurationDTO.serializer(),
         ) {

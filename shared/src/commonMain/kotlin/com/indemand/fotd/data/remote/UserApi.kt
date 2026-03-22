@@ -8,7 +8,7 @@ interface UserApi {
 
     suspend fun validateToken(request: LoginUserRequest): HttpResponse
 
-    suspend fun dailyFact(accessToken: String): HttpResponse
+    suspend fun dailyFact(url: String, accessToken: String): HttpResponse
 
-    suspend fun factsList(accessToken: String): HttpResponse
+    suspend fun factsList(url: String, accessToken: String): HttpResponse
 }
