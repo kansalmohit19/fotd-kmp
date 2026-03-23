@@ -13,22 +13,26 @@ import com.indemand.fotd.data.remote.UserApi
 import com.indemand.fotd.domain.model.FactDetails
 import kotlin.time.Duration.Companion.hours
 
-class DailyFactRepository(private val userApi: UserApi, val localDataSource: LocalDataSource) {
+class DailyFactRepository(
+    private val userApi: UserApi,
+    val localDataSource: LocalDataSource,
+) {
     suspend fun getDailyFact(accessToken: String): Either<FactDetails?, IFailure> {
         val url = "http://152.67.10.2:8080/fact/today"
-        return ExpirableDataSourceImpl(localDataSource).fetch(
-            cacheableId = url,
-            expiryTime = currentMillis() + 6.hours.inWholeMilliseconds,
-            cacheType = CacheType.USE_CACHE,
-            serializer = DailyFactDTO.serializer(),
-        ) {
-            userApi.dailyFact(url, accessToken)
-        }.flatMap { response ->
-            if (response.status == 200) {
-                Either.Success(response.data?.toDomain())
-            } else {
-                Either.Error(BackendFailure())
+        return ExpirableDataSourceImpl(localDataSource)
+            .fetch(
+                cacheableId = url,
+                expiryTime = currentMillis() + 6.hours.inWholeMilliseconds,
+                cacheType = CacheType.USE_CACHE,
+                serializer = DailyFactDTO.serializer(),
+            ) {
+                userApi.dailyFact(url, accessToken)
+            }.flatMap { response ->
+                if (response.status == 200) {
+                    Either.Success(response.data?.toDomain())
+                } else {
+                    Either.Error(BackendFailure())
+                }
             }
-        }
     }
 }

@@ -6,8 +6,9 @@ import com.indemand.fotd.notification.provider.NotificationTokenProvider
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-class AndroidNotificationTokenProvider(context: Context) : NotificationTokenProvider {
-
+class AndroidNotificationTokenProvider(
+    context: Context,
+) : NotificationTokenProvider {
     private var _notificationToken = MutableStateFlow<String?>(null)
     override val notificationToken = _notificationToken.asStateFlow()
 
@@ -23,5 +24,3 @@ class AndroidNotificationTokenProvider(context: Context) : NotificationTokenProv
         }
     }
 }
-
-

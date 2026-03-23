@@ -29,7 +29,8 @@ data class AppUpdateDTO(
 
 @Serializable
 data class TokenDTO(
-    var useToken: Boolean? = null, var accessToken: String? = null,
+    var useToken: Boolean? = null,
+    var accessToken: String? = null,
 )
 
 @Serializable

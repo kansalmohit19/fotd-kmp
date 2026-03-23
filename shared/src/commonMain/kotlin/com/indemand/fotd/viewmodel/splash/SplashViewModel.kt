@@ -33,7 +33,7 @@ class SplashViewModel(
 
     init {
         analyticsReceiver.onPageView("SPLASH")
-        //startTimer()
+        // startTimer()
         fetchAppConfig()
     }
 
@@ -71,7 +71,7 @@ class SplashViewModel(
                             if (it.bottomSheetDetails != null) {
                                 _splashUIFlow.value = it
                             } else {
-                                //check for next steps
+                                // check for next steps
                                 checkAccessToken()
                             }
                         }

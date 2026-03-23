@@ -15,24 +15,27 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 
-val remoteModule = module {
-    single<ConfigApi> { ConfigApiImpl(get()) }
-    single<UserApi> { UserApiImpl(get()) }
+val remoteModule =
+    module {
+        single<ConfigApi> { ConfigApiImpl(get()) }
+        single<UserApi> { UserApiImpl(get()) }
 
-    single<HttpClient> {
-        HttpClient {
-            install(ContentNegotiation) {
-                json(Json {
-                    ignoreUnknownKeys = true
-                    isLenient = true
-                    prettyPrint = true
-
-                }, contentType = ContentType.Any)
-            }
-            install(Logging) {
-                level = LogLevel.ALL
-                logger = Logger.SIMPLE
+        single<HttpClient> {
+            HttpClient {
+                install(ContentNegotiation) {
+                    json(
+                        Json {
+                            ignoreUnknownKeys = true
+                            isLenient = true
+                            prettyPrint = true
+                        },
+                        contentType = ContentType.Any,
+                    )
+                }
+                install(Logging) {
+                    level = LogLevel.ALL
+                    logger = Logger.SIMPLE
+                }
             }
         }
     }
-}

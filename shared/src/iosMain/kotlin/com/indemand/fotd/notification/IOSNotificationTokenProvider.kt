@@ -8,5 +8,4 @@ class IOSNotificationTokenProvider : NotificationTokenProvider {
         get() {
             TODO()
         }
-
 }

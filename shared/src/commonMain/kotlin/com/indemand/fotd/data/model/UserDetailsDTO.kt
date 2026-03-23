@@ -15,5 +15,5 @@ data class UserDetailsDTO(
     val is_guest: Int?,
     val notification_enabled: Int?,
     val reward_points: Int?,
-    val profile_image: String?
+    val profile_image: String?,
 )

@@ -35,7 +35,7 @@ fun HomeScreenView(
     homeViewModel: HomeViewModel = koinViewModel(),
     paddingValues: PaddingValues,
 ) {
-    val homeState = homeViewModel.factsListFlow.collectAsState()
+    val homeState = homeViewModel.homeFlow.collectAsState()
     val modifier = Modifier
     Column(
         modifier =

@@ -8,8 +8,9 @@ import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
-val analyticsModule = module {
-    singleOf(::AnalyticsAggregator) { bind<AnalyticsReceiver>() }
-    singleOf(::FirebaseAnalyticsReceiver)
-    singleOf(::MParticleAnalyticsReceiver)
-}
+val analyticsModule =
+    module {
+        singleOf(::AnalyticsAggregator) { bind<AnalyticsReceiver>() }
+        singleOf(::FirebaseAnalyticsReceiver)
+        singleOf(::MParticleAnalyticsReceiver)
+    }

@@ -20,13 +20,14 @@ import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
-val useCaseModule = module {
-    singleOf(::AppUpdateDialogUseCaseImpl) { bind<AppUpdateDialogUseCase>() }
-    singleOf(::ConfigurationUseCaseImpl) { bind<ConfigurationUseCase>() }
-    singleOf(::DailyFactUseCaseImpl) { bind<DailyFactUseCase>() }
-    singleOf(::FactsListUseCaseImpl) { bind<FactsListUseCase>() }
-    singleOf(::GetAccessTokenUseCaseImpl) { bind<GetAccessTokenUseCase>() }
-    singleOf(::GetNotificationTokenUseCaseImpl) { bind<GetNotificationTokenUseCase>() }
-    singleOf(::LoginUserUseCaseImpl) { bind<LoginUserUseCase>() }
-    singleOf(::ValidateTokenUseCaseImpl) { bind<ValidateTokenUseCase>() }
-}
+val useCaseModule =
+    module {
+        singleOf(::AppUpdateDialogUseCaseImpl) { bind<AppUpdateDialogUseCase>() }
+        singleOf(::ConfigurationUseCaseImpl) { bind<ConfigurationUseCase>() }
+        singleOf(::DailyFactUseCaseImpl) { bind<DailyFactUseCase>() }
+        singleOf(::FactsListUseCaseImpl) { bind<FactsListUseCase>() }
+        singleOf(::GetAccessTokenUseCaseImpl) { bind<GetAccessTokenUseCase>() }
+        singleOf(::GetNotificationTokenUseCaseImpl) { bind<GetNotificationTokenUseCase>() }
+        singleOf(::LoginUserUseCaseImpl) { bind<LoginUserUseCase>() }
+        singleOf(::ValidateTokenUseCaseImpl) { bind<ValidateTokenUseCase>() }
+    }

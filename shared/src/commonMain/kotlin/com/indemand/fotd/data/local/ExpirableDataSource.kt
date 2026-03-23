@@ -11,32 +11,36 @@ import kotlinx.serialization.json.Json
 import kotlin.time.ExperimentalTime
 
 enum class CacheType {
-    USE_CACHE, REFRESH_CACHE
+    USE_CACHE,
+    REFRESH_CACHE,
 }
 
 @Serializable
 data class CachedData<T>(
-    val data: T, val timestamp: Long
+    val data: T,
+    val timestamp: Long,
 )
 
-class ExpirableDataSourceImpl(val cache: LocalDataSource) {
-
+class ExpirableDataSourceImpl(
+    val cache: LocalDataSource,
+) {
     @OptIn(ExperimentalTime::class)
     suspend inline fun <T> fetch(
         cacheableId: String? = null,
         expiryTime: Long? = 0L,
         cacheType: CacheType? = CacheType.REFRESH_CACHE,
         serializer: KSerializer<T>,
-        crossinline apiCall: suspend () -> HttpResponse
+        crossinline apiCall: suspend () -> HttpResponse,
     ): Either<T, IFailure> {
-
-        val cachedData = cacheableId?.let { id ->
-            cache.getString(id)?.let { cached ->
-                Json.decodeFromString(
-                    CachedData.serializer(serializer), cached
-                )
+        val cachedData =
+            cacheableId?.let { id ->
+                cache.getString(id)?.let { cached ->
+                    Json.decodeFromString(
+                        CachedData.serializer(serializer),
+                        cached,
+                    )
+                }
             }
-        }
 
         // USE_CACHE
         if (cacheType == CacheType.USE_CACHE && cachedData != null && expiryTime != null) {
@@ -53,9 +57,11 @@ class ExpirableDataSourceImpl(val cache: LocalDataSource) {
                 // Save to cache
                 cacheableId?.let { id ->
                     cache.saveString(
-                        id, Json.encodeToString(
-                            CachedData.serializer(serializer), CachedData(data, expiryTime ?: 0)
-                        )
+                        id,
+                        Json.encodeToString(
+                            CachedData.serializer(serializer),
+                            CachedData(data, expiryTime ?: 0),
+                        ),
                     )
                 }
 
@@ -73,7 +79,8 @@ class ExpirableDataSourceImpl(val cache: LocalDataSource) {
         }
     }
 
-    fun isExpired(timestamp: Long, expiryTime: Long): Boolean {
-        return currentMillis() - timestamp > expiryTime
-    }
+    fun isExpired(
+        timestamp: Long,
+        expiryTime: Long,
+    ): Boolean = currentMillis() - timestamp > expiryTime
 }

@@ -28,16 +28,18 @@ class ConfigurationRepository(
     suspend fun fetchConfiguration(): Either<ConfigurationDetails, IFailure> {
         val url =
             "https://raw.githubusercontent.com/kansalmohit19/configs/refs/heads/master/releases/master-2.1.1-config.json"
-        val result = ExpirableDataSourceImpl(localDataSource).fetch(
-            cacheableId = url,
-            expiryTime = currentMillis() + 1.hours.inWholeMilliseconds,
-            cacheType = CacheType.USE_CACHE,
-            serializer = ConfigurationDTO.serializer(),
-        ) {
-            configApi.fetchConfiguration(url)
-        }.flatMap { response ->
-            Either.Success(response.toDomain())
-        }
+        val result =
+            ExpirableDataSourceImpl(localDataSource)
+                .fetch(
+                    cacheableId = url,
+                    expiryTime = currentMillis() + 1.hours.inWholeMilliseconds,
+                    cacheType = CacheType.USE_CACHE,
+                    serializer = ConfigurationDTO.serializer(),
+                ) {
+                    configApi.fetchConfiguration(url)
+                }.flatMap { response ->
+                    Either.Success(response.toDomain())
+                }
 
         result.also {
             if (it.isSuccess) {

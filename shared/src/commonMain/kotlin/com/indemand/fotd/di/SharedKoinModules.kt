@@ -5,9 +5,10 @@ import com.indemand.fotd.data.di.remoteModule
 import com.indemand.fotd.data.di.repositoryModule
 import com.indemand.fotd.domain.di.useCaseModule
 
-val sharedKoinModules = listOf(
-    remoteModule,
-    useCaseModule,
-    repositoryModule,
-    analyticsModule,
-)
+val sharedKoinModules =
+    listOf(
+        remoteModule,
+        useCaseModule,
+        repositoryModule,
+        analyticsModule,
+    )

@@ -12,22 +12,24 @@ import com.indemand.fotd.data.remote.UserApi
 import com.indemand.fotd.domain.model.UserDetails
 
 class LoginUserRepository(
-    private val localDataSource: LocalDataSource, private val dataSource: UserApi,
+    private val localDataSource: LocalDataSource,
+    private val dataSource: UserApi,
 ) {
     suspend fun loginUser(request: LoginUserRequest): Either<UserDetails?, IFailure> {
-        val result = safeApiCall(
-            serializer = LoginInfoDTO.serializer(),
-        ) {
-            dataSource.loginUser(request)
-        }.flatMap { response ->
-            if (response.status == 200) {
-                Either.Success(response.data?.userInfo?.toDomain())
-            } else {
-                Either.Error(BackendFailure())
+        val result =
+            safeApiCall(
+                serializer = LoginInfoDTO.serializer(),
+            ) {
+                dataSource.loginUser(request)
+            }.flatMap { response ->
+                if (response.status == 200) {
+                    Either.Success(response.data?.userInfo?.toDomain())
+                } else {
+                    Either.Error(BackendFailure())
+                }
+            }.also {
+                localDataSource.saveString("ACCESS_TOKEN", it.successValue()?.accessToken ?: "")
             }
-        }.also {
-            localDataSource.saveString("ACCESS_TOKEN", it.successValue()?.accessToken ?: "")
-        }
 
         return result
     }

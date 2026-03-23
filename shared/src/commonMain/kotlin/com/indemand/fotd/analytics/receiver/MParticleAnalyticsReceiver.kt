@@ -2,8 +2,9 @@ package com.indemand.fotd.analytics.receiver
 
 import com.indemand.fotd.analytics.provider.MParticleAnalyticsProvider
 
-class MParticleAnalyticsReceiver(val mParticleAnalyticsProvider: MParticleAnalyticsProvider) :
-    AnalyticsReceiver {
+class MParticleAnalyticsReceiver(
+    val mParticleAnalyticsProvider: MParticleAnalyticsProvider,
+) : AnalyticsReceiver {
     override fun onPageView(screenName: String?) {
         screenName?.let { mParticleAnalyticsProvider.logEvent("screen: $it") }
     }

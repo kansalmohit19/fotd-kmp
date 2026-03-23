@@ -8,9 +8,8 @@ import com.indemand.fotd.domain.model.FactDetails
 
 class FactsListUseCaseImpl(
     private val configurationUseCase: ConfigurationUseCase,
-    private val factsListRepository: FactsListRepository
+    private val factsListRepository: FactsListRepository,
 ) : FactsListUseCase {
-
     override suspend fun run(params: Unit): Either<List<FactDetails>, IFailure> {
         val accessToken = configurationUseCase.configuration?.tokenDetails?.accessToken
         return if (!accessToken.isNullOrEmpty()) {

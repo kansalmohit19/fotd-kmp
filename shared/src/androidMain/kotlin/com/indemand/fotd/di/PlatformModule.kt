@@ -16,14 +16,15 @@ import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
-val androidSharedModule = module {
-    single<LocalDataSource> { AndroidDataSourceImpl(androidContext().dataStore) }
-    single<AssetDataSource> { AndroidAssetDataSource(get()) }
+val androidSharedModule =
+    module {
+        single<LocalDataSource> { AndroidDataSourceImpl(androidContext().dataStore) }
+        single<AssetDataSource> { AndroidAssetDataSource(get()) }
 
-    //analytics
-    singleOf(::AndroidFirebaseAnalyticsProvider) { bind<FirebaseAnalyticsProvider>() }
-    singleOf(::AndroidMParticleAnalyticsProvider) { bind<MParticleAnalyticsProvider>() }
+        // analytics
+        singleOf(::AndroidFirebaseAnalyticsProvider) { bind<FirebaseAnalyticsProvider>() }
+        singleOf(::AndroidMParticleAnalyticsProvider) { bind<MParticleAnalyticsProvider>() }
 
-    //notification
-    singleOf(::AndroidNotificationTokenProvider) { bind<NotificationTokenProvider>() }
-}
+        // notification
+        singleOf(::AndroidNotificationTokenProvider) { bind<NotificationTokenProvider>() }
+    }

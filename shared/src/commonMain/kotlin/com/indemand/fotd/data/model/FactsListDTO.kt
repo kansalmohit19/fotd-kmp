@@ -16,5 +16,5 @@ data class FactsListDTO(
 @Serializable
 @JsonIgnoreUnknownKeys
 data class FactsListDataDTO(
-    val featured: List<FactDetailsDTO>? = null
+    val featured: List<FactDetailsDTO>? = null,
 )

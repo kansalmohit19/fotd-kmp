@@ -17,7 +17,6 @@ class LoginViewModel(
     private val loginUserUseCase: LoginUserUseCase,
     private val analyticsReceiver: AnalyticsReceiver,
 ) : BaseViewModel() {
-
     private val _loginUIState: MutableStateFlow<LoginUiState> = MutableStateFlow(LoginUiState.Idle)
     val loginUIState: StateFlow<LoginUiState> get() = _loginUIState
 
@@ -25,7 +24,10 @@ class LoginViewModel(
         analyticsReceiver.onPageView("LOGIN")
     }
 
-    fun loginUser(username: String, password: String) {
+    fun loginUser(
+        username: String,
+        password: String,
+    ) {
         println("LoginViewModel: loginUser called")
         scope.launch {
             loginUserUseCase.invoke(

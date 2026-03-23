@@ -6,5 +6,6 @@ interface ScreenContext {
 }
 
 data class DefaultScreenContext(
-    override val screenName: String, override val parentContext: ScreenContext?
+    override val screenName: String,
+    override val parentContext: ScreenContext?,
 ) : ScreenContext

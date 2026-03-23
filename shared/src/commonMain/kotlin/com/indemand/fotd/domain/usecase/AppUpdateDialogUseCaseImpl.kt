@@ -23,7 +23,7 @@ class AppUpdateDialogUseCaseImpl : AppUpdateDialogUseCase {
                     ),
                     appLink = configDetails.appUpdate.appLink,
                     appPackageName = configDetails.appUpdate.packageName,
-                )
+                ),
             )
         } else if (isUpdateAvailable(configDetails.appUpdate.softVersion, appVersionCode)) {
             Either.Success(
@@ -33,21 +33,24 @@ class AppUpdateDialogUseCaseImpl : AppUpdateDialogUseCase {
                         message = configDetails.appUpdate.softUpdateMessage,
                         isCancellable = true,
                         negativeButton = ButtonType.NegativeButton(text = configDetails.appUpdate.softUpdateNegativeButton),
-                        positiveButton = ButtonType.PositiveButton(
-                            text = configDetails.appUpdate.softUpdatePositiveButton,
-                        )
+                        positiveButton =
+                            ButtonType.PositiveButton(
+                                text = configDetails.appUpdate.softUpdatePositiveButton,
+                            ),
                     ),
                     appLink = configDetails.appUpdate.appLink,
                     appPackageName = configDetails.appUpdate.packageName,
-                )
+                ),
             )
         } else {
             Either.Success(
-                SplashUiState.AppUpdateDialog(null)
+                SplashUiState.AppUpdateDialog(null),
             )
         }
     }
 
-    private fun isUpdateAvailable(versionCode: Int, appVersionCode: Int) =
-        appVersionCode < versionCode
+    private fun isUpdateAvailable(
+        versionCode: Int,
+        appVersionCode: Int,
+    ) = appVersionCode < versionCode
 }
