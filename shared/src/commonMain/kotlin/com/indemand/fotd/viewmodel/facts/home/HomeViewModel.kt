@@ -15,9 +15,8 @@ class HomeViewModel(
     private val dailyFactUseCase: DailyFactUseCase,
     private val analyticsReceiver: AnalyticsReceiver,
 ) : BaseViewModel() {
-
     private val _homeFlow: MutableStateFlow<HomeUiState> = MutableStateFlow(HomeUiState.Idle)
-    val factsListFlow: StateFlow<HomeUiState> get() = _homeFlow
+    val homeFlow: StateFlow<HomeUiState> get() = _homeFlow
 
     init {
         analyticsReceiver.onPageView("HOME")
@@ -31,7 +30,7 @@ class HomeViewModel(
                 scope = CoroutineScope(Dispatchers.IO),
                 params = Unit,
                 onSuccess = {
-                    println("Success Response: ${it}")
+                    println("Success Response: $it")
                     it?.let { _homeFlow.value = HomeUiState.ShowFact(it) }
                 },
                 onFailure = {

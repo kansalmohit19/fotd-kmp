@@ -10,14 +10,15 @@ data class LoginUserRequest(
     val accessToken: String? = null,
     var deviceToken: String? = null,
     val deviceType: String = "2",
-    val deviceName: String = "ANDROID"
+    val deviceName: String = "ANDROID",
 )
 
-fun LoginUserRequest.toParameters(): Parameters = Parameters.build {
-    email?.let { append("email", it) }
-    password?.let { append("password", it) }
-    accessToken?.let { append("access_token", it) }
-    deviceToken?.let { append("device_token", it) }
-    append("device_type", deviceType)
-    append("device_name", deviceName)
-}
+fun LoginUserRequest.toParameters(): Parameters =
+    Parameters.build {
+        email?.let { append("email", it) }
+        password?.let { append("password", it) }
+        accessToken?.let { append("access_token", it) }
+        deviceToken?.let { append("device_token", it) }
+        append("device_type", deviceType)
+        append("device_name", deviceName)
+    }

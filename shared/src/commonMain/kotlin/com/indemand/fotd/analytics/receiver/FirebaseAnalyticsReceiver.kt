@@ -2,9 +2,9 @@ package com.indemand.fotd.analytics.receiver
 
 import com.indemand.fotd.analytics.provider.FirebaseAnalyticsProvider
 
-class FirebaseAnalyticsReceiver(val firebaseAnalyticsProvider: FirebaseAnalyticsProvider) :
-    AnalyticsReceiver {
-
+class FirebaseAnalyticsReceiver(
+    val firebaseAnalyticsProvider: FirebaseAnalyticsProvider,
+) : AnalyticsReceiver {
     override fun onPageView(screenName: String?) {
         firebaseAnalyticsProvider.log("PageViewed: $screenName")
     }
@@ -13,7 +13,8 @@ class FirebaseAnalyticsReceiver(val firebaseAnalyticsProvider: FirebaseAnalytics
         firebaseAnalyticsProvider.log("TabClicked: $tabName")
         tabName?.let {
             firebaseAnalyticsProvider.setUserProperty(
-                key = "TabClicked", value = tabName
+                key = "TabClicked",
+                value = tabName,
             )
         }
     }

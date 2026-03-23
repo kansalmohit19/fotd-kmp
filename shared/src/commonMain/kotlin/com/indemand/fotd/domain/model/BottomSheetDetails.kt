@@ -5,5 +5,5 @@ data class BottomSheetDetails(
     val message: String? = "",
     val isCancellable: Boolean? = true,
     val negativeButton: ButtonType.NegativeButton? = null,
-    val positiveButton: ButtonType.PositiveButton? = null
+    val positiveButton: ButtonType.PositiveButton? = null,
 )

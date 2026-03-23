@@ -7,5 +7,5 @@ data class FactDetails(
     val likeCount: Int,
     val dislikeCount: Int,
     val postedBy: String,
-    val postedOn: String
+    val postedOn: String,
 )

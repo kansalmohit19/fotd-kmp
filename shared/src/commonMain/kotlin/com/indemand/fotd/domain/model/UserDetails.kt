@@ -8,5 +8,5 @@ data class UserDetails(
     val isGuest: Int,
     val accessToken: String,
     val profileImage: String,
-    val notificationEnabled: Int
+    val notificationEnabled: Int,
 )

@@ -10,9 +10,7 @@ actual object Platform {
     actual val deviceModel: String
         get() = "${Build.MANUFACTURER} ${Build.MODEL}"
 
-    actual fun logSystemInfo(): String {
-        return "osName: $osName, osVersion: $osVersion, deviceModel: $deviceModel"
-    }
+    actual fun logSystemInfo(): String = "osName: $osName, osVersion: $osVersion, deviceModel: $deviceModel"
 
     actual val appVersionCode: Int
         get() = BuildConfig.VERSION_CODE

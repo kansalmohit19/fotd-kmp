@@ -10,8 +10,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class FactsListViewModel(private val factsListUseCase: FactsListUseCase) : BaseViewModel() {
-
+class FactsListViewModel(
+    private val factsListUseCase: FactsListUseCase,
+) : BaseViewModel() {
     private val _factsListFlow: MutableStateFlow<FactListState> =
         MutableStateFlow(FactListState.Idle)
     val factsListFlow: StateFlow<FactListState> get() = _factsListFlow
@@ -26,13 +27,14 @@ class FactsListViewModel(private val factsListUseCase: FactsListUseCase) : BaseV
                 scope = CoroutineScope(Dispatchers.IO),
                 params = Unit,
                 onSuccess = {
-                    println("Success Response: ${it}")
+                    println("Success Response: $it")
                     _factsListFlow.value = FactListState.ShowFacts(listOfFacts = it)
                 },
                 onFailure = {
                     println("Error: ${it.message}")
                     _factsListFlow.value = FactListState.Error(it.message.orEmpty())
-                })
+                },
+            )
         }
     }
 

@@ -9,12 +9,14 @@ import kotlinx.serialization.json.JsonIgnoreUnknownKeys
 data class DailyFactDTO(
     override val status: Int? = null,
     override val message: String? = null,
-    val data: DailyFactDataDTO? = null
+    val data: DailyFactDataDTO? = null,
 ) : CommonResponse
 
 @OptIn(ExperimentalSerializationApi::class)
 @Serializable
 @JsonIgnoreUnknownKeys
 data class DailyFactDataDTO(
-    val fact: FactDetailsDTO? = null, val like_count: Int? = null, val dislike_count: Int? = null
+    val fact: FactDetailsDTO? = null,
+    val like_count: Int? = null,
+    val dislike_count: Int? = null,
 )

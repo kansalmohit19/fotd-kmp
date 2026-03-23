@@ -3,7 +3,6 @@ package com.indemand.fotd.domain.usecase
 import co.touchlab.kermit.Logger
 import com.indemand.fotd.core.Either
 import com.indemand.fotd.core.IFailure
-import com.indemand.fotd.core.Unknown
 import com.indemand.fotd.core.UserError
 import com.indemand.fotd.data.model.LoginUserRequest
 import com.indemand.fotd.data.repo.LoginUserRepository
@@ -15,7 +14,6 @@ class LoginUserUseCaseImpl(
     private val loginUserRepository: LoginUserRepository,
     private val notificationTokenUseCase: GetNotificationTokenUseCase,
 ) : LoginUserUseCase {
-
     override suspend fun run(params: LoginUserRequest): Either<UserDetails?, IFailure> {
         val emailRegex = Regex("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\$")
         if (emailRegex.matches(params.email ?: "").not()) {

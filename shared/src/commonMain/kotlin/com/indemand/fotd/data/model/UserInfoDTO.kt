@@ -7,8 +7,10 @@ import kotlinx.serialization.Serializable
 data class LoginInfoDTO(
     override val status: Int? = null,
     override val message: String? = null,
-    val data: LoginInfoDataDTO? = null
+    val data: LoginInfoDataDTO? = null,
 ) : CommonResponse
 
 @Serializable
-data class LoginInfoDataDTO(val userInfo: UserDetailsDTO? = null)
+data class LoginInfoDataDTO(
+    val userInfo: UserDetailsDTO? = null,
+)

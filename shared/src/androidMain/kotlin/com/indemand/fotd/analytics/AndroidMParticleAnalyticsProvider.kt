@@ -3,12 +3,11 @@ package com.indemand.fotd.analytics
 import com.indemand.fotd.analytics.provider.MParticleAnalyticsProvider
 
 class AndroidMParticleAnalyticsProvider : MParticleAnalyticsProvider() {
-
     override fun initialize() {
-        //no operation
+        // no operation
     }
 
     override fun logEvent(log: String) {
-        Logger.d(message = "MParticle: log fun invoked and log is $log")
+        AnalyticsLogger.d(message = "MParticle: log fun invoked and log is $log")
     }
 }

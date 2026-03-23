@@ -18,20 +18,22 @@ import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 
-val json = Json {
-    ignoreUnknownKeys = true
-    isLenient = true
-    prettyPrint = true
-}
+val json =
+    Json {
+        ignoreUnknownKeys = true
+        isLenient = true
+        prettyPrint = true
+    }
 
 suspend inline fun <T> safeApiCall(
     serializer: KSerializer<T>,
     crossinline apiCall: suspend () -> HttpResponse,
 ): Either<T, IFailure> {
     return try {
-        val response = withContext(Dispatchers.IO) {
-            apiCall()
-        }
+        val response =
+            withContext(Dispatchers.IO) {
+                apiCall()
+            }
 
         if (!response.status.isSuccess()) {
             return Either.Error(

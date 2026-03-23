@@ -8,12 +8,9 @@ import com.indemand.fotd.domain.model.ConfigurationDetails
 
 class ConfigurationUseCaseImpl(
     private val localDataSource: LocalDataSource,
-    private val configurationRepository: ConfigurationRepository
+    private val configurationRepository: ConfigurationRepository,
 ) : ConfigurationUseCase {
-
     override val configuration: ConfigurationDetails? get() = configurationRepository.configuration.value
 
-    override suspend fun run(params: Unit): Either<ConfigurationDetails, IFailure> {
-        return configurationRepository.fetchConfiguration()
-    }
+    override suspend fun run(params: Unit): Either<ConfigurationDetails, IFailure> = configurationRepository.fetchConfiguration()
 }

@@ -2,14 +2,20 @@ package com.indemand.fotd.analytics
 
 import co.touchlab.kermit.Logger
 
-internal object Logger {
-    var TAG = "FOTDAnalytics"
+internal object AnalyticsLogger {
+    var tag = "FOTDAnalytics"
 
-    fun e(overrideTag: String? = null, message: String) {
-        Logger.e(tag = overrideTag ?: TAG, messageString = message)
+    fun e(
+        overrideTag: String? = null,
+        message: String,
+    ) {
+        Logger.e(tag = overrideTag ?: tag, messageString = message)
     }
 
-    fun d(overrideTag: String? = null, message: String) {
-        Logger.d(tag = overrideTag ?: TAG, messageString = message)
+    fun d(
+        overrideTag: String? = null,
+        message: String,
+    ) {
+        Logger.d(tag = overrideTag ?: tag, messageString = message)
     }
 }

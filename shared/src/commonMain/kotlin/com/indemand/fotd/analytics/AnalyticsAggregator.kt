@@ -6,9 +6,8 @@ import com.indemand.fotd.analytics.receiver.MParticleAnalyticsReceiver
 
 class AnalyticsAggregator(
     firebaseAnalyticsReceiver: FirebaseAnalyticsReceiver,
-    mParticleAnalyticsReceiver: MParticleAnalyticsReceiver
+    mParticleAnalyticsReceiver: MParticleAnalyticsReceiver,
 ) : AnalyticsReceiver {
-
     val receivers = listOf(firebaseAnalyticsReceiver, mParticleAnalyticsReceiver)
 
     override fun onPageView(screenName: String?) {

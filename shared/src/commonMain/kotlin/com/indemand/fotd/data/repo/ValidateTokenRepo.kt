@@ -13,8 +13,8 @@ import com.indemand.fotd.domain.model.UserDetails
 class ValidateTokenRepo(
     private val dataSource: UserApi,
 ) {
-    suspend fun accessTokenLogin(request: LoginUserRequest): Either<UserDetails?, IFailure> {
-        return safeApiCall(
+    suspend fun accessTokenLogin(request: LoginUserRequest): Either<UserDetails?, IFailure> =
+        safeApiCall(
             serializer = LoginInfoDTO.serializer(),
         ) {
             dataSource.validateToken(request)
@@ -25,5 +25,4 @@ class ValidateTokenRepo(
                 Either.Error(BackendFailure())
             }
         }
-    }
 }
